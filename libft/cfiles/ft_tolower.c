@@ -17,7 +17,7 @@ int	ft_tolower(int c)
 	return (c);
 }
 
-/*#include "cfiles/libft.h"
+/*#include "libft.h"
 
 int main()
 {

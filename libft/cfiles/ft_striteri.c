@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 10:46:44 by rpedrosa          #+#    #+#             */
-/*   Updated: 2024/10/24 11:59:48 by rpedrosa         ###   ########.fr       */
+/*   Created: 2024/10/25 15:06:42 by rpedrosa          #+#    #+#             */
+/*   Updated: 2024/10/25 15:54:23 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	char	*temp;
-	size_t	i;
+	unsigned int	i;
 
 	i = 0;
-	temp = malloc(count * size);
-	if (temp == NULL)
-		return (temp);
-	while (count-- > 0)
-		temp[i++] = 0;
-	return (temp);
+	while (s[i])
+	{
+		(*f)(i, &s[i]);
+		i++;
+	}
 }
 /*
-int	main ()
+void	r_tolower(unsigned int i, char *s)
 {
-	char *temp = ft_calloc(5, 1);
-	printf("%s", temp);
+	i = 0;
+	s[0] += 32;
+}
+
+int	main (void)
+{
+	char buff[] = "HELLOWORLD";
+	ft_striteri(buff, r_tolower);
+	printf("%s", buff);
 }*/

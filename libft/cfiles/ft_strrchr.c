@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 char	*ft_strrchr(const char *s, int c)
 {
 	int	i;
@@ -29,8 +31,6 @@ char	*ft_strrchr(const char *s, int c)
 	return (0);
 }
 /*
-#include "cfiles/libft.h"
-
 int main ()
 {
        char *buff = ft_strrchr("hello", 0);

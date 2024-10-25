@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 16:02:22 by rpedrosa          #+#    #+#             */
-/*   Updated: 2024/10/21 16:11:58 by rpedrosa         ###   ########.fr       */
+/*   Created: 2024/10/25 16:09:22 by rpedrosa          #+#    #+#             */
+/*   Updated: 2024/10/25 16:11:18 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalpha(int c)
+void	ft_putendl_fd(char *s, int fd)
 {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
-		return (1);
-	return (0);
+	ft_putchar_fd(s, fd);
+	write(fd, '\n', 1);
 }
-
-/*int main ()
-{
-	int i = 'a';
-	printf("%i", ft_isalpha(i));
-}*/

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:30:58 by rpedrosa          #+#    #+#             */
-/*   Updated: 2024/10/24 12:01:58 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:48:46 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	ft_atoi(const char *str)
 	return (res * sig);
 }
 /*
-#include "cfiles/libft.h"
+#include "libft.h"
 
 int	main ()
 {
-	int i = ft_atoi("   +4  2");
+	int i = ft_atoi("-2147483648");
 	printf("%i", i);
-	printf("\n%i", atoi("   +4  2"));
+	printf("\n%i", atoi("-2147483648"));
 }*/

@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 10:46:44 by rpedrosa          #+#    #+#             */
-/*   Updated: 2024/10/24 11:59:48 by rpedrosa         ###   ########.fr       */
+/*   Created: 2024/10/25 16:17:16 by rpedrosa          #+#    #+#             */
+/*   Updated: 2024/10/25 16:50:39 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*temp;
-	size_t	i;
+	char	*buff;
 
-	i = 0;
-	temp = malloc(count * size);
-	if (temp == NULL)
-		return (temp);
-	while (count-- > 0)
-		temp[i++] = 0;
-	return (temp);
+	buff = ft_itoa(n);
+	ft_putstr_fd(buff, fd);
 }
-/*
-int	main ()
-{
-	char *temp = ft_calloc(5, 1);
-	printf("%s", temp);
-}*/
