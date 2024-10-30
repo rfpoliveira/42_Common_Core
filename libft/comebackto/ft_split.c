@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cfiles/libft.h"
+#include "stdio.h"
+#include "stdlib.h"
 
 int	ft_strlen(const char *str)
 {
@@ -45,7 +46,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return ((char *)sub);
 }
 
-int	r_count_sep(char *s, char sep)
+int	r_count_sep(const char *s, char sep)
 { 
 	int	i;
 	int	count;
@@ -75,9 +76,16 @@ void	ft_free(char	**s)
 	return ;
 }
 
-char	**fill(const char *s, char **result, int r, int j, int i, char c)
+char	**fill(const char *s, char **result, char c)
 {
-	while (s[i])
+	int		i;
+	int		j;
+	int		r;
+
+	i = 0;
+	j = 0;
+	r = 0;
+	while (ft_strlen(s) > i - 1)
 	{
 		if (s[i] == c)
 		{
@@ -92,12 +100,12 @@ char	**fill(const char *s, char **result, int r, int j, int i, char c)
 		}
 		i++;
 	}
-	result[r] = ft_substr(s, j, i - j);
+/*	result[r] = ft_substr(s, j, i - j);
 	if (result[r] == NULL)
 	{
 		ft_free(result);
 		return (NULL);
-	}
+	}*/
 	r++;
 	result[r] = NULL;
 	return (result);
@@ -105,22 +113,16 @@ char	**fill(const char *s, char **result, int r, int j, int i, char c)
 
 char	**ft_split(const char *s, char c)
 {
-	int		i;
-	int		j;
-	int		r;
 	char	**result;
 
-	i = 0;
-	j = 0;
-	r = 0;
 	result = NULL;
-	result = malloc(8 * (int)(r_count_sep) + 1);
+	result = malloc(8 * r_count_sep(s, c) + 1);
 	if (result == NULL)
 	{
 		free(result);
 		return (NULL);
 	}
-	result = fill(s, result, r, j, i, c);
+	result = fill(s, result, c);
 	return (result);
 }
 
