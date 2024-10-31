@@ -6,13 +6,13 @@
 /*   By: rpedrosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:32:56 by rpedrosa          #+#    #+#             */
-/*   Updated: 2024/10/25 15:53:01 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:13:40 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cfiles/libft.h"
+#include "libft.h"
 
-int	ft_strlen(const char *str)
+/*int	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -43,10 +43,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	sub[i] = '\0';
 	return ((char *)sub);
-}
+}*/
 
-int	r_count_sep(char *s, char sep)
-{ 
+int	r_count_sep(const char *s, char sep)
+{
 	int	i;
 	int	count;
 
@@ -75,44 +75,35 @@ void	ft_free(char	**s)
 	return ;
 }
 
-char	**fill(const char *s, char **result, int r, int j, int i, char c)
+char	**fill(const char *s, char **result, char c)
 {
-	while (s[i])
+	int		i;
+	int		j;
+	int		r;
+
+	i = 0;
+	j = 0;
+	r = 0;
+	while (ft_strlen(s) > i - 1)
 	{
 		if (s[i] == c)
 		{
 			result[r] = ft_substr(s, j, i - j);
-			if (result[r] == NULL)
-			{
-				ft_free(result);
-				return (NULL);
-			}
 			j = i + 1;
 			r++;
 		}
 		i++;
 	}
 	result[r] = ft_substr(s, j, i - j);
-	if (result[r] == NULL)
-	{
-		ft_free(result);
-		return (NULL);
-	}
-	r++;
-	result[r] = NULL;
+	result[++r] = NULL;
 	return (result);
 }
 
 char	**ft_split(const char *s, char c)
 {
-	int		i;
-	int		j;
-	int		r;
 	char	**result;
+	int		i;
 
-	i = 0;
-	j = 0;
-	r = 0;
 	result = NULL;
 	result = malloc(8 * r_count_sep(s, c) + 1);
 	if (result == NULL)
@@ -120,11 +111,21 @@ char	**ft_split(const char *s, char c)
 		free(result);
 		return (NULL);
 	}
-	result = fill(s, result, r, j, i, c);
+	result = fill(s, result, c);
+	i = 0;
+	while (result[i])
+	{
+		if (result[i] == NULL)
+		{
+			ft_free(result);
+			return (NULL);
+		}
+		i++;
+	}
 	return (result);
 }
 
-int	main()
+/*int	main()
 {
 	char	*buff = "hello world! eu sou o renato";
 	char buff2 = ' ';
@@ -136,4 +137,4 @@ int	main()
 	  	i++;
 	}
 	ft_free(array);
-}	
+}*/	

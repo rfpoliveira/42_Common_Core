@@ -14,7 +14,7 @@
 
 size_t	count_digits(int n)
 {
-	int	count;
+	int		count;
 	long	i;
 
 	count = 1;
@@ -37,35 +37,33 @@ char	*ft_itoa(int n)
 	char	*result;
 	int		i;
 	int		c;
-	int		sig;
 	long	l;
 
-	sig = n;
 	l = n;
 	c = count_digits(l);
-	if (l < 0)
-		l *= -1;
-	result = NULL;
 	result = malloc(c + 1);
 	i = 0;
+	if (l < 0)
+	{
+		l *= -1;
+		result[0] = '-';
+	}
 	while (l > 0)
 	{
 		result[--c] = (l % 10) + 48;
 		l /= 10;
 		i++;
 	}
-	if (sig < 0)
-	{
-		result [--c] = '-';
+	if (n < 0)
 		i++;
-	}
 	result[i] = '\0';
 	return (result);
 }
 
 /*int main()
 {
-	int n = -2147483648;
+	int n = 10;
 	char * s = ft_itoa(n);
 	printf("%s", s);
+	free(s);
 }*/
