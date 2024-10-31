@@ -14,14 +14,13 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	int	len_src;
+	size_t	len_src;
 
 	len_src = ft_strlen(src);
-	if (src[0] == '\0')
-	{
-		dst[0] = '\0';
+	if (dstsize <= 0)
 		return (len_src);
-	}
+	if (src[0] == '\0')
+		return (0);	
 	if (dstsize >= len_src + 1)
 	{
 		ft_memmove(dst, src, len_src);
@@ -35,16 +34,16 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 /*
 int	main()
 {
-	char buff[30];
-	char *source = "copyeverythingplease";
+	char *buff = "coucou";
+	char *source = "AAAAAAAAAAA";
 
-	int i = ft_strlcpy (buff, source, 21);
+	int i = ft_strlcpy (buff, source, 0);
 
 	printf("%s %i\n", buff, i);
 
-	char buff2[30];
-        char *source2 = "copyeverythingplease";
+	char *buff2 = "coucou";
+        char *source2 = "AAAAAAAAAAA";
 
-        int y = strlcpy(buff2, source2, 21);
+        int y = strlcpy(buff2, source2, 0);
 	printf("%s %i\n", buff2, y);
 }*/

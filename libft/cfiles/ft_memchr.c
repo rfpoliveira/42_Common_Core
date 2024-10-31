@@ -21,20 +21,18 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	temps = (unsigned char *)s;
 	tempc = (unsigned char)c;
 	i = 0;
-	if (tempc == '\0')
-		return (0);
-	if (*temps == tempc)
-		return (temps);
-	while (i < n && *temps++ != tempc)
+	while (i < n)
+	{
+		if (temps[i] == tempc)
+			return ((void *)&s[i]);
 		i++;
-	if (*temps == tempc)
-		return (temps);
-	return (0);
+	}
+	return (NULL);
 }
-/*
-int	main ()
+
+/*int	main ()
 {
-	char *buff = ft_memchr("hello", '0', 10);
-	char *buff2 = memchr("hello", '0', 10);
+	char *buff = ft_memchr("hello", 'l', 5);
+	char *buff2 = memchr("hello", 'l', 5);
 	printf("mine: %s, og: %s.", buff, buff2);
 }*/

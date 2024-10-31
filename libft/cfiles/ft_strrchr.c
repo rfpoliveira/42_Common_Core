@@ -14,19 +14,21 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	int				i;
+	unsigned char	tempc;
 
 	i = 0;
+	tempc = (unsigned char)c;
 	while (*(s++))
 		i++;
 	while (i >= 0)
 	{
-		if (*s == c)
+		if (*s == tempc)
 			return ((char *)s);
 		s--;
 		i--;
 	}
-	if (*s == c)
+	if (*s == tempc)
 		return ((char *)s);
 	return (0);
 }
