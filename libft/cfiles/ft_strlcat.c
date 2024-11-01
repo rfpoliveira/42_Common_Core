@@ -16,22 +16,20 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	len_dst;
 	size_t	len_src;
-	size_t	i;
 
 	len_dst = ft_strlen(dst);
 	len_src = ft_strlen(src);
 
-	if (dstsize < len_dst)
-		return (len_src + dstsize);
-	i = 0;
-	while (src[i] && len_dst < dstsize)
+	if (len_src < dstsize - len_dst)
+		ft_memcpy(dst + len_dst, src, len_src + 1);
+	else
 	{
-		dst[++len_dst] = src[i++];
+		ft_memcpy(dst + len_dst, src, dstsize - len_dst - 1);
+		dst[dstsize - 1] = '\0';
 	}
-	dst[len_dst] = '\0';
-	return (len_src + len_dst - i);
+	return (len_src + len_dst);
 }
-
+/*
 int main ()
 {
 	char buff[10] = "0000000000";
@@ -46,4 +44,4 @@ int main ()
 
 	printf("%s %i\n", buff3, y); 
 }
-
+*/
