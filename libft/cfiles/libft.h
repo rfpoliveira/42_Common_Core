@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <bsd/string.h>
 # include <stdlib.h>
+# include <limits.h>
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);

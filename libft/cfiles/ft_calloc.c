@@ -19,15 +19,16 @@ void	*ft_calloc(size_t count, size_t size)
 
 	i = 0;
 	temp = malloc(count * size);
-	if (temp == NULL)
-		return (temp);
-	while (count-- > 0)
+	if (!temp)
+		return (NULL);
+	while (i < count * size)
 		temp[i++] = 0;
 	return (temp);
 }
 /*
 int	main ()
 {
-	char *temp = ft_calloc(5, 1);
+	char *temp = ft_calloc(5, -5);
 	printf("%s", temp);
+	free(temp);
 }*/

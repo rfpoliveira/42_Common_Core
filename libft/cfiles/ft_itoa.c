@@ -43,6 +43,7 @@ char	*ft_itoa(int n)
 	c = count_digits(l);
 	result = malloc(c + 1);
 	i = 0;
+	result[0] = '0';
 	if (l < 0)
 	{
 		l *= -1;
@@ -54,15 +55,15 @@ char	*ft_itoa(int n)
 		l /= 10;
 		i++;
 	}
-	if (n < 0)
+	if (n <= 0)
 		i++;
 	result[i] = '\0';
 	return (result);
 }
-
-/*int main()
+/*
+int main()
 {
-	int n = 10;
+	int n = 0;
 	char * s = ft_itoa(n);
 	printf("%s", s);
 	free(s);

@@ -12,46 +12,15 @@
 
 #include "libft.h"
 
-/*int	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	unsigned char	*sub;
-	unsigned int	stringlen;
-	unsigned int	i;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	stringlen = ft_strlen(s);
-	if (start > stringlen)
-		return (malloc(0));
-	sub = malloc (stringlen + 1);
-	while (s[start] && (i < len))
-	{
-		sub[i] = s[start];
-		i++;
-		start++;
-	}
-	sub[i] = '\0';
-	return ((char *)sub);
-}*/
-
 int	r_count_sep(const char *s, char sep)
 {
 	int	i;
 	int	count;
 
 	count = 0;
-	i = 1;
+	i = 0;
+	if (s[i] != sep && s[i] != '\0')
+		count++;
 	while (s[i])
 	{
 		if (s[i] == sep && s[i + 1] != '\0' && s[i + 1] != sep)
@@ -61,42 +30,46 @@ int	r_count_sep(const char *s, char sep)
 	return (count);
 }
 
-void	ft_free(char	**s)
+void	ft_free(char	**s, int n)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (i < n)
 	{
 		free(s[i]);
-		s[i] = NULL;
 		i++;
 	}
 	return ;
 }
 
-char	**fill(const char *s, char **result, char c)
+char	**fill(const char *s, char **res, char c)
 {
-	int		i;
 	int		j;
 	int		r;
+	int		i;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	r = 0;
-	while (ft_strlen(s) > i - 1)
+	while (s[++i])
 	{
-		if (s[i] == c)
+		if (s[i] != c)
 		{
-			result[r] = ft_substr(s, j, i - j);
-			j = i + 1;
+			while (s[i] != c && s[i])
+			{
+				i++;
+				j++;
+			}
+			res[r] = ft_substr(s, i - j, j);
 			r++;
+			j = 0;
 		}
-		i++;
+		if (s[i] == '\0')
+			break ;
 	}
-	result[r] = ft_substr(s, j, i - j);
-	result[++r] = NULL;
-	return (result);
+	res[r] = NULL;
+	return (res);
 }
 
 char	**ft_split(const char *s, char c)
@@ -104,37 +77,35 @@ char	**ft_split(const char *s, char c)
 	char	**result;
 	int		i;
 
-	result = NULL;
-	result = malloc(8 * r_count_sep(s, c) + 1);
-	if (result == NULL)
-	{
-		free(result);
+	result = malloc(sizeof (char *) * (r_count_sep(s, c) + 1));
+	if (!result)
 		return (NULL);
-	}
 	result = fill(s, result, c);
 	i = 0;
 	while (result[i])
 	{
-		if (result[i] == NULL)
+		if (!result[i])
 		{
-			ft_free(result);
+			ft_free(result, c);
 			return (NULL);
 		}
 		i++;
 	}
 	return (result);
 }
-
-/*int	main()
+/*
+int	main()
 {
-	char	*buff = "hello world! eu sou o renato";
-	char buff2 = ' ';
+	char	*buff = "babnnas";
+	char buff2 = '0';
 	char **array = ft_split(buff, buff2);
 	int i = 0;
+	printf("%i\n", r_count_sep(buff,buff2));
 	while (array[i])
 	{
 		printf("%s\n", array[i]);
 	  	i++;
 	}
-	ft_free(array);
-}*/	
+	ft_free(array, r_count_sep(buff, buff2));
+	free(array);
+}*/

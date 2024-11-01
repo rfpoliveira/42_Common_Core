@@ -40,9 +40,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 /*
 int	main()
 {
-	char *buff = "";
-	int i = 5;
+	char *buff = "olatudobom";
+	int i = 2;
 	int y = 5;
 	char	*dup = ft_substr(buff, i , y);
 	printf("%s", dup);
+	free(dup);
 }*/

@@ -76,7 +76,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	s1 = r_trim_beg((char *)s1, (char *)set);
 	len = r_trim_end ((char *)s1, (char *)set);
-	trimed = malloc (len + 1);
+	trimed = malloc (len + 2);
 	if (trimed == NULL)
 		return (trimed);
 	trimed = ft_memmove(trimed, s1, len + 1);
