@@ -28,7 +28,7 @@ void	*ft_calloc(size_t count, size_t size)
 /*
 int	main ()
 {
-	char *temp = ft_calloc(5, -5);
+	char *temp = ft_calloc(5, 5);
 	printf("%s", temp);
 	free(temp);
 }*/
