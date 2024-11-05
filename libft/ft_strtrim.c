@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	*r_trim_beg(char *s1, char *set)
+static char	*r_trim_beg(char *s1, char *set)
 {
 	int	i;
 	int	j;
@@ -40,7 +40,7 @@ char	*r_trim_beg(char *s1, char *set)
 	return (s1 + i);
 }
 
-int	r_trim_end(char *s1, char *set)
+static int	r_trim_end(char *s1, char *set)
 {
 	int	i;
 	int	j;

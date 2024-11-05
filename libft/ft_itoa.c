@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-size_t	count_digits(int n)
+static size_t	count_digits(int n)
 {
 	int		count;
 	long	i;
@@ -32,7 +32,7 @@ size_t	count_digits(int n)
 	return (count);
 }
 
-char	*r_convert(int n, char *result, int c)
+static char	*r_convert(int n, char *result, int c)
 {
 	int		i;
 	long	l;
