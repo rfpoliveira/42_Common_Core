@@ -32,18 +32,13 @@ size_t	count_digits(int n)
 	return (count);
 }
 
-char	*ft_itoa(int n)
+char	*r_convert(int n, char *result, int c)
 {
-	char	*result;
 	int		i;
-	int		c;
 	long	l;
 
 	l = n;
-	c = count_digits(l);
-	result = malloc(c + 1);
 	i = 0;
-	result[0] = '0';
 	if (l < 0)
 	{
 		l *= -1;
@@ -60,10 +55,24 @@ char	*ft_itoa(int n)
 	result[i] = '\0';
 	return (result);
 }
+
+char	*ft_itoa(int n)
+{
+	char	*result;
+	int		c;
+
+	c = count_digits(n);
+	result = malloc(c + 1);
+	if (!result)
+		return (NULL);
+	result[0] = '0';
+	result = r_convert(n, result, c);
+	return (result);
+}
 /*
 int main()
 {
-	int n = 0;
+	int n = INT_MIN;
 	char * s = ft_itoa(n);
 	printf("%s", s);
 	free(s);

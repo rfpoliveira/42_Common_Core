@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <limits.h>
 
-typedef struct s_list 
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;

@@ -19,25 +19,24 @@ char	*ft_strrchr(const char *s, int c)
 
 	i = 0;
 	tempc = (unsigned char)c;
-	while (*(s++))
+	while (s[i])
 		i++;
 	while (i >= 0)
 	{
-		if (*s == tempc)
-			return ((char *)s);
-		s--;
+		if (s[i] == tempc)
+			return ((char *)&s[i]);
 		i--;
 	}
 	if (*s == tempc)
-		return ((char *)s);
+		return ((char *)&s[i]);
 	return (0);
 }
 /*
 int main ()
 {
-       char *buff = ft_strrchr("hello", 0);
+       char *buff = ft_strrchr("123456789", a);
         printf("ft: %s", buff);
 
-        char *buff2 = strrchr("helllo", 0);
+        char *buff2 = strrchr("123456789", a);
         printf("og: %s", buff2);
 }*/
