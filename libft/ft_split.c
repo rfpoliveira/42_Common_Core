@@ -12,10 +12,10 @@
 
 #include "libft.h"
 
-int	r_count_sep(const char *s, char sep)
+static size_t	r_count_sep(const char *s, char sep)
 {
-	int	i;
-	int	count;
+	size_t	i;
+	size_t	count;
 
 	count = 0;
 	i = 0;
@@ -30,20 +30,21 @@ int	r_count_sep(const char *s, char sep)
 	return (count);
 }
 
-void	ft_free(char	**s, int n)
+static	void	*ft_free(char	**s)
 {
 	int	i;
 
 	i = 0;
-	while (i < n)
+	while (s[i])
 	{
 		free(s[i]);
 		i++;
 	}
-	return ;
+	free(s);
+	return (NULL);
 }
 
-char	**fill(const char *s, char **res, char c)
+static char	**fill(const char *s, char **res, char c)
 {
 	int		j;
 	int		r;
@@ -51,61 +52,54 @@ char	**fill(const char *s, char **res, char c)
 
 	i = -1;
 	j = 0;
-	r = 0;
+	r = -1;
 	while (s[++i])
 	{
 		if (s[i] != c)
 		{
 			while (s[i] != c && s[i])
 			{
-				i++;
 				j++;
+				i++;
 			}
-			res[r] = ft_substr(s, i - j, j);
-			r++;
+			res[++r] = ft_substr(s, i - j, j);
+			if (!res[r])
+				return (ft_free(res));
 			j = 0;
 		}
 		if (s[i] == '\0')
 			break ;
 	}
-	res[r] = NULL;
 	return (res);
 }
 
 char	**ft_split(const char *s, char c)
 {
 	char	**result;
-	int		i;
+	size_t	count;
 
-	result = malloc(sizeof (char *) * (r_count_sep(s, c) + 1));
+	count = r_count_sep(s, c);
+	result = malloc(sizeof (char *) * (count + 1));
 	if (!result)
 		return (NULL);
 	result = fill(s, result, c);
-	i = 0;
-	while (result[i])
-	{
-		if (!result[i])
-		{
-			ft_free(result, c);
-			return (NULL);
-		}
-		i++;
-	}
+	if (!result)
+		return (NULL);
+	result[count] = NULL;
 	return (result);
 }
 /*
 int	main()
 {
 	char	*buff = "babnnas";
-	char buff2 = '0';
+	char buff2 = ' ';
 	char **array = ft_split(buff, buff2);
 	int i = 0;
-	printf("%i\n", r_count_sep(buff,buff2));
-	while (array[i])
+    while (array[i])
 	{
 		printf("%s\n", array[i]);
-	  	i++;
+	   	i++;
 	}
-	ft_free(array, r_count_sep(buff, buff2));
-	free(array);
+	ft_free(array);
+	ft_split(buff, buff2);
 }*/
