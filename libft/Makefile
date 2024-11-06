@@ -33,6 +33,7 @@ NAME = libft.a
 
 RM = rm -f
 AR = ar rcs
+CFLAGS = -Wall -Werror -Wextra
 
 OBJS_ALL = $(OBJS) $(BONUS_OBJS)
 
@@ -42,6 +43,10 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
+
+%.o: %.c
+	cc $(CFLAGS) -o $@ -c $<
+
 clean: 
 	$(RM) $(OBJS_ALL)
 

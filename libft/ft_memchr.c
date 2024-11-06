@@ -24,13 +24,13 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	while (i < n)
 	{
 		if (temps[i] == tempc)
-			return ((void *)&s[i]);
+			return ((void *)&temps[i]);
 		i++;
 	}
 	return (NULL);
 }
-
-/*int	main ()
+/*
+int	main ()
 {
 	char *buff = ft_memchr("hello", 'l', 5);
 	char *buff2 = memchr("hello", 'l', 5);

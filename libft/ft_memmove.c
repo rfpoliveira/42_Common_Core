@@ -17,7 +17,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	unsigned char	*temp_dst;
 	unsigned char	*temp_src;
-	int				i;
+	size_t			i;
 
 	if (len == 0)
 		return (dst);
@@ -42,8 +42,6 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	return (dst);
 }
 /*
-#include <string.h>
-
 int     main()
 {
         char buff[6] = "Hello7";
