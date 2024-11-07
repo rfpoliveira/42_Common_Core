@@ -14,16 +14,26 @@
 
 static int print_type(char c, va_list args)
 {
-	if (c == 's')
+	if (c == 'c')
 	{
-		ft_putstr_fd(va_arg(args, char *), 1);
-		return (3);
-	}
-	if (c == 'i')
-	{
-		ft_putnbr_fd(va_arg(args, int), 1);
+		ft_putchar_fd(va_arg(args, int), 1);
 		return (1);
 	}
+	else if (c == 's')
+		return (r_putstr(va_arg(args, char *)));
+	else if (c == 'i' || c == 'd')
+		return (r_putnbr(va_arg(args, int)));
+	else if (c == 'p')
+		return (r_putpointer(va_arg(args, unsigned int)));
+	else if (c == 'u')
+		return (r_putunsig(va_arg(args, unsigned int)));
+	else if (c == 'x' || c = 'X')
+		return (r_puthex(va_arg(args, unsigned int), c));
+	else if (c == '%')
+		{
+		ft_putchar_fd(1, '%', 1);
+		return (1);
+		}
 	return (0);
 }
 
@@ -34,6 +44,7 @@ int	ft_printf(const char *format, ...)
 	int	i;
 	
 	i = 0;
+	result = 0;
 	va_start(args, format);
 	while(format[i])
 	{
@@ -43,7 +54,10 @@ int	ft_printf(const char *format, ...)
 			i++;
 		}
 		else
+		{
 			ft_putchar_fd(format[i], 1);
+			result++;
+		}
 		i++;
 	}
 	va_end(args);
@@ -52,5 +66,6 @@ int	ft_printf(const char *format, ...)
 
 int	main (void)
 {
-	ft_printf("%s eu sou o numero %i", "ola", 1);
+	int i = ft_printf("%s eu sou o numero %i\n", "ola", 1);
+	ft_printf("numero de cenas printadas: %i", i);
 }
