@@ -12,39 +12,39 @@
 
 #include "libftprintf.h"
 
-static int print_type(char c, char *temp, va_list args)
+static int print_type(char c, va_list args)
 {
-	char *s;
-
 	if (c == 's')
 	{
-		s = va_arg(args, char *);
-		ft_putstr_fd(s, 1);
-		return (ft_strlen(s));
+		ft_putstr_fd(va_arg(args, char *), 1);
+		return (3);
 	}
+	if (c == 'i')
+	{
+		ft_putnbr_fd(va_arg(args, int), 1);
+		return (1);
+	}
+	return (0);
 }
 
-int	printf(const char *mands, ...)
+int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	int	result;
-	char *temp;
-
-	temp = ft_strdup(mands);
-	va_start(args, mands);
-	while(*(temp++))
+	int	i;
+	
+	i = 0;
+	va_start(args, format);
+	while(format[i])
 	{
-		if (*temp != '%' && ft_isprint(*temp) == 1)
+		if (format[i] == '%')
 		{
-		write(1, temp, 1);
-		result++;
-		continue ;
+			result += print_type(format[i + 1], args);
+			i++;
 		}
-		else if (*temp == '%')
-		{
-			result += print_type(*temp, temp, args);
-			temp += 2;
-		}
+		else
+			ft_putchar_fd(format[i], 1);
+		i++;
 	}
 	va_end(args);
 	return (result);
@@ -52,5 +52,5 @@ int	printf(const char *mands, ...)
 
 int	main (void)
 {
-	ft_printf("%s", "ola");
+	ft_printf("%s eu sou o numero %i", "ola", 1);
 }

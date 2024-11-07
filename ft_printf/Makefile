@@ -31,20 +31,21 @@ LIBFTDIR = ./libft/
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS) libft/libft.a
+$(NAME): $(OBJS) $(LIBFT)
+	$(AR) $(NAME) $(OBJS) $(LIBFT)
 
-$(LIBFT): 
-	cd $(LIBFTDIR)
-	make
+$(LIBFT): $(LIBFTDIR)
+	$(MAKE) -C $(LIBFTDIR)
 	
 %.o: %.c
 	cc $(CFLAGS) -o $@ -c $<
 
 clean: 
 	$(RM) $(OBJS)
+	$(MAKE) clean -C $(LIBFTDIR)
 
 fclean: clean
 	$(RM) $(NAME)
+	$(MAKE) fclean -C $(LIBFTDIR)
 
 re: fclean all
