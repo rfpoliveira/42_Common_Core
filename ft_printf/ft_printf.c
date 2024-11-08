@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-static int print_type(char c, va_list args)
+static int	print_type(char c, va_list args)
 {
 	if (c == 'c')
 	{
@@ -24,29 +24,29 @@ static int print_type(char c, va_list args)
 	else if (c == 'i' || c == 'd')
 		return (r_putnbr(va_arg(args, int)));
 	else if (c == 'p')
-		return (r_putpointer(va_arg(args, unsigned int)));
+		return (r_put_hex(va_arg(args, unsigned int), c));
 	else if (c == 'u')
 		return (r_putunsig(va_arg(args, unsigned int)));
-	else if (c == 'x' || c = 'X')
-		return (r_puthex(va_arg(args, unsigned int), c));
+	else if (c == 'x' || c == 'X')
+		return (r_put_hex(va_arg(args, unsigned int), c));
 	else if (c == '%')
-		{
-		ft_putchar_fd(1, '%', 1);
+	{
+		ft_putchar_fd('%', 1);
 		return (1);
-		}
+	}
 	return (0);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	int	result;
-	int	i;
-	
+	int		result;
+	int		i;
+
 	i = 0;
 	result = 0;
 	va_start(args, format);
-	while(format[i])
+	while (format[i])
 	{
 		if (format[i] == '%')
 		{
@@ -63,9 +63,9 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (result);
 }
-
+/*
 int	main (void)
 {
 	int i = ft_printf("%s eu sou o numero %i\n", "ola", 1);
 	ft_printf("numero de cenas printadas: %i", i);
-}
+}*/

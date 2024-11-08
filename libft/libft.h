@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include <stdio.h>
-# include <bsd/string.h>
 # include <stdlib.h>
 # include <limits.h>
 

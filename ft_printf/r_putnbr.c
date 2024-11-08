@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-int r_putnbr(int n)
+int	r_putnbr(int n)
 {
 	char	*s;
 	int		r;

@@ -10,24 +10,64 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_putpointer(unsigned int n)
-{
-	unsigned int digit;
+#include "libftprintf.h"
 
-	if (n > 9)
+static void	r_print_hex(unsigned long long n, char c);
+static int	r_count_hex(unsigned long long n, char c);
+
+int	r_put_hex(unsigned long long n, char c)
+{
+	if (c == 'p')
+		write(1, "0x", 2);
+	r_print_hex(n, c);
+	return (r_count_hex(n, c));
+}
+
+static int	r_count_hex(unsigned long long n, char c)
+{
+	int	count;
+
+	count = 0;
+	if (c == 'p')
+		count += 2;
+	while (n > 0)
 	{
-		r_putpointer(n / 10);
-		r_putpointer(n % 10);
+		n /= 16;
+		count++;
+	}
+	return (count);
+}
+
+static void	r_print_hex(unsigned long long n, char c)
+{
+	unsigned char	digit;
+
+	if (n >= 16)
+	{
+		r_print_hex((n / 16), c);
+		r_print_hex((n % 16), c);
 	}
 	else
 	{
 		if (n < 10)
 			digit = n + '0';
-		else if (n == 'x')
-			write (1, 'x', 1);
-		else
+		else if (c == 'p' || c == 'x')
 			digit = n + 'a' - 10;
-		write(1, digit, 1);
+		else
+			digit = n + 'A' - 10;
+		write(1, &digit, 1);
 	}
-	return (8);
 }
+/*
+int	main ()
+{
+	char *s = "hello";
+	r_put_hex(s, 'p');
+	write(1, "\n",1);
+	r_put_hex(0x124fa, 'x');
+	write(1, "\n",1);
+	r_put_hex(0x124fa, 'X');
+
+
+	printf("\n%p %x %X", &s, 0x123fa, 0x123fa);
+}*/

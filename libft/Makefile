@@ -43,7 +43,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
-
+	
 %.o: %.c
 	cc $(CFLAGS) -o $@ -c $<
 
