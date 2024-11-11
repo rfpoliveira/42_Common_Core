@@ -24,11 +24,11 @@ static int	print_type(char c, va_list args)
 	else if (c == 'i' || c == 'd')
 		return (r_putnbr(va_arg(args, int)));
 	else if (c == 'p')
-		return (r_put_hex(va_arg(args, unsigned int), c));
+		return (r_put_hex(va_arg(args, unsigned long long), c));
 	else if (c == 'u')
 		return (r_putunsig(va_arg(args, unsigned int)));
 	else if (c == 'x' || c == 'X')
-		return (r_put_hex(va_arg(args, unsigned int), c));
+		return (r_put_hex(va_arg(args, unsigned long long), c));
 	else if (c == '%')
 	{
 		ft_putchar_fd('%', 1);
@@ -66,6 +66,116 @@ int	ft_printf(const char *format, ...)
 /*
 int	main (void)
 {
-	int i = ft_printf("%s eu sou o numero %i\n", "ola", 1);
-	ft_printf("numero de cenas printadas: %i", i);
+	
+	//general tests
+	char *s = NULL;//"hello world!"; 
+	int i = 10;
+	int x = 0x154ff;
+	unsigned int u = 4294967295;
+	char c = 0;
+
+	int count = ft_printf("string: %s, int: %i, hex: %x e %X, pointer: %p, unsigned: %u, char: %c\n", s, i, x, x, &s, u, c);
+	ft_printf("total: %i\n", count);
+
+	int count2 = printf("string: %s, int: %i, hex: %x e %X, pointer: %p, unsigned: %u, char: %c\n", s, i, x, x, &s, u, c);
+	printf("total: %i", count2);
+
+	//null pointer
+	int i = ft_printf("%p\n", NULL);
+	ft_printf("%i", i);
+
+	//hex edges
+	int i = ft_printf("numero: %x\n", 0);
+	ft_printf("conta: %i\n", i);
+
+	int j = printf("numero: %x\n", 0);
+	printf("conta: %i\n", j);
+
+	int ii = ft_printf("numero: %x\n", LONG_MIN);
+	ft_printf("conta: %i\n", ii);
+
+	unsigned long jj = printf("numero: %lx\n", LONG_MIN);
+	printf("numero: %lx\n", jj);	
+}
+*/
+/*
+#include "stddef.h"
+
+int main(void)
+{
+    int real_return, my_return;
+
+    // Test with strings
+    real_return = printf("Real: %s\n", "Hello, World!");
+    my_return = ft_printf("Mine: %s\n", "Hello, World!");
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    // Test with NULL string
+    real_return = printf("Real: %s\n", (char *)NULL);
+    my_return = ft_printf("Mine: %s\n", (char *)NULL);
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    // Test with characters
+    real_return = printf("Real: %c\n", 'A');
+    my_return = ft_printf("Mine: %c\n", 'A');
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    // Test with integers
+    real_return = printf("Real: %d\n", 12345);
+    my_return = ft_printf("Mine: %d\n", 12345);
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    // Test with unsigned integers
+    real_return = printf("Real: %u\n", 12345);
+    my_return = ft_printf("Mine: %u\n", 12345);
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    // Test with hexadecimal (lowercase)
+    real_return = printf("Real: %x\n", 12345);
+    my_return = ft_printf("Mine: %x\n", 12345);
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    // Additional tests for %x (lowercase)
+    real_return = printf("Real: %x\n", 0);
+    my_return = ft_printf("Mine: %x\n", 0);
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    real_return = printf("Real: %x\n", 255);
+    my_return = ft_printf("Mine: %x\n", 255);
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    real_return = printf("Real: %x\n", 4294967295U);
+    my_return = ft_printf("Mine: %x\n", 4294967295U);
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    // Test with hexadecimal (uppercase)
+    real_return = printf("Real: %X\n", 12345);
+    my_return = ft_printf("Mine: %X\n", 12345);
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    // Additional tests for %X (uppercase)
+    real_return = printf("Real: %X\n", 0);
+    my_return = ft_printf("Mine: %X\n", 0);
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    real_return = printf("Real: %X\n", 255);
+    my_return = ft_printf("Mine: %X\n", 255);
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    real_return = printf("Real: %X\n", 4294967295U);
+    my_return = ft_printf("Mine: %X\n", 4294967295U);
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    // Test with pointer
+    int x = 42;
+    real_return = printf("Real: %p\n", (void *)&x);
+    my_return = ft_printf("Mine: %p\n", (void *)&x);
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    // Test with percentage
+    real_return = printf("Real: %%\n");
+    my_return = ft_printf("Mine: %%\n");
+    printf("Real return: %d | Mine return: %d\n\n", real_return, my_return);
+
+    return 0;
 }*/

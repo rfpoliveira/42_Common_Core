@@ -17,7 +17,12 @@ static int	r_count_hex(unsigned long long n, char c);
 
 int	r_put_hex(unsigned long long n, char c)
 {
-	if (c == 'p')
+	if (c == 'p' && n == 0)
+	{
+		write (1, "(nil)", 5);
+		return (5);
+	}
+	else if (c == 'p')
 		write(1, "0x", 2);
 	r_print_hex(n, c);
 	return (r_count_hex(n, c));
@@ -28,6 +33,8 @@ static int	r_count_hex(unsigned long long n, char c)
 	int	count;
 
 	count = 0;
+	if (n == 0)
+		return (1);
 	if (c == 'p')
 		count += 2;
 	while (n > 0)

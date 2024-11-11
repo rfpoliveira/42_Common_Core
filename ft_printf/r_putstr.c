@@ -15,7 +15,12 @@
 int	r_putstr(char *s)
 {
 	int	i;
-
+	
+	if (!s)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
 	i = -1;
 	while (s[++i])
 		write(1, &s[i], 1);
