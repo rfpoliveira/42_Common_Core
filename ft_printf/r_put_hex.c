@@ -25,6 +25,8 @@ int	r_put_hex(unsigned long long n, char c)
 	else if (c == 'p')
 		write(1, "0x", 2);
 	r_print_hex(n, c);
+	if ((c == 'x' || c == 'X') && r_count_hex(n, c) > 10)
+		return (10);
 	return (r_count_hex(n, c));
 }
 

@@ -15,7 +15,7 @@
 int	r_putstr(char *s)
 {
 	int	i;
-	
+
 	if (!s)
 	{
 		write(1, "(null)", 6);

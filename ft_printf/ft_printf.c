@@ -66,7 +66,7 @@ int	ft_printf(const char *format, ...)
 /*
 int	main (void)
 {
-	
+
 	//general tests
 	char *s = NULL;//"hello world!"; 
 	int i = 10;
@@ -74,10 +74,14 @@ int	main (void)
 	unsigned int u = 4294967295;
 	char c = 0;
 
-	int count = ft_printf("string: %s, int: %i, hex: %x e %X, pointer: %p, unsigned: %u, char: %c\n", s, i, x, x, &s, u, c);
+	int count = ft_printf("string: %s, int: %i, \ 
+	hex: %x e %X, pointer: %p, unsigned: %u, \
+	char: %c\n", s, i, x, x, &s, u, c);
 	ft_printf("total: %i\n", count);
 
-	int count2 = printf("string: %s, int: %i, hex: %x e %X, pointer: %p, unsigned: %u, char: %c\n", s, i, x, x, &s, u, c);
+	int count2 = printf("string: %s, int: %i, \
+	hex: %x e %X, pointer: %p, unsigned: %u, \
+	char: %c\n", s, i, x, x, &s, u, c);
 	printf("total: %i", count2);
 
 	//null pointer
@@ -91,14 +95,14 @@ int	main (void)
 	int j = printf("numero: %x\n", 0);
 	printf("conta: %i\n", j);
 
-	int ii = ft_printf("numero: %x\n", LONG_MIN);
+	int ii = ft_printf("output: %x\n", LONG_MAX);
 	ft_printf("conta: %i\n", ii);
 
-	unsigned long jj = printf("numero: %lx\n", LONG_MIN);
-	printf("numero: %lx\n", jj);	
+	unsigned long jj = printf("output: %lx\n", LONG_MAX);
+	printf("conta: %lx\n", jj);	
 }
-*/
-/*
+
+
 #include "stddef.h"
 
 int main(void)
