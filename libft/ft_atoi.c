@@ -41,7 +41,7 @@ int	ft_atoi(const char *str)
 
 int	main ()
 {
-	int i = ft_atoi("-2147483648");
+	int i = ft_atoi("213161566515616556151");
 	printf("%i", i);
-	printf("\n%i", atoi("-2147483648"));
+	printf("\n%i", atoi("21451465141616164556451"));
 }*/
