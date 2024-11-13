@@ -12,6 +12,12 @@
 
 #include "get_next_line.h"
 
+static void	r_free(char **ptr)
+{
+	free(*ptr);
+	*ptr = NULL;
+}
+
 static char	*fill_buff(int fd, char *buff, char *rest)
 {
 	char	*tmp;
@@ -32,8 +38,7 @@ static char	*fill_buff(int fd, char *buff, char *rest)
 			rest = r_strdup("");
 		tmp = rest;
 		rest = r_strjoin(tmp, buff);
-		free(tmp);
-		tmp = NULL;
+		r_free(&tmp);
 		if (r_strchr(buff, '\n'))
 			break ;
 	}
@@ -48,7 +53,7 @@ static char	*true_line(char	*line)
 	i = 1;
 	while (line[i] != '\n' && line[i] != '\0')
 		i++;
-	rest = r_substr(&line[i], 0, r_strlen(line) - i);
+	rest = r_substr(&line[i + 1], 0, r_strlen(line) - i);
 	if (!rest)
 		return (NULL);
 	line[i + 1] = '\0';
@@ -66,29 +71,35 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		free(buff);
-		free(rest);
-		rest = NULL;
-		buff = NULL;
+		r_free(&buff);
+		r_free(&rest);
 		return (NULL);
 	}
 	line = fill_buff(fd, buff, rest);
-	free(buff);
-	buff = NULL;
+	r_free(&buff);
 	if (!line)
 		return (NULL);
 	rest = true_line(line);
+	if (!*line)
+	{
+		free(line);
+		r_free(&rest);
+		return (NULL);
+	}
 	return (line);
 }
 
 int	main(void)
 {
 	int i = 0;
-	while (i < 5)
+	char *s = "h";
+	int fd = open ("bee.txt", O_RDONLY);
+	while (s)
 	{
-		int fd = open ("test.txt", O_RDONLY);
-		char * s = get_next_line(fd);
+		s = get_next_line(fd);
 		printf("%s", s);
 		i++;
+		free(s);
 	}
+	close(fd);
 }

@@ -13,12 +13,13 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFFER_SIZE 3
+# define BUFFER_SIZE 4
 
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <string.h>
 
 char	*get_next_line(int fd);
 char	*r_strdup(char *s1);
