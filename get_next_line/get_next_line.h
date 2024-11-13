@@ -13,7 +13,10 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFFER_SIZE 4
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 4
+
+#endif 
 
 # include <unistd.h>
 # include <stdio.h>
