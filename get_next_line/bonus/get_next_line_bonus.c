@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static void	r_free(char **ptr)
 {
@@ -34,7 +34,6 @@ static char	*fill_buff(int fd, char *buff, char *rest)
 		}
 		else if (i == 0)
 			break ;
-		buff[i] = '\0';
 		if (!rest)
 			rest = r_strdup("");
 		tmp = rest;
@@ -50,24 +49,20 @@ static char	*true_line(char	*line)
 {
 	static char		*rest;
 	size_t			i;
-	size_t			len;
 
-	len = r_strlen(line);
 	i = 1;
 	while (line[i] != '\n' && line[i] != '\0')
 		i++;
-	if (line[i] == '\0' || line[1] == '\0')
+	rest = r_substr(&line[i + 1], 0, r_strlen(line) - i);
+	if (!rest)
 		return (NULL);
-	rest = r_substr(&line[i + 1], 0, len - i);
-	if (!*rest)
-		r_free(&rest);
 	line[i + 1] = '\0';
 	return (rest);
 }
 
 char	*get_next_line(int fd)
 {
-	static char		*rest;
+	static char		*rest[1024];
 	char			*buff;
 	char			*line;
 
@@ -77,18 +72,18 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
 		r_free(&buff);
-		r_free(&rest);
+		r_free(&rest[fd]);
 		return (NULL);
 	}
-	line = fill_buff(fd, buff, rest);
+	line = fill_buff(fd, buff, rest[fd]);
 	r_free(&buff);
 	if (!line)
 		return (NULL);
-	rest = true_line(line);
-	if (!line)
+	rest[fd] = true_line(line);
+	if (!*line)
 	{
 		free(line);
-		r_free(&rest);
+		r_free(&rest[fd]);
 		return (NULL);
 	}
 	return (line);
@@ -98,7 +93,7 @@ int	main(void)
 {
 	int i = 0;
 	char *s = "h";
-	int fd = open ("./tests/1char.txt", O_RDONLY);
+	int fd = open ("./tests/test.txt", O_RDONLY);
 	while (s)
 	{
 		s = get_next_line(fd);
