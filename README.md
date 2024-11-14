@@ -1,9 +1,18 @@
 # 42_Common_Core
+
+<picture>
+ <source media="(prefers-color-scheme: dark)" srcset="https://www.42porto.com/wp-content/themes/42lisboa/images/logo42_dark.svg">
+ <source media="(prefers-color-scheme: light)" srcset="(https://www.42porto.com/wp-content/themes/42lisboa/images/logo42_dark.svg">
+ <img alt="Shows the 42 Porto logo" src="https://www.42porto.com/wp-content/themes/42lisboa/images/logo42_dark.svg">
+</picture>
+
 My Work in the 42 School Programming course
 
-libft(125/100): First project proposed by the school that make us recreate a variety
-	of functions to use along our journey.
+| Milestone | Project       |Language | Grade |
+|----------:|---------      |---------|-------|
+|          0|[libft](libft/)|C        |125/100|
+|          1|[ft_printf](ft_printf/)|C|       |
+|          1|[get_next_line](get_next_line/)|C|       |
 
-ft_printf: Recreation of a simpler version of the prinf function.
 
-get_next_line: Program to read a file line by line.
+https://askubuntu.com/questions/1164/how-to-easily-resize-images-via-command-line
