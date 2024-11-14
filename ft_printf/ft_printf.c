@@ -63,46 +63,43 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (result);
 }
-/*
+
 int	main (void)
 {
 
 	//general tests
 	char *s = NULL;//"hello world!"; 
-	int i = 10;
-	int x = 0x154ff;
-	unsigned int u = 4294967295;
+	int i = 0;
+	long x = 0xFFFFFFFFFFFFFFFF;
+	unsigned int u = 0;
 	char c = 0;
 
-	int count = ft_printf("string: %s, int: %i, \ 
-	hex: %x e %X, pointer: %p, unsigned: %u, \
-	char: %c\n", s, i, x, x, &s, u, c);
+	int count = ft_printf("string: %s, int: %i, hex: %x e %X, pointer: %p, unsigned: %u, char: %c\n", s, i, x, x, 0x0, u, c);
 	ft_printf("total: %i\n", count);
 
-	int count2 = printf("string: %s, int: %i, \
-	hex: %x e %X, pointer: %p, unsigned: %u, \
-	char: %c\n", s, i, x, x, &s, u, c);
-	printf("total: %i", count2);
+	int count2 = printf("string: %s, int: %i, hex: %x e %X, pointer: %p, unsigned: %u, char: %c\n", s, i, x, x, (void *)0x0, u, c);
+	printf("total: %i\n", count2);
 
 	//null pointer
-	int i = ft_printf("%p\n", NULL);
-	ft_printf("%i", i);
-
+	i = ft_printf("%p\n", NULL);
+	ft_printf("%i\n", i);
+	i = printf("%p\n", NULL);
+	printf("%i\n", i);
 	//hex edges
-	int i = ft_printf("numero: %x\n", 0);
+	i = ft_printf("numero: %x\n", 0);
 	ft_printf("conta: %i\n", i);
 
-	int j = printf("numero: %x\n", 0);
-	printf("conta: %i\n", j);
+	i = printf("numero: %x\n", 0);
+	printf("conta: %i\n", i);
 
-	int ii = ft_printf("output: %x\n", LONG_MAX);
-	ft_printf("conta: %i\n", ii);
+	i = ft_printf("output: %x\n", LONG_MAX);
+	ft_printf("conta: %i\n", i);
 
 	unsigned long jj = printf("output: %lx\n", LONG_MAX);
 	printf("conta: %lx\n", jj);	
 }
 
-
+/*
 #include "stddef.h"
 
 int main(void)
