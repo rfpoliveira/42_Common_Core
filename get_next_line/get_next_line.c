@@ -29,17 +29,23 @@ static char	*fill_buff(int fd, char *buff, char *rest)
 		i = read(fd, buff, BUFFER_SIZE);
 		if (i == -1)
 		{
-			free(buff);
+			free(rest);
 			return (NULL);
 		}
 		else if (i == 0)
 			break ;
 		buff[i] = '\0';
 		if (!rest)
+		{
 			rest = r_strdup("");
+			if (!rest)
+				return (NULL);
+		}
 		tmp = rest;
 		rest = r_strjoin(tmp, buff);
 		r_free(&tmp);
+		if (!rest)
+			return (NULL);
 		if (r_strchr(buff, '\n'))
 			break ;
 	}
@@ -48,19 +54,17 @@ static char	*fill_buff(int fd, char *buff, char *rest)
 
 static char	*true_line(char	*line)
 {
-	static char		*rest;
-	size_t			i;
-	size_t			len;
-
-	len = r_strlen(line);
-	i = 1;
-	while (line[i] != '\n' && line[i] != '\0')
+	size_t	i;
+	char	*rest;
+	
+	i = 0;
+	while (line[i] != '\n'  && line[i])
 		i++;
-	if (line[i] == '\0' || line[1] == '\0')
+	if (!line[i] || !line[1])
 		return (NULL);
-	rest = r_substr(&line[i + 1], 0, len - i);
+	rest = r_substr(line, i + 1, r_strlen(line) - i);
 	if (!*rest)
-		r_free(&rest);
+		r_free(&rest);	
 	line[i + 1] = '\0';
 	return (rest);
 }
@@ -85,12 +89,6 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	rest = true_line(line);
-	if (!line)
-	{
-		free(line);
-		r_free(&rest);
-		return (NULL);
-	}
 	return (line);
 }
 /*
@@ -98,7 +96,7 @@ int	main(void)
 {
 	int i = 0;
 	char *s = "h";
-	int fd = open ("./tests/1char.txt", O_RDONLY);
+	int fd = open ("./tests/lines_around_10.txt", O_RDONLY);
 	while (s)
 	{
 		s = get_next_line(fd);
