@@ -13,3 +13,6 @@ My Work in the 42 School Programming course
 |          0|[libft](libft/)|C        |125/100|
 |          1|[ft_printf](ft_printf/)|C|       |
 |          1|[get_next_line](get_next_line/)|C|       |
+
+
+https://askubuntu.com/questions/1164/how-to-easily-resize-images-via-command-line
