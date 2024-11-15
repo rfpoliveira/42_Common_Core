@@ -10,35 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-static void	r_print_hex(unsigned long long n, char c);
-static int	r_count_hex(unsigned long long n, char c);
+static void	r_print_ptr(unsigned long long n);
+static int	r_count_ptr(unsigned long long n);
 
-int	r_put_hex(unsigned long long n, char c)
+int	r_put_ptr(unsigned long long n)
 {
-	if (c == 'p' && n == 0)
+	if (n == 0)
 	{
 		write (1, "(nil)", 5);
 		return (5);
 	}
-	else if (c == 'p')
-		write(1, "0x", 2);
-	r_print_hex(n, c);
-	if ((c == 'x' || c == 'X') && r_count_hex(n, c) > 10)
-		return (10);
-	return (r_count_hex(n, c));
+	write(1, "0x", 2);
+	r_print_ptr(n);
+	return (r_count_ptr(n));
 }
 
-static int	r_count_hex(unsigned long long n, char c)
+static int	r_count_ptr(unsigned long long n)
 {
 	int	count;
 
-	count = 0;
-	if (n == 0)
-		return (1);
-	if (c == 'p')
-		count += 2;
+	count = 2;
 	while (n > 0)
 	{
 		n /= 16;
@@ -47,23 +40,21 @@ static int	r_count_hex(unsigned long long n, char c)
 	return (count);
 }
 
-static void	r_print_hex(unsigned long long n, char c)
+static void	r_print_ptr(unsigned long long n)
 {
 	unsigned char	digit;
 
 	if (n >= 16)
 	{
-		r_print_hex((n / 16), c);
-		r_print_hex((n % 16), c);
+		r_print_ptr((n / 16));
+		r_print_ptr((n % 16));
 	}
 	else
 	{
 		if (n < 10)
 			digit = n + '0';
-		else if (c == 'p' || c == 'x')
-			digit = n + 'a' - 10;
 		else
-			digit = n + 'A' - 10;
+			digit = n + 'a' - 10;
 		write(1, &digit, 1);
 	}
 }

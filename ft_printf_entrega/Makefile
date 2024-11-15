@@ -12,7 +12,7 @@
 
 ###Files###
 
-SRCS = ft_printf.c r_put_hex.c r_putnbr.c r_putstr.c r_putunsig.c
+SRCS = ft_printf.c r_put_hex.c r_putnbr.c r_putstr.c r_putunsig.c r_put_ptr.c
 
 
 OBJS = $(SRCS:.c=.o)

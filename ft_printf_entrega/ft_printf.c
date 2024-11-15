@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 static int	print_type(char c, va_list args)
 {
@@ -24,11 +24,11 @@ static int	print_type(char c, va_list args)
 	else if (c == 'i' || c == 'd')
 		return (r_putnbr(va_arg(args, int)));
 	else if (c == 'p')
-		return (r_put_hex(va_arg(args, unsigned long long), c));
+		return (r_put_ptr(va_arg(args, unsigned long long)));
 	else if (c == 'u')
 		return (r_putunsig(va_arg(args, unsigned int)));
 	else if (c == 'x' || c == 'X')
-		return (r_put_hex(va_arg(args, unsigned long long), c));
+		return (r_put_hex(va_arg(args, unsigned int), c));
 	else if (c == '%')
 	{
 		ft_putchar_fd('%', 1);
@@ -63,21 +63,23 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (result);
 }
-
+/*
 int	main (void)
 {
 
 	//general tests
 	char *s = NULL;//"hello world!"; 
 	int i = 0;
-	long x = 0xFFFFFFFFFFFFFFFF;
+	unsigned long x = ULONG_MAX;
 	unsigned int u = 0;
 	char c = 0;
 
-	int count = ft_printf("string: %s, int: %i, hex: %x e %X, pointer: %p, unsigned: %u, char: %c\n", s, i, x, x, 0x0, u, c);
+	int count = ft_printf("string: %s, int: %i, hex: %x e %X, pointer: %p, \
+unsigned: %u, char: %c\n", s, i, (unsigned int)x, (unsigned int)x, 0x0, u, c);
 	ft_printf("total: %i\n", count);
 
-	int count2 = printf("string: %s, int: %i, hex: %x e %X, pointer: %p, unsigned: %u, char: %c\n", s, i, x, x, (void *)0x0, u, c);
+	int count2 = printf("string: %s, int: %i, hex: %x e %X, pointer: %p, \
+unsigned: %u, char: %c\n", s, i, (unsigned int)x, (unsigned int)x, 0x0, u, c);
 	printf("total: %i\n", count2);
 
 	//null pointer
@@ -98,7 +100,7 @@ int	main (void)
 	unsigned long jj = printf("output: %lx\n", LONG_MAX);
 	printf("conta: %lx\n", jj);	
 }
-
+*/
 /*
 #include "stddef.h"
 

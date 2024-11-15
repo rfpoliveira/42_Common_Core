@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprint.h                                       :+:      :+:    :+:   */
+/*   r_putstr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 16:44:52 by rpedrosa          #+#    #+#             */
-/*   Updated: 2024/11/06 16:47:43 by rpedrosa         ###   ########.fr       */
+/*   Created: 2024/11/07 16:29:21 by rpedrosa          #+#    #+#             */
+/*   Updated: 2024/11/07 16:32:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#include "ft_printf.h"
 
-# include "libft/libft.h"
-# include <stdarg.h>
+int	r_putstr(char *s)
+{
+	int	i;
 
-int	ft_printf(const char *format, ...);
-int	r_putnbr(int n);
-int	r_put_hex(unsigned long long n, char c);
-int	r_putstr(char *s);
-int	r_putunsig(unsigned int n);
-
-#endif
+	if (!s)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	i = -1;
+	while (s[++i])
+		write(1, &s[i], 1);
+	return (ft_strlen(s));
+}

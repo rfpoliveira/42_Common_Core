@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 static unsigned int	count_digits(unsigned int n);
 static char			*r_utoa(unsigned int n);
