@@ -1,0 +1,63 @@
+Evaluation Commands
+
+    sudo ufw status numbered
+	sudo ufw allow *portid* - allow certain id port
+	sudo ufw delete rule number - delete that rule mention above
+
+    sudo systemctl status ssh
+
+    getent group sudo
+    getent group user42
+    sudo adduser new username
+    sudo groupadd groupname
+    sudo usermod -aG groupname username
+
+    sudo chage -l username - check password expire rules
+
+    hostnamectl - check hostname
+    hostnamectl set-hostname new_hostname - to change the current hostname (REBOOT)
+	sudo nano /etc/hosts - change current hostname to new hostname
+
+    lsblk  - display the partitions
+    dpkg -l | grep sudo – to show that sudo is installed
+    ssh your_user_id@(hostname -I) -p 4242 - do this in terminal to show that SSH to port 4242 is working
+
+	Notes for Evaluation
+
+	Debian vs Rocky?
+		Debian is better suited for begginers;
+		Debian is better documented;
+		Rocky is usually used for compnaies due to the better security protocols;
+	
+	What is a VM?
+		It's a virtual machine that used the physical components of your physical one.
+		It's completely separated from your main machine having it's own OS and applications;
+		It's a safe option for servers or for testing applications;
+
+	Aptitude vs Apt?
+		These are both packtager managers that allow you to install various commands and apllications in your machine;
+		Apt is more lower-level and only do what you tell it to do;
+		Aptitude can make suggestions on what packs to install and unistall unutilized ones;
+	
+	AppArmour?
+		It's a securaty software that is install by default with Debian.
+	
+	Password rules
+		I used a library to control the quality of the password, making changes to 2 files:
+		etc(/)login.defs to make the expiracion rules;
+		etc(/)pam.d/common-password to the rest of the format rules;
+
+	LVM
+		Stands for logical volume manager and it takes care of the creating and manage of the various partitions;
+		partition vs volume? partition is a division of memory, volume is the set of partitions the the OS uses for mass storage;
+	
+	UFW
+		Stand for Uncomplicated firewall and takes care of the port changes without compormising security;
+
+	SSH
+		Incription for comunication bettewn a host and a client;
+
+	Cron
+		It's generally a comand or scrits that allow you to do certain functions automaticly depending of the time of the day;
+
+
