@@ -28,10 +28,7 @@ static char	*fill_buff(int fd, char *buff, char *rest)
 	{
 		i = read(fd, buff, BUFFER_SIZE);
 		if (i == -1)
-		{
-			free(rest);
 			return (NULL);
-		}
 		else if (i == 0)
 			break ;
 		buff[i] = '\0';
@@ -72,7 +69,7 @@ char	*get_next_line(int fd)
 	buff = malloc(BUFFER_SIZE + 1);
 	if (!buff)
 		return (NULL);
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		r_free(&buff);
 		r_free(&rest);
@@ -92,15 +89,14 @@ char	*get_next_line(int fd)
 /*
 int	main(void)
 {
-	int i = 0;
 	char *s = "h";
 	int fd = open ("./tests/lines_around_10.txt", O_RDONLY);
+	s = get_next_line(fd);
 	while (s)
 	{
-		s = get_next_line(fd);
 		printf("%s", s);
-		i++;
 		free(s);
+		s = get_next_line(fd);
 	}
 	close(fd);
 }*/
