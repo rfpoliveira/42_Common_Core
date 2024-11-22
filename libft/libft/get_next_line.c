@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 09:46:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2024/11/22 09:46:06 by rpedrosa         ###   ########.fr       */
+/*   Created: 2024/11/12 11:01:45 by rpedrosa          #+#    #+#             */
+/*   Updated: 2024/11/12 11:02:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "libft.h"
 
 static void	r_free(char **ptr)
 {
@@ -28,19 +28,16 @@ static char	*fill_buff(int fd, char *buff, char *rest)
 	{
 		i = read(fd, buff, BUFFER_SIZE);
 		if (i == -1)
-		{
-			free(rest);
 			return (NULL);
-		}
 		else if (i == 0)
 			break ;
 		buff[i] = '\0';
 		if (!rest)
-			rest = r_strdup("");
+			rest = ft_strdup("");
 		tmp = rest;
-		rest = r_strjoin(tmp, buff);
+		rest = ft_strjoin(tmp, buff);
 		r_free(&tmp);
-		if (r_strchr(buff, '\n'))
+		if (ft_strchr(buff, '\n'))
 			break ;
 	}
 	return (rest);
@@ -56,7 +53,7 @@ static char	*true_line(char	*line)
 		i++;
 	if (!line[i] || !line[1])
 		return (NULL);
-	rest = r_substr(line, i + 1, r_strlen(line) - i);
+	rest = ft_substr(line, i + 1, ft_strlen(line) - i);
 	if (!*rest)
 		r_free(&rest);
 	line[i + 1] = '\0';
@@ -65,7 +62,7 @@ static char	*true_line(char	*line)
 
 char	*get_next_line(int fd)
 {
-	static char		*rest[1024];
+	static char		*rest;
 	char			*buff;
 	char			*line;
 
@@ -75,32 +72,31 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		r_free(&buff);
-		r_free(&rest[fd]);
+		r_free(&rest);
 		return (NULL);
 	}
-	line = fill_buff(fd, buff, rest[fd]);
+	line = fill_buff(fd, buff, rest);
 	r_free(&buff);
 	if (!line)
 	{
 		r_free(&line);
-		r_free(&rest[fd]);
+		r_free(&rest);
 		return (NULL);
 	}
-	rest[fd] = true_line(line);
+	rest = true_line(line);
 	return (line);
 }
 /*
 int	main(void)
 {
-	int i = 0;
 	char *s = "h";
 	int fd = open ("./tests/lines_around_10.txt", O_RDONLY);
+	s = get_next_line(fd);
 	while (s)
 	{
-		s = get_next_line(fd);
 		printf("%s", s);
-		i++;
 		free(s);
+		s = get_next_line(fd);
 	}
 	close(fd);
 }*/

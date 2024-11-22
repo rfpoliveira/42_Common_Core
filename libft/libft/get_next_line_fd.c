@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "libft.h"
 
 static void	r_free(char **ptr)
 {
@@ -36,11 +36,11 @@ static char	*fill_buff(int fd, char *buff, char *rest)
 			break ;
 		buff[i] = '\0';
 		if (!rest)
-			rest = r_strdup("");
+			rest = ft_strdup("");
 		tmp = rest;
-		rest = r_strjoin(tmp, buff);
+		rest = ft_strjoin(tmp, buff);
 		r_free(&tmp);
-		if (r_strchr(buff, '\n'))
+		if (ft_strchr(buff, '\n'))
 			break ;
 	}
 	return (rest);
@@ -56,14 +56,14 @@ static char	*true_line(char	*line)
 		i++;
 	if (!line[i] || !line[1])
 		return (NULL);
-	rest = r_substr(line, i + 1, r_strlen(line) - i);
+	rest = ft_substr(line, i + 1, ft_strlen(line) - i);
 	if (!*rest)
 		r_free(&rest);
 	line[i + 1] = '\0';
 	return (rest);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line_fd(int fd)
 {
 	static char		*rest[1024];
 	char			*buff;
@@ -97,7 +97,7 @@ int	main(void)
 	int fd = open ("./tests/lines_around_10.txt", O_RDONLY);
 	while (s)
 	{
-		s = get_next_line(fd);
+		s = get_next_line_fd(fd);
 		printf("%s", s);
 		i++;
 		free(s);
