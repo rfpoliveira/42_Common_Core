@@ -12,12 +12,6 @@
 
 #include "libft.h"
 
-static void	r_free(char **ptr)
-{
-	free(*ptr);
-	*ptr = NULL;
-}
-
 static char	*fill_buff(int fd, char *buff, char *rest)
 {
 	char	*tmp;
