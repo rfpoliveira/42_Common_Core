@@ -54,7 +54,7 @@ $(LIBFT_ARC): $(LIBFT_PATH)
 	@$(MAKEE) -C $(LIBFT_PATH)
 
 $(LIB_NAME): $(BUILD_PATH) $(OBJS)
-	@$(AR) $(LIB_NAME) $(OBJS) $(LIBFT_OBJS)/*.o
+	$(AR) $(LIB_NAME) $(OBJS) $(LIBFT_OBJS)/*.o
 
 $(BUILD_PATH)/%.o: %.c
 	@cc $(CFLAGS) -I/usr/include -Iminilibx-linux -o $@ -c $<
@@ -77,6 +77,12 @@ fclean: clean
 	@$(RM) $(LIB_NAME)
 	@$(RM) $(LIBFT_PATH)
 	@echo "$(BCYA)[fclean] Archive and Libft removed$(D)"
+
+again: clean
+	@echo "$(BCYA)[rebuilding...]$(D)"
+	@$(RM) $(NAME)
+	@$(RM) $(LIB_NAME)
+	@$(MAKE) -s
 
 re: fclean all
 
