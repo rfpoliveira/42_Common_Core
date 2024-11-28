@@ -37,6 +37,8 @@ typedef struct s_vars {
 // functions
 
 int	handle_input(int keycode, t_vars *vars);
-int check_map(char **map_matrix, char *map);
+int check_map(char **map_matrix);
+void	r_matrix_free(char **s);
+char	**create_matrix(char *map);
 
 #endif

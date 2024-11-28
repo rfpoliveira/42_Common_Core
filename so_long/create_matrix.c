@@ -26,12 +26,11 @@ static int	get_height(char *map)
 		tmp = get_next_line(fd);
 		i++;
 	}
-	r_free(&tmp);
 	close(fd);
 	return (i);
 }
 
-char	**save_map(char *map)
+char	**create_matrix(char *map)
 {
 	char	**save;
 	int		fd;
@@ -39,7 +38,7 @@ char	**save_map(char *map)
 
 	map = ft_strjoin("maps/", map);
 	i = get_height(map);
-	save = malloc(i + 1);
+	save = ft_calloc(i + 1, sizeof(char *));
 	i = 1;
 	fd = open(map, O_RDONLY);
 	save[0] = get_next_line(fd);
@@ -48,7 +47,7 @@ char	**save_map(char *map)
 	close(fd);
 	return (save);
 }
-
+/*
 int main (int argc, char **argv)
 {
 	argc = 0;
@@ -59,4 +58,4 @@ int main (int argc, char **argv)
 		ft_printf("%s", save[i]);
 		i++;
 	}
-}
+}*/
