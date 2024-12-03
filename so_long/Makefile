@@ -12,7 +12,7 @@
 
 ###Files###
 
-SRCS = handle_inputs.c so_long.c r_matrix_free.c create_matrix.c
+SRCS = handle_inputs.c so_long.c create_matrix.c 
 
 #BONUS_SRCS =
 

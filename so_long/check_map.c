@@ -12,52 +12,40 @@
 
 #include "so_long.h"
 
-static int check_map_line(char *s)
+static int	check_map_line(char *s)
 {
 	int	i;
 
 	i = 0;
 	if (s[i++] != '1')
-	{
-		ft_printf("Map not closed in the right\n");
 		return (1);
-	}
 	while (s[i])
 	{
 		if (!(s[i] < '1' || s[i] != '0' || s[i] != 'E' \
 			|| s[i] != 'P' || s[i] != 'C'))
-		{
-			ft_printf("Invalid charaters!\n");
 			return (1);
-		}
 		i++;
 	}
 	if (s[i - 2] != '1')
-	{
-		ft_printf("Map not closed in the left!\n");
 		return (1);
-	}
 	return (0);
 }
 
-static int check_map_topbot(char *s)
+static int	check_map_topbot(char *s)
 {
 	int	i;
 
 	i = 0;
-	while (s)
+	while (s[i])
 	{
-		if (s[i] != '1' && s[i] != '\n')
-		{
-			ft_printf("Map not closed on top or bottom\n");
+		if (s[i] != '1' && s[i] != '\n' && s[i] != '\0')
 			return (1);
-		}
 		i++;
 	}
 	return (0);
 }
 
-static int check_count(char **map_matrix)
+static int	check_count(char **map_matrix)
 {
 	int	i;
 	int	j;
@@ -74,52 +62,55 @@ static int check_count(char **map_matrix)
 				count += 10;
 			else if (map_matrix[i][j] == 'E' || map_matrix[i][j] == 'P')
 				count += 1;
-			i++;
+			j++;
 		}
+		j = 0;
+		i++;
 	}
 	if (count % 10 != 2)
-	{
-		ft_printf("Map with no entrace or exit!\n");
 		return (1);
-	}
 	if (count / 10 < 1)
-	{
-		ft_printf("Don't forget the coins!\n");
 		return (1);
-	}
 	return (0);
 }
 
 int	check_map(char **map_matrix)
-
-// return 0 = good map;
-// return 1 = bad map;
-// return 2 = malloc error;
-
 {
-	int		i;
-	int		height;
+	int	i;
+	int	height;
 
 	i = 1;
 	height = 0;
-	while(map_matrix[height])
+	while (map_matrix[height])
+	{
+		if (ft_strlen(map_matrix[height]) != ft_strlen(map_matrix[0]))
+			return (1);
 		height++;
+	}
 	while (i < height)
 	{
 		if (check_map_line(map_matrix[i]) == 1)
 			return (1);
 		i++;
 	}
-	if (check_map_topbot(map_matrix[0]) == 1 || check_map_topbot(map_matrix[height - 1]) == 1)
-		return (1);
-	if (check_count(map_matrix) == 1)
+	if (check_map_topbot(map_matrix[0]) == 1 \
+		|| check_map_topbot(map_matrix[height - 1]) == 1 \
+		|| check_count(map_matrix) == 1 || check_path(map_matrix) == 1)
 		return (1);
 	return (0);
 }
-
+/*
 int main (int argc, char **argv)
 {
 	argc = 0;
-	int i = check_map(create_matrix(argv[1]));
+	char **maps = create_matrix(argv[1]);
+	int i = check_map(maps);
+	int j = 0;
+	while (maps[j])
+	{
+		r_free(&maps[j]);
+		j++;
+	}
+	free(maps);
 	ft_printf("%i", i);
-}
+}*/

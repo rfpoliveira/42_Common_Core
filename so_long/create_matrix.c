@@ -21,8 +21,9 @@ static int	get_height(char *map)
 	fd = open(map, O_RDONLY);
 	tmp = get_next_line(fd);
 	i = 1;
-	while(tmp)
+	while (tmp)
 	{
+		r_free(&tmp);
 		tmp = get_next_line(fd);
 		i++;
 	}
@@ -36,7 +37,6 @@ char	**create_matrix(char *map)
 	int		fd;
 	int		i;
 
-	map = ft_strjoin("maps/", map);
 	i = get_height(map);
 	save = ft_calloc(i + 1, sizeof(char *));
 	i = 1;
@@ -51,11 +51,13 @@ char	**create_matrix(char *map)
 int main (int argc, char **argv)
 {
 	argc = 0;
-	char	**save = save_map(argv[1]);
+	char	**save = create_matrix(argv[1]);
 	int i = 0;
 	while (save[i])
 	{
 		ft_printf("%s", save[i]);
+		r_free(&save[i]);
 		i++;
 	}
+	free(save);
 }*/
