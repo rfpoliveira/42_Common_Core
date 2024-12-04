@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-int	*go_player(char **map_matrix)
+static int	*go_player(char **map_matrix)
 {
 	int	x;
 	int	y;
@@ -29,6 +29,8 @@ int	*go_player(char **map_matrix)
 				break ;
 			x++;
 		}
+		if (map_matrix[y][x] == 'P')
+			break ;
 		x = 0;
 		y++;
 	}
@@ -37,7 +39,7 @@ int	*go_player(char **map_matrix)
 	return (count);
 }
 
-int	*flood(int *count, char **map, int *player)
+static int	*flood(int *count, char **map, int *player)
 {
 	int	x;
 	int	y;
@@ -55,8 +57,8 @@ int	*flood(int *count, char **map, int *player)
 			y++;
 		else if (map[y][x + 1] != '1')
 			x++;
-		else 
-			break;
+		else
+			break ;
 		if (map[y][x] == 'C')
 			count[0]++;
 		else if (map[y][x] == 'E')
@@ -81,12 +83,11 @@ int	check_path(char **map, int coins)
 	free(player);
 	return (result);
 }
-
+/*
 int	main(void)
 {
-	char **map = create_matrix("maps/test.ber");
+char **map = create_matrix("maps/test.ber");
 	int i = check_path(map, 2);
 	ft_printf("%i\n", i);
 	free(map);
-}
-
+}*/
