@@ -12,7 +12,7 @@
 
 ###Files###
 
-SRCS = handle_inputs.c so_long.c create_matrix.c 
+SRCS = handle_inputs.c so_long.c create_matrix.c check_map.c map_dim.c check_path.c
 
 #BONUS_SRCS =
 
@@ -34,7 +34,7 @@ LIB_NAME = so_long.a
 
 RM = rm -rf
 AR = ar rcs
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -g -Wall -Werror -Wextra
 MAKEE = make -s extra
 
 #OBJS_ALL = $(OBJS) $(BONUS_OBJS)
@@ -54,7 +54,7 @@ $(LIBFT_ARC): $(LIBFT_PATH)
 	@$(MAKEE) -C $(LIBFT_PATH)
 
 $(LIB_NAME): $(BUILD_PATH) $(OBJS)
-	$(AR) $(LIB_NAME) $(OBJS) $(LIBFT_OBJS)/*.o
+	@$(AR) $(LIB_NAME) $(OBJS) $(LIBFT_OBJS)/*.o
 
 $(BUILD_PATH)/%.o: %.c
 	@cc $(CFLAGS) -I/usr/include -Iminilibx-linux -o $@ -c $<
@@ -94,7 +94,7 @@ re: fclean all
 #
 # Run the following command to get list of available colors
 # bash -c 'for c in {0..255}; do tput setaf $c; tput setaf $c | cat -v; echo =$c; done'
-#
+
 B  		= $(shell tput bold)
 BLA		= $(shell tput setaf 0)
 RED		= $(shell tput setaf 1)

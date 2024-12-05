@@ -12,82 +12,71 @@
 
 #include "so_long.h"
 
-static int	*go_player(char **map_matrix)
+counter	go_player(char **map_matrix, counter player)
 {
-	int	x;
-	int	y;
-	int	*count;
-
-	count = ft_calloc(2, sizeof(int));
-	y = 0;
-	x = 0;
-	while (map_matrix[y])
+	while (map_matrix[player.y])
 	{
-		while (map_matrix[y][x])
+		while (map_matrix[player.y][player.x])
 		{
-			if (map_matrix[y][x] == 'P')
+			if (map_matrix[player.y][player.x] == 'P')
 				break ;
-			x++;
+			player.x++;
 		}
-		if (map_matrix[y][x] == 'P')
+		if (map_matrix[player.y][player.x] == 'P')
 			break ;
-		x = 0;
-		y++;
+		player.x = 0;
+		player.y++;
 	}
-	count[0] = y;
-	count[1] = x;
+	return (player);
+}
+
+counter	fill(char **map, counter count, counter player, counter size)
+{
+	if (player.y < 0 || player.y >= size.y || player.x < 0 \
+		|| player.x >= size.x || map[player.y][player.x] == '1')
+		return (count);
+	if (map[player.y][player.x] == 'C')
+		count.x++;
+	else if (map[player.y][player.x] == 'E')
+		count.y++;
+	map[player.y][player.x] = '1';
+	count = fill(map, count, (counter){player.x - 1, player.y}, size);
+	count = fill(map, count, (counter){player.x + 1, player.y}, size);
+	count = fill(map, count, (counter){player.x, player.y - 1}, size);
+	count = fill(map, count, (counter){player.x, player.y + 1}, size);
 	return (count);
 }
 
-static int	*flood(int *count, char **map, int *player)
+counter	flood_fill(char **map, counter count, counter player, counter size)
 {
-	int	x;
-	int	y;
-
-	x = player[1];
-	y = player[0];
-	while (1)
-	{
-		map[y][x] = '1';
-		if (map[y - 1][x] != '1')
-			y--;
-		else if (map[y][x - 1] != '1')
-			x--;
-		else if (map[y + 1][x] != '1')
-			y++;
-		else if (map[y][x + 1] != '1')
-			x++;
-		else
-			break ;
-		if (map[y][x] == 'C')
-			count[0]++;
-		else if (map[y][x] == 'E')
-			count[1]++;
-	}
+	count = fill(map, count, player, size);
 	return (count);
 }
 
 int	check_path(char **map, int coins)
 {
-	int	*player;
-	int	*count;
-	int	result;
+	counter	player;
+	counter	count;
+	counter	size;
+	int		result;
 
-	count = ft_calloc(2, sizeof(int));
 	result = 0;
-	player = go_player(map);
-	count = flood(count, map, player);
-	if (count[0] != coins || count[1] != 1)
-		result = 1;
-	free(count);
-	free(player);
+	player.x = 0;
+	player.y = 0;
+	count.x = 0;
+	count.y = 0;
+	size = map_dim(map);
+	player = go_player(map, player);
+	count = flood_fill(map, count, player, size);
+	if (count.x != coins || count.y != 1)
+		result = -1;
 	return (result);
 }
 /*
 int	main(void)
 {
-char **map = create_matrix("maps/test.ber");
+	char **map = create_matrix(".ber");
 	int i = check_path(map, 2);
 	ft_printf("%i\n", i);
-	free(map);
+	matrix_free(map);
 }*/

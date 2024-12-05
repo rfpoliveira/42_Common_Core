@@ -18,16 +18,16 @@ static int	check_map_line(char *s)
 
 	i = 0;
 	if (s[i++] != '1')
-		return (1);
+		return (-1);
 	while (s[i])
 	{
 		if (!(s[i] < '1' || s[i] != '0' || s[i] != 'E' \
 			|| s[i] != 'P' || s[i] != 'C'))
-			return (1);
+			return (-1);
 		i++;
 	}
 	if (s[i - 2] != '1')
-		return (1);
+		return (-1);
 	return (0);
 }
 
@@ -39,7 +39,7 @@ static int	check_map_topbot(char *s)
 	while (s[i])
 	{
 		if (s[i] != '1' && s[i] != '\n' && s[i] != '\0')
-			return (1);
+			return (-1);
 		i++;
 	}
 	return (0);
@@ -67,37 +67,47 @@ static int	check_count(char **map_matrix)
 		j = 0;
 		i++;
 	}
-	if (count % 10 != 2)
-		return (1);
-	if (count / 10 < 1)
-		return (1);
+	if (count % 10 != 2 || count / 10 < 1)
+		return (-1);
+	return (count / 10);
+}
+
+static int check_map_util(char **map_matrix, int height, int i, int coins)
+{
+	while (i < height)
+	{
+		if (check_map_line(map_matrix[i]) == -1)
+			return (-1);
+		i++;
+	}
+	coins = check_count(map_matrix);
+	if (check_map_topbot(map_matrix[0]) == -1 \
+		|| check_map_topbot(map_matrix[height - 1]) == -1 \
+		|| check_count(map_matrix) == -1 || check_path(map_matrix, coins) == -1)
+		return (-1);
 	return (0);
 }
 
-int	check_map(char **map_matrix)
+int	check_map(char *map)
 {
 	int	i;
 	int	height;
+	int	coins;
+	char **map_matrix;
 
+	map_matrix = create_matrix(map);
 	i = 1;
 	height = 0;
+	coins = 0;
 	while (map_matrix[height])
 	{
-		if (ft_strlen(map_matrix[height]) != ft_strlen(map_matrix[0]))
-			return (1);
+		if (ft_strlen(map_matrix[height]) != ft_strlen(map_matrix[0]) || ft_strlen(map_matrix[0]) == 0)
+			return (matrix_free(map_matrix), -1);
 		height++;
 	}
-	while (i < height)
-	{
-		if (check_map_line(map_matrix[i]) == 1)
-			return (1);
-		i++;
-	}
-	if (check_map_topbot(map_matrix[0]) == 1 \
-		|| check_map_topbot(map_matrix[height - 1]) == 1 \
-		|| check_count(map_matrix) == 1 || check_path(map_matrix) == 1)
-		return (1);
-	return (0);
+	if (check_map_util(map_matrix, height, i, coins) == -1)
+		return (matrix_free(map_matrix), -1);
+	return (matrix_free(map_matrix), 0);
 }
 /*
 int main (int argc, char **argv)
@@ -112,5 +122,5 @@ int main (int argc, char **argv)
 		j++;
 	}
 	free(maps);
-	ft_printf("%i", i);
+	ft_printf("%i\n", i);
 }*/
