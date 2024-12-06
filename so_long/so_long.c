@@ -27,6 +27,8 @@
 static int  create_window()
 {
 	t_vars	vars;
+	int	img_width;
+	int img_height;
 
 	vars.local.y = 100;
 	vars.local.x = 100;
@@ -41,7 +43,8 @@ static int  create_window()
 		return (1);
 	}
 //	mlx_loop_hook(vars.mlx, render, &vars);
-	//mlx_put_image_to_window(vars.mlx, vars.win, img.player_up, local.y, local.x);
+	vars.img->player_left = mlx_xpm_file_to_image(vars.mlx, "./assets/player_left.xpm", &img_width, &img_height);	
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.img->player_left, vars.local.y, vars.local.x);
 	mlx_hook(vars.win, 2, 1L<<0, handle_input, &vars);
 	mlx_loop(vars.mlx);
 	return (0);

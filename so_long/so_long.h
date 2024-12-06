@@ -24,9 +24,6 @@
 
 // macros
 
-#define HEIGHT 640
-#define WIDTH 320
-
 // custom structs
 
 typedef struct s_img {
@@ -34,7 +31,13 @@ typedef struct s_img {
 	void  *player_down;
 	void  *player_right;
 	void  *player_left;
-
+	void  *token;
+	void  *bg;
+	void  *wall;
+	void  *exit_c;
+	void  *exit_o;
+	int	  img_h;
+	int	  img_w;
 }			   t_img;
 
 typedef struct v_counter {
@@ -42,10 +45,16 @@ typedef struct v_counter {
 	int	y;
 }			   counter;
 
+typedef struct v_map {
+	counter dim;
+	char	**matrix;
+	char	*map_path;
+}			   t_map;
 typedef struct s_vars {
 	void	*mlx;
 	void	*win;
 	t_img	*img;
+	t_map	*map;
 	counter	local;
 }			   t_vars;
 

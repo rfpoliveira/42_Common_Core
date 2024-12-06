@@ -23,25 +23,26 @@ OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 NAME = so_long
 
 MLX_PATH = minilibx-linux
-
 LIBFT_PATH = libft
 LIBFT_ARC = libft/libft.a
 LIBFT_OBJS = libft/.build
 BUILD_PATH = .build_so_long
 
 LIB_NAME = so_long.a
+
 ###ALIAS###
 
 RM = rm -rf
 AR = ar rcs
 CFLAGS = -g -Wall -Werror -Wextra
 MAKEE = make -s extra
+MAKE = make -s
 
 #OBJS_ALL = $(OBJS) $(BONUS_OBJS)
 
 ###Rules###
 
-all: deps  $(LIBFT_ARC) $(LIB_NAME) $(NAME)
+all: deps minilibx $(LIBFT_ARC) $(MLX_ARC) $(LIB_NAME) $(NAME)
 
 $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
@@ -50,10 +51,13 @@ $(NAME): $(LIB_NAME) $(OBJS)
 	@cc $(CFLAGS) $(LIBFT_ARC) $(LIB_NAME) -L$(MLX_PATH) -lmlx_Linux -Lusr/lib -Iminilibx-linux -lXext -lX11 -lm -lz -o $(NAME)
 	@echo "$(GRN)[so_long created, GLHF!]$(D)"
 
+$(MLX_ARC): $(MLX_PATH)
+	@$(MAKE) -C $(MLX_PATH)
+
 $(LIBFT_ARC): $(LIBFT_PATH)
 	@$(MAKEE) -C $(LIBFT_PATH)
 
-$(LIB_NAME): $(BUILD_PATH) $(OBJS)
+$(LIB_NAME): $(BUILD_PATH) $(MLX_ARC) $(OBJS)
 	@$(AR) $(LIB_NAME) $(OBJS) $(LIBFT_OBJS)/*.o
 
 $(BUILD_PATH)/%.o: %.c
@@ -68,6 +72,15 @@ get_libft:
 	git clone git@github.com:rfpoliveira/42_Libft.git $(LIBFT_PATH)
 	@echo "$(CYA)[Libft successfully downloaded]$(D)"
 
+minilibx: 			## Download/Update minilibx
+	@if test ! -d "$(MLX_PATH)"; then make -s get_minilibx; \
+		else echo "$(GRN)[Minilibx folder found]$(D)"; fi
+
+get_minilibx:
+	@echo "[$(MAG)Downloading Minilibx$(D)]"
+	git clone git@github.com:42Paris/minilibx-linux.git $(MLX_PATH)
+	@echo "$(MAG)[Minilibx successfully downloaded]$(D)"
+
 clean: 
 	@$(RM) $(BUILD_PATH)
 	@echo "$(BCYA)[clean] Objects removed$(D)"
@@ -76,7 +89,8 @@ fclean: clean
 	@$(RM) $(NAME)
 	@$(RM) $(LIB_NAME)
 	@$(RM) $(LIBFT_PATH)
-	@echo "$(BCYA)[fclean] Archive and Libft removed$(D)"
+	@$(RM) $(MLX_PATH)
+	@echo "$(BCYA)[fclean] Archive, Libft and Minilibx removed$(D)"
 
 again: clean
 	@echo "$(BCYA)[rebuilding...]$(D)"
