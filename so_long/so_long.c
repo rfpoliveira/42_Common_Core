@@ -12,44 +12,6 @@
 
 #include "so_long.h"
 
-/*static int	render(t_vars vars, int *local)
-{
-	int img_width;
-	int	img_height;
-
-	img_width = 1;
-	img_height = 1;
-	vars.img = mlx_xpm_file_to_image(vars.mlx, "./assets/1.xpm", &img_width, &img_height);
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, local.y, local.x);
-	return (0);
-}
-*/
-static int  create_window()
-{
-	t_vars	vars;
-	int	img_width;
-	int img_height;
-
-	vars.local.y = 100;
-	vars.local.x = 100;
-	vars.mlx = mlx_init();
-	if (!vars.mlx)
-		return (1);
-	vars.win = mlx_new_window(vars.mlx, HEIGHT, WIDTH, "so_long");
-	if (!vars.win)
-	{
-		mlx_destroy_display(vars.mlx);
-		free(vars.mlx);
-		return (1);
-	}
-//	mlx_loop_hook(vars.mlx, render, &vars);
-	vars.img->player_left = mlx_xpm_file_to_image(vars.mlx, "./assets/player_left.xpm", &img_width, &img_height);	
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.img->player_left, vars.local.y, vars.local.x);
-	mlx_hook(vars.win, 2, 1L<<0, handle_input, &vars);
-	mlx_loop(vars.mlx);
-	return (0);
-}
-
 int check_file(char *map)
 {
 	int	fd;
@@ -69,14 +31,20 @@ int check_file(char *map)
 
 int	main(int argc, char **argv)
 {
+	t_vars vars;
+
 	if (argc != 2 || check_file(argv[1]) == -1)
 	{
 		ft_printf("Error\nInvalid arguments or file\n");
 		return (0);
 	}
 	if (check_map(argv[1]) != -1)
-		create_window();
+	{
+		game_init(&vars, argv[1]);
+		handle_input(&vars);
+		mlx_loop(vars.mlx);
+	}
 	else
-		ft_printf("Error\nInvalid Map\n");
+		ft_printf("Error\nInvalid Ma, argv[1]\n");
 	return (0);	
 }

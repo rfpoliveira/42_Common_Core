@@ -12,7 +12,8 @@
 
 ###Files###
 
-SRCS = handle_inputs.c so_long.c create_matrix.c check_map.c map_dim.c check_path.c
+SRCS = handle_inputs.c so_long.c create_matrix.c check_map.c map_dim.c check_path.c \
+			 ft_exit.c draw_map.c game_ini.c
 
 #BONUS_SRCS =
 

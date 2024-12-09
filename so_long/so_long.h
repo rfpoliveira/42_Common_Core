@@ -17,9 +17,6 @@
 
 #include "minilibx-linux/mlx.h"
 #include <X11/keysym.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include "libft/libft.h"
 
 // macros
@@ -45,25 +42,24 @@ typedef struct v_counter {
 	int	y;
 }			   counter;
 
-typedef struct v_map {
-	counter dim;
-	char	**matrix;
-	char	*map_path;
-}			   t_map;
 typedef struct s_vars {
 	void	*mlx;
 	void	*win;
 	t_img	*img;
-	t_map	*map;
+	char	**matrix;
+	counter	dim;
 	counter	local;
 }			   t_vars;
 
 // functions
 
-int		handle_input(int keycode, t_vars *vars);
+void	  handle_input(t_vars *vars);
 int		check_map(char *map_matrix);
 char	**create_matrix(char *map);
 counter	map_dim(char **map);
 int		check_path(char **map, int coins);
+void	draw_map(t_vars *vars);
+void	game_init(t_vars *vars, char *path);
+int		ft_exit(t_vars *vars);
 
 #endif

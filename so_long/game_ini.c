@@ -12,43 +12,54 @@
 
 #include "so_long.h"
 
-static void img_ini (t_vars *vars)
+void img_ini (t_vars *vars)
 {
 	vars->img->player_up = mlx_xpm_file_to_image
-		(vars->mlx, "assests/images/player_up.xpm", &vars->img->img_w, &vars->img->img_h);
+		(vars->mlx, "assets/images/player_up.xpm", &vars->img->img_w, &vars->img->img_h);
 	vars->img->player_down = mlx_xpm_file_to_image
-		(vars->mlx, "assests/images/player_down.xpm", &vars->img->img_w, &vars->img->img_h);
+		(vars->mlx, "assets/images/player_down.xpm", &vars->img->img_w, &vars->img->img_h);
 	vars->img->player_left = mlx_xpm_file_to_image
-		(vars->mlx, "assests/images/player_left.xpm", &vars->img->img_w, &vars->img->img_h);
+		(vars->mlx, "assets/images/player_left.xpm", &vars->img->img_w, &vars->img->img_h);
 	vars->img->player_right = mlx_xpm_file_to_image
-		(vars->mlx, "assests/images/player_right.xpm", &vars->img->img_w, &vars->img->img_h);
+		(vars->mlx, "assets/images/player_right.xpm", &vars->img->img_w, &vars->img->img_h);
 	vars->img->bg = mlx_xpm_file_to_image
-		(vars->mlx, "assests/images/bg.xpm", &vars->img->img_w, &vars->img->img_h);
+		(vars->mlx, "assets/images/bg.xpm", &vars->img->img_w, &vars->img->img_h);
 	vars->img->token = mlx_xpm_file_to_image
-		(vars->mlx, "assests/images/token.xpm", &vars->img->img_w, &vars->img->img_h);
+		(vars->mlx, "assets/images/token.xpm", &vars->img->img_w, &vars->img->img_h);
 	vars->img->wall = mlx_xpm_file_to_image
-		(vars->mlx, "assests/images/wall.xpm", &vars->img->img_w, &vars->img->img_h);
+		(vars->mlx, "assets/images/wall.xpm", &vars->img->img_w, &vars->img->img_h);
 	vars->img->exit_c = mlx_xpm_file_to_image
-		(vars->mlx, "assests/images/ex.xpm", &vars->img->img_w, &vars->img->img_h);
+		(vars->mlx, "assets/images/exit_c.xpm", &vars->img->img_w, &vars->img->img_h);
 	vars->img->exit_o = mlx_xpm_file_to_image
-		(vars->mlx, "assests/images/exit_o.xpm", &vars->img->img_w, &vars->img->img_h);
+		(vars->mlx, "assets/images/exit_o.xpm", &vars->img->img_w, &vars->img->img_h);
+	/*if (!(vars->img->player_up) || !(vars->img->player_down) || \
+		!(vars->img->player_left) || !(vars->img->player_right) || \
+		!(vars->img->bg) || !(vars->img->token) || !(vars->img->wall) || \
+		!(vars->img->exit_c) || !(vars->img->exit_o))
+			ft_exit(vars);*/
 }
 
-static void win_ini (t_vars *vars)
+void win_ini (t_vars *vars, char *path)
 {
-	counter dimentions;
+	counter dimensions;
 
-	map->matrix = create_matrix(map_path);
-	dimensions = map_dim(map->matrix);
-	vars->map->dim.y = dimensions.y * 32;
-	vars->map->dim.x = dimensions.x * 32;
+	vars->matrix = create_matrix(path);
+	if (!(vars->matrix))
+		ft_exit(vars);
+	dimensions = map_dim(vars->matrix);
+	vars->dim.y = dimensions.y * 32;
+	vars->dim.x = dimensions.x * 32;
+	vars->win = mlx_new_window(vars->mlx, vars->dim.y, vars->dim.x, "so_long");
+		if (!(vars->win))
+			ft_exit(vars);
 }
 
-void  game_init(t_vars *vars)
+void  game_init(t_vars *vars, char *path)
 {
 	vars->mlx = mlx_init();
-	win_ini(vars);
-	vars->win = mlx_new_window(vars->mlx, vars->map->dim.y, vars->map->dim.x, "so_long");
+	if (!(vars->mlx))
+		ft_exit(vars);
+	win_ini(vars, path);
 	img_ini(vars);
 	draw_map(vars);
 }

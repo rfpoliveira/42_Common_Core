@@ -38,7 +38,7 @@ char	**create_matrix(char *map)
 	int		i;
 
 	i = get_height(map);
-	save = ft_calloc(i + 1, sizeof(char *));
+	save = ft_calloc(i + 1, sizeof(char **));
 	i = 1;
 	fd = open(map, O_RDONLY);
 	save[0] = get_next_line(fd);
