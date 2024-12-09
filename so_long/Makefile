@@ -54,7 +54,7 @@ $(NAME): $(LIB_NAME) $(OBJS)
 dominilibx: $(MLX_PATH)
 	@echo "$(MAG)[Compiling minilibx ...]$(D)"
 	@make -sC $(MLX_PATH)
-	@echo "$(MAG)[Minilibx compiled!]$(D)"
+	@echo "$(MAG)[Minilibx successfully compiled!]$(D)"
 
 $(LIBFT_ARC): $(LIBFT_PATH)
 	@$(MAKEE) -C $(LIBFT_PATH)
