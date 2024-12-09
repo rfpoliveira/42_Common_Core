@@ -37,13 +37,12 @@ RM = rm -rf
 AR = ar rcs
 CFLAGS = -g -Wall -Werror -Wextra
 MAKEE = make -s extra
-MAKE = make -s
 
 #OBJS_ALL = $(OBJS) $(BONUS_OBJS)
 
 ###Rules###
 
-all: deps minilibx $(LIBFT_ARC) $(MLX_ARC) $(LIB_NAME) $(NAME)
+all: deps $(LIBFT_ARC) $(LIB_NAME) $(NAME)
 
 $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
@@ -52,8 +51,10 @@ $(NAME): $(LIB_NAME) $(OBJS)
 	@cc $(CFLAGS) $(LIBFT_ARC) $(LIB_NAME) -L$(MLX_PATH) -lmlx_Linux -Lusr/lib -Iminilibx-linux -lXext -lX11 -lm -lz -o $(NAME)
 	@echo "$(GRN)[so_long created, GLHF!]$(D)"
 
-$(MLX_ARC): $(MLX_PATH)
-	@$(MAKE) -C $(MLX_PATH)
+dominilibx: $(MLX_PATH)
+	@echo "$(MAG)[Compiling minilibx ...]$(D)"
+	@make -sC $(MLX_PATH)
+	@echo "$(MAG)[Minilibx compiled!]$(D)"
 
 $(LIBFT_ARC): $(LIBFT_PATH)
 	@$(MAKEE) -C $(LIBFT_PATH)
@@ -64,18 +65,18 @@ $(LIB_NAME): $(BUILD_PATH) $(MLX_ARC) $(OBJS)
 $(BUILD_PATH)/%.o: %.c
 	@cc $(CFLAGS) -I/usr/include -Iminilibx-linux -o $@ -c $<
 
-deps:			## Download/Update libft
+deps:	## Download/Update libft
 	@if test ! -d "$(LIBFT_PATH)"; then make -s get_libft; \
 		else echo "$(GRN)[Libft folder found]$(D)"; fi
+	@if test ! -d "$(MLX_PATH)"; then make -s get_minilibx; \
+		else echo "$(MAG)[Minilibx folder found]$(D)"; fi
+	@if test ! -d "$(MLX_PATH)/obj"; then make -s dominilibx; \
+		else echo "$(GRN)[All folders found. No relink!]$(D)"; fi
 
 get_libft:
 	@echo "[$(CYA)Downloading Libft$(D)]"
 	git clone git@github.com:rfpoliveira/42_Libft.git $(LIBFT_PATH)
 	@echo "$(CYA)[Libft successfully downloaded]$(D)"
-
-minilibx: 			## Download/Update minilibx
-	@if test ! -d "$(MLX_PATH)"; then make -s get_minilibx; \
-		else echo "$(GRN)[Minilibx folder found]$(D)"; fi
 
 get_minilibx:
 	@echo "[$(MAG)Downloading Minilibx$(D)]"
