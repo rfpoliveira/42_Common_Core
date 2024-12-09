@@ -53,22 +53,21 @@ counter	flood_fill(char **map, counter count, counter player, counter size)
 	return (count);
 }
 
-int	check_path(char **map, int coins)
+int	check_path(char **map, t_vars *vars)
 {
-	counter	player;
 	counter	count;
 	counter	size;
 	int		result;
 
 	result = 0;
-	player.x = 0;
-	player.y = 0;
+	vars->player.x = 0;
+	vars->player.y = 0;
 	count.x = 0;
 	count.y = 0;
 	size = map_dim(map);
-	player = go_player(map, player);
-	count = flood_fill(map, count, player, size);
-	if (count.x != coins || count.y != 1)
+	vars->player = go_player(map, vars->player);
+	count = flood_fill(map, count, vars->player, size);
+	if (count.x != vars->coins || count.y != 1)
 		result = -1;
 	return (result);
 }

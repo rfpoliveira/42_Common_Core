@@ -55,8 +55,6 @@ void  game_init(t_vars *vars, char *path)
 		ft_exit(vars);
 	win_ini(vars, path);
 	vars->moves = 0;
-	vars->player.x = 0;
-	vars->player.y = 0;
 	img_ini(vars);
 	draw_map(vars);
 }

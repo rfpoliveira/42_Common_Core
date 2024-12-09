@@ -56,7 +56,7 @@ void	  handle_input(t_vars *vars);
 int		check_map(char *map_matrix, t_vars *vars);
 char	**create_matrix(char *map);
 counter	map_dim(char **map);
-int		check_path(char **map, int coins);
+int		check_path(char **map, t_vars *vars);
 int		draw_map(t_vars *vars);
 void	game_init(t_vars *vars, char *path);
 int		ft_exit(t_vars *vars);

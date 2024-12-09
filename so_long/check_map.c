@@ -83,7 +83,7 @@ static int check_map_util(char **map_matrix, int height, int i, t_vars *vars)
 	vars->coins = check_count(map_matrix);
 	if (check_map_topbot(map_matrix[0]) == -1 \
 		|| check_map_topbot(map_matrix[height - 1]) == -1 \
-		|| check_count(map_matrix) == -1 || check_path(map_matrix, vars->coins) == -1)
+		|| check_count(map_matrix) == -1 || check_path(map_matrix, vars) == -1)
 		return (-1);
 	return (0);
 }

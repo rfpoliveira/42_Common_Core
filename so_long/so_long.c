@@ -45,6 +45,6 @@ int	main(int argc, char **argv)
 		mlx_loop(vars.mlx);
 	}
 	else
-		ft_printf("Error\nInvalid Ma, argv[1]\n");
+		ft_printf("Error\nInvalid Map\n");
 	return (0);	
 }
