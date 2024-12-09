@@ -17,7 +17,14 @@ static void draw(t_vars *vars, void *img, int y, int x)
 	mlx_put_image_to_window(vars->mlx, vars->win, img, y * 32, x * 32);
 }
 
-void draw_map(t_vars *vars)
+/*static void draw_player(t_vars *vars, void *img, int y, int x)
+{
+	vars->player.x = x;
+	vars->player.y = y;
+	draw(vars, img, x, y);
+}*/
+
+int draw_map(t_vars *vars)
 {
 	int	y;
 	int	x;
@@ -33,7 +40,7 @@ void draw_map(t_vars *vars)
 			else if (vars->matrix[y][x] == '0')
 				draw(vars, vars->img->bg, y, x);
 			else if (vars->matrix[y][x] == 'P')
-				draw(vars, vars->img->player_left, y, x);
+				draw(vars, vars->img->player, y, x);
 			else if (vars->matrix[y][x] == 'E')
 				draw(vars, vars->img->exit_c, x, y);
 			else if (vars->matrix[y][x] == 'C')
@@ -43,4 +50,5 @@ void draw_map(t_vars *vars)
 		x = 0;
 		y++;
 	}
+	return (0);
 }

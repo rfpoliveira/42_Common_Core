@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 		ft_printf("Error\nInvalid arguments or file\n");
 		return (0);
 	}
-	if (check_map(argv[1]) != -1)
+	if (check_map(argv[1], &vars) != -1)
 	{
 		game_init(&vars, argv[1]);
 		handle_input(&vars);

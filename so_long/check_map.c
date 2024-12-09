@@ -72,7 +72,7 @@ static int	check_count(char **map_matrix)
 	return (count / 10);
 }
 
-static int check_map_util(char **map_matrix, int height, int i, int coins)
+static int check_map_util(char **map_matrix, int height, int i, t_vars *vars)
 {
 	while (i < height)
 	{
@@ -80,32 +80,31 @@ static int check_map_util(char **map_matrix, int height, int i, int coins)
 			return (-1);
 		i++;
 	}
-	coins = check_count(map_matrix);
+	vars->coins = check_count(map_matrix);
 	if (check_map_topbot(map_matrix[0]) == -1 \
 		|| check_map_topbot(map_matrix[height - 1]) == -1 \
-		|| check_count(map_matrix) == -1 || check_path(map_matrix, coins) == -1)
+		|| check_count(map_matrix) == -1 || check_path(map_matrix, vars->coins) == -1)
 		return (-1);
 	return (0);
 }
 
-int	check_map(char *map)
+int	check_map(char *map, t_vars *vars)
 {
 	int	i;
 	int	height;
-	int	coins;
 	char **map_matrix;
 
 	map_matrix = create_matrix(map);
 	i = 1;
 	height = 0;
-	coins = 0;
+	vars->coins = 0;
 	while (map_matrix[height])
 	{
 		if (ft_strlen(map_matrix[height]) != ft_strlen(map_matrix[0]) || ft_strlen(map_matrix[0]) == 0)
 			return (matrix_free(map_matrix), -1);
 		height++;
 	}
-	if (check_map_util(map_matrix, height, i, coins) == -1)
+	if (check_map_util(map_matrix, height, i, vars) == -1)
 		return (matrix_free(map_matrix), -1);
 	return (matrix_free(map_matrix), 0);
 }

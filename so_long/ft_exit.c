@@ -15,10 +15,7 @@
 int ft_exit(t_vars *vars)
 {
 	matrix_free(vars->matrix);
-	mlx_destroy_image(vars->mlx, vars->img->player_up);
-	mlx_destroy_image(vars->mlx, vars->img->player_down);
-	mlx_destroy_image(vars->mlx, vars->img->player_right);
-	mlx_destroy_image(vars->mlx, vars->img->player_left);
+	mlx_destroy_image(vars->mlx, vars->img->player);
 	mlx_destroy_image(vars->mlx, vars->img->bg);
 	mlx_destroy_image(vars->mlx, vars->img->token);
 	mlx_destroy_image(vars->mlx, vars->img->wall);

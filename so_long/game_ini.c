@@ -14,14 +14,8 @@
 
 void img_ini (t_vars *vars)
 {
-	vars->img->player_up = mlx_xpm_file_to_image
-		(vars->mlx, "assets/images/player_up.xpm", &vars->img->img_w, &vars->img->img_h);
-	vars->img->player_down = mlx_xpm_file_to_image
-		(vars->mlx, "assets/images/player_down.xpm", &vars->img->img_w, &vars->img->img_h);
-	vars->img->player_left = mlx_xpm_file_to_image
-		(vars->mlx, "assets/images/player_left.xpm", &vars->img->img_w, &vars->img->img_h);
-	vars->img->player_right = mlx_xpm_file_to_image
-		(vars->mlx, "assets/images/player_right.xpm", &vars->img->img_w, &vars->img->img_h);
+	vars->img->player = mlx_xpm_file_to_image
+		(vars->mlx, "assets/images/pl.xpm", &vars->img->img_w, &vars->img->img_h);
 	vars->img->bg = mlx_xpm_file_to_image
 		(vars->mlx, "assets/images/bg.xpm", &vars->img->img_w, &vars->img->img_h);
 	vars->img->token = mlx_xpm_file_to_image
@@ -60,6 +54,7 @@ void  game_init(t_vars *vars, char *path)
 	if (!(vars->mlx))
 		ft_exit(vars);
 	win_ini(vars, path);
+	vars->moves = 0;
 	img_ini(vars);
 	draw_map(vars);
 }

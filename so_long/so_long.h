@@ -24,10 +24,7 @@
 // custom structs
 
 typedef struct s_img {
-	void  *player_up;
-	void  *player_down;
-	void  *player_right;
-	void  *player_left;
+	void  *player;
 	void  *token;
 	void  *bg;
 	void  *wall;
@@ -48,18 +45,25 @@ typedef struct s_vars {
 	t_img	*img;
 	char	**matrix;
 	counter	dim;
-	counter	local;
+	counter	player;
+	int		coins;
+	int		moves;
 }			   t_vars;
 
 // functions
 
 void	  handle_input(t_vars *vars);
-int		check_map(char *map_matrix);
+int		check_map(char *map_matrix, t_vars *vars);
 char	**create_matrix(char *map);
 counter	map_dim(char **map);
 int		check_path(char **map, int coins);
-void	draw_map(t_vars *vars);
+int		draw_map(t_vars *vars);
 void	game_init(t_vars *vars, char *path);
 int		ft_exit(t_vars *vars);
+void	hit_W(t_vars *vars);
+void	hit_S(t_vars *vars);
+void	hit_A(t_vars *vars);
+void	hit_D(t_vars *vars);
+void	handle_input(t_vars *vars);
 
 #endif
