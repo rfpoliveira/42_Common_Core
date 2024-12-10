@@ -17,14 +17,11 @@ static void update_player(char key, t_vars *vars)
 	mlx_destroy_image(vars->mlx, vars->img.player);
 	if (key == 'w')
 		vars->img.player = mlx_xpm_file_to_image
-			(vars->mlx, "assets/images/pu.xpm", &vars->img_w, &vars->img_h);
-	if (key == 's')
-		vars->img.player = mlx_xpm_file_to_image
-			(vars->mlx, "assets/images/pd.xpm", &vars->img_w, &vars->img_h);
+			(vars->mlx, "assets/images/pb.xpm", &vars->img_w, &vars->img_h);
 	if (key == 'd')
 		vars->img.player = mlx_xpm_file_to_image
 			(vars->mlx, "assets/images/pr.xpm", &vars->img_w, &vars->img_h);
-	if (key == 'a')
+	if (key == 'a' || key == 's')
 		vars->img.player = mlx_xpm_file_to_image
 			(vars->mlx, "assets/images/pl.xpm", &vars->img_w, &vars->img_h);
 }
