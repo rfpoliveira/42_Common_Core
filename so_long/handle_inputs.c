@@ -53,7 +53,7 @@ static int keystroke (int keycode, t_vars *vars)
 void handle_input(t_vars *vars)
 {
 	mlx_hook(vars->win, 2, 1L << 0, keystroke, vars);
-	mlx_hook(vars->win, 9, 1L << 21, draw_map, vars);
+	//mlx_hook(vars->win, 9, 1L << 21, draw_map, vars);
 	mlx_hook(vars->win, 17, 1L << 17, ft_exit, vars);
 }
 
