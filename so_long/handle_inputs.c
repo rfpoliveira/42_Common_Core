@@ -14,6 +14,11 @@
 
 static void movement (int keycode, t_vars *vars)
 {
+	if (vars->endgame == 1 && vars->matrix[vars->player.y][vars->player.x] == 'F')
+	{
+		ft_printf("YOU WIN! Total moves: %i\nThanks for playing!\n", vars->moves);
+		ft_exit(vars);
+	}
 	if(keycode == XK_w || keycode == XK_Up)
 	{
 		vars->player.y--;
@@ -41,11 +46,7 @@ static int keystroke (int keycode, t_vars *vars)
 	if (keycode == XK_Escape)
 		ft_exit(vars);
 	else
-	{
 		movement(keycode, vars);
-		ft_printf("Moves: %i\n", vars->moves);
-	}
-		
 	return (0);
 }
 

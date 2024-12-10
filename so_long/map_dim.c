@@ -29,8 +29,13 @@ counter map_dim(char **map)
 int main (void)
 {
 	char** map = create_matrix("maps/test.ber");
-	int *dims = map_dim(map);
-	ft_printf("y: %i, x:%i\n", dims[0], dims[1]);
-	free(dims);
+	counter dim = map_dim(map);
+	ft_printf("y: %i, x:%i\n", dim.y, dim.x);
+	int i = 0;
+	while (map[i])
+	{
+		ft_printf("%s\n", map[i]);
+		i++;
+	}
 	matrix_free(map);
 }*/

@@ -30,8 +30,6 @@ typedef struct s_img {
 	void  *wall;
 	void  *exit_c;
 	void  *exit_o;
-	int	  img_h;
-	int	  img_w;
 }			   t_img;
 
 typedef struct v_counter {
@@ -42,12 +40,15 @@ typedef struct v_counter {
 typedef struct s_vars {
 	void	*mlx;
 	void	*win;
-	t_img	*img;
+	t_img	img;
 	char	**matrix;
 	counter	dim;
 	counter	player;
 	int		coins;
 	int		moves;
+	int		img_h;
+	int		img_w;
+	int		endgame;
 }			   t_vars;
 
 // functions

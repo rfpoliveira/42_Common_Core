@@ -14,21 +14,33 @@
 
 static void draw(t_vars *vars, void *img, int y, int x)
 {
-	mlx_put_image_to_window(vars->mlx, vars->win, img, y * 32, x * 32);
+	mlx_put_image_to_window(vars->mlx, vars->win, img, x * 32, y * 32);
 }
 
-/*static void draw_player(t_vars *vars, void *img, int y, int x)
+static void draw2(t_vars *vars, void *img, int y, int x)
 {
-	vars->player.x = x;
-	vars->player.y = y;
-	draw(vars, img, x, y);
-}*/
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.bg, x * 32, y * 32);
+	mlx_put_image_to_window(vars->mlx, vars->win, img, x * 32, y * 32);
+
+}
+
+static void draw_exit(t_vars *vars, int y, int x)
+{
+	if (vars->coins == 0)
+	{
+		draw2(vars, vars->img.exit_o,y ,x);
+		vars->endgame = 1;
+	}
+	else 
+		draw2(vars, vars->img.exit_c, y, x);
+}
 
 int draw_map(t_vars *vars)
 {
 	int	y;
 	int	x;
 
+	vars->endgame = 0;
 	y = 0,
 	x = 0;
 	while (vars->matrix[y])
@@ -36,15 +48,20 @@ int draw_map(t_vars *vars)
 		while (vars->matrix[y][x])
 		{
 			if (vars->matrix[y][x] == '1')
-				draw(vars, vars->img->wall, y, x);
+				draw(vars, vars->img.wall, y, x);
+			else if (vars->matrix[y][x] == 'F')
+				{
+					draw_exit(vars, y, x);
+					draw(vars, vars->img.player, y, x);
+				}
 			else if (vars->matrix[y][x] == '0')
-				draw(vars, vars->img->bg, y, x);
+				draw(vars, vars->img.bg, y, x);
 			else if (vars->matrix[y][x] == 'P')
-				draw(vars, vars->img->player, y, x);
+				draw2(vars, vars->img.player, y, x);
 			else if (vars->matrix[y][x] == 'E')
-				draw(vars, vars->img->exit_c, x, y);
+				draw_exit(vars, y, x);
 			else if (vars->matrix[y][x] == 'C')
-				draw(vars, vars->img->token, y, x);
+				draw2(vars, vars->img.token, y, x);
 			x++;
 		}
 		x = 0;

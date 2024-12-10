@@ -20,7 +20,7 @@ int check_file(char *map)
 
 	len = ft_strlen(map);
 	if (map[len - 1] != 'r' || map[len - 2] != 'e' || map[len - 3] != 'b' \
-		|| map[len - 4] != '.')
+		|| map[len - 4] != '.' || len == 4)
 		return (-1);
 	fd = open(map, O_RDONLY);
 	i = read(fd, 0, 0);

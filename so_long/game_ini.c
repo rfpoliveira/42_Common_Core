@@ -14,18 +14,14 @@
 
 void img_ini (t_vars *vars)
 {
-	vars->img->player = mlx_xpm_file_to_image
-		(vars->mlx, "assets/images/pl.xpm", &vars->img->img_w, &vars->img->img_h);
-	vars->img->bg = mlx_xpm_file_to_image
-		(vars->mlx, "assets/images/bg.xpm", &vars->img->img_w, &vars->img->img_h);
-	vars->img->token = mlx_xpm_file_to_image
-		(vars->mlx, "assets/images/token.xpm", &vars->img->img_w, &vars->img->img_h);
-	vars->img->wall = mlx_xpm_file_to_image
-		(vars->mlx, "assets/images/wall.xpm", &vars->img->img_w, &vars->img->img_h);
-	vars->img->exit_c = mlx_xpm_file_to_image
-		(vars->mlx, "assets/images/exit_c.xpm", &vars->img->img_w, &vars->img->img_h);
-	vars->img->exit_o = mlx_xpm_file_to_image
-		(vars->mlx, "assets/images/exit_o.xpm", &vars->img->img_w, &vars->img->img_h);
+	vars->img_h = 32;
+	vars->img_w = 32;
+	vars->img.player = mlx_xpm_file_to_image(vars->mlx, "assets/images/pl.xpm", &vars->img_w, &vars->img_h);
+	vars->img.bg = mlx_xpm_file_to_image(vars->mlx, "assets/images/bg.xpm", &vars->img_w, &vars->img_h);
+	vars->img.token = mlx_xpm_file_to_image(vars->mlx, "assets/images/token.xpm", &vars->img_w, &vars->img_h);
+	vars->img.wall = mlx_xpm_file_to_image(vars->mlx, "assets/images/wall.xpm", &vars->img_w, &vars->img_h);
+	vars->img.exit_c = mlx_xpm_file_to_image(vars->mlx, "assets/images/exit_c.xpm", &vars->img_w, &vars->img_h);
+	vars->img.exit_o = mlx_xpm_file_to_image(vars->mlx, "assets/images/exit_o.xpm", &vars->img_w, &vars->img_h);
 	/*if (!(vars->img->player_up) || !(vars->img->player_down) || \
 		!(vars->img->player_left) || !(vars->img->player_right) || \
 		!(vars->img->bg) || !(vars->img->token) || !(vars->img->wall) || \
@@ -43,7 +39,7 @@ void win_ini (t_vars *vars, char *path)
 	dimensions = map_dim(vars->matrix);
 	vars->dim.y = dimensions.y * 32;
 	vars->dim.x = dimensions.x * 32;
-	vars->win = mlx_new_window(vars->mlx, vars->dim.y, vars->dim.x, "so_long");
+	vars->win = mlx_new_window(vars->mlx, vars->dim.x, vars->dim.y, "so_long");
 		if (!(vars->win))
 			ft_exit(vars);
 }

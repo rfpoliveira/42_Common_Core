@@ -19,14 +19,17 @@ static int	check_map_line(char *s)
 	i = 0;
 	if (s[i++] != '1')
 		return (-1);
-	while (s[i])
+	while (s[i] != '\n' && s[i])
 	{
-		if (!(s[i] < '1' || s[i] != '0' || s[i] != 'E' \
-			|| s[i] != 'P' || s[i] != 'C'))
+		if (s[i] != '1' && s[i] != '0' && s[i] != 'E' \
+			&& s[i] != 'P' && s[i] != 'C')
 			return (-1);
 		i++;
 	}
-	if (s[i - 2] != '1')
+	i--;
+	if (s[i] == '\n')
+		i--;
+	if (s[i] != '1')
 		return (-1);
 	return (0);
 }

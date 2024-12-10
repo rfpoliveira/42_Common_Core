@@ -14,19 +14,19 @@
 
 static void update_player(char key, t_vars *vars)
 {
-	mlx_destroy_image(vars->mlx, vars->img->player);
+	mlx_destroy_image(vars->mlx, vars->img.player);
 	if (key == 'w')
-		vars->img->player = mlx_xpm_file_to_image
-			(vars->mlx, "assets/images/pu.xpm", &vars->img->img_w, &vars->img->img_h);
+		vars->img.player = mlx_xpm_file_to_image
+			(vars->mlx, "assets/images/pu.xpm", &vars->img_w, &vars->img_h);
 	if (key == 's')
-		vars->img->player = mlx_xpm_file_to_image
-			(vars->mlx, "assets/images/pd.xpm", &vars->img->img_w, &vars->img->img_h);
+		vars->img.player = mlx_xpm_file_to_image
+			(vars->mlx, "assets/images/pd.xpm", &vars->img_w, &vars->img_h);
 	if (key == 'd')
-		vars->img->player = mlx_xpm_file_to_image
-			(vars->mlx, "assets/images/pr.xpm", &vars->img->img_w, &vars->img->img_h);
+		vars->img.player = mlx_xpm_file_to_image
+			(vars->mlx, "assets/images/pr.xpm", &vars->img_w, &vars->img_h);
 	if (key == 'a')
-		vars->img->player = mlx_xpm_file_to_image
-			(vars->mlx, "assets/images/pl.xpm", &vars->img->img_w, &vars->img->img_h);
+		vars->img.player = mlx_xpm_file_to_image
+			(vars->mlx, "assets/images/pl.xpm", &vars->img_w, &vars->img_h);
 }
 
 void hit_W(t_vars *vars)
@@ -39,8 +39,16 @@ void hit_W(t_vars *vars)
 		mlx_clear_window(vars->mlx, vars->win);
 		if (vars->matrix[vars->player.y][vars->player.x] == 'C')
 			vars->coins--;
-		vars->matrix[vars->player.y][vars->player.x] = 'P';
-		vars->matrix[vars->player.y + 1][vars->player.x] = '0';
+		if (vars->matrix[vars->player.y][vars->player.x] == 'E')
+			vars->matrix[vars->player.y][vars->player.x] = 'F';
+		else
+			vars->matrix[vars->player.y][vars->player.x] = 'P';
+		if (vars->matrix[vars->player.y + 1][vars->player.x] == 'F')
+			vars->matrix[vars->player.y + 1][vars->player.x] = 'E';
+		else if	(vars->matrix[vars->player.y + 1][vars->player.x] != '1' || \
+			vars->matrix[vars->player.y + 1][vars->player.x] != 'E')
+			vars->matrix[vars->player.y + 1][vars->player.x] = '0';
+		ft_printf("Moves: %i\n", vars->moves);
 		vars->moves++;
 		draw_map(vars);
 	}
@@ -56,8 +64,16 @@ void hit_S(t_vars *vars)
 		mlx_clear_window(vars->mlx, vars->win);
 		if (vars->matrix[vars->player.y][vars->player.x] == 'C')
 			vars->coins--;
-		vars->matrix[vars->player.y][vars->player.x] = 'P';
-		vars->matrix[vars->player.y - 1][vars->player.x] = '0';
+		if (vars->matrix[vars->player.y][vars->player.x] == 'E')
+			vars->matrix[vars->player.y][vars->player.x] = 'F';
+		else
+			vars->matrix[vars->player.y][vars->player.x] = 'P';
+		if (vars->matrix[vars->player.y - 1][vars->player.x] == 'F')
+			vars->matrix[vars->player.y - 1][vars->player.x] = 'E';
+		else if	(vars->matrix[vars->player.y - 1][vars->player.x] != '1' || \
+			vars->matrix[vars->player.y - 1][vars->player.x] != 'E')
+			vars->matrix[vars->player.y - 1][vars->player.x] = '0';
+		ft_printf("Moves: %i\n", vars->moves);
 		vars->moves++;
 		draw_map(vars);
 	}
@@ -73,8 +89,16 @@ void hit_D(t_vars *vars)
 		mlx_clear_window(vars->mlx, vars->win);
 		if (vars->matrix[vars->player.y][vars->player.x] == 'C')
 			vars->coins--;
-		vars->matrix[vars->player.y][vars->player.x] = 'P';
-		vars->matrix[vars->player.y][vars->player.x - 1] = '0';
+		if (vars->matrix[vars->player.y][vars->player.x] == 'E')
+			vars->matrix[vars->player.y][vars->player.x] = 'F';
+		else
+			vars->matrix[vars->player.y][vars->player.x] = 'P';
+		if (vars->matrix[vars->player.y][vars->player.x - 1] == 'F')
+			vars->matrix[vars->player.y][vars->player.x - 1] = 'E';
+		else if	(vars->matrix[vars->player.y][vars->player.x - 1] != '1' || \
+			vars->matrix[vars->player.y][vars->player.x - 1] != 'E')
+			vars->matrix[vars->player.y][vars->player.x - 1] = '0';
+		ft_printf("Moves: %i\n", vars->moves);
 		vars->moves++;
 		draw_map(vars);
 	}
@@ -90,8 +114,16 @@ void hit_A(t_vars *vars)
 		mlx_clear_window(vars->mlx, vars->win);
 		if (vars->matrix[vars->player.y][vars->player.x] == 'C')
 			vars->coins--;
-		vars->matrix[vars->player.y][vars->player.x] = 'P';
-		vars->matrix[vars->player.y][vars->player.x - 1] = '0';
+		if (vars->matrix[vars->player.y][vars->player.x] == 'E')
+			vars->matrix[vars->player.y][vars->player.x] = 'F';
+		else
+			vars->matrix[vars->player.y][vars->player.x] = 'P';
+		if (vars->matrix[vars->player.y][vars->player.x + 1] == 'F')
+			vars->matrix[vars->player.y][vars->player.x + 1] = 'E';
+		else if	(vars->matrix[vars->player.y][vars->player.x + 1] != '1' || \
+			vars->matrix[vars->player.y][vars->player.x + 1] != 'E')
+			vars->matrix[vars->player.y][vars->player.x + 1] = '0';
+		ft_printf("Moves: %i\n", vars->moves);
 		vars->moves++;
 		draw_map(vars);
 	}

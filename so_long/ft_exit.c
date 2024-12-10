@@ -15,12 +15,14 @@
 int ft_exit(t_vars *vars)
 {
 	matrix_free(vars->matrix);
-	mlx_destroy_image(vars->mlx, vars->img->player);
-	mlx_destroy_image(vars->mlx, vars->img->bg);
-	mlx_destroy_image(vars->mlx, vars->img->token);
-	mlx_destroy_image(vars->mlx, vars->img->wall);
-	mlx_destroy_image(vars->mlx, vars->img->exit_c);
-	mlx_destroy_image(vars->mlx, vars->img->exit_o);
+	mlx_destroy_image(vars->mlx, vars->img.player);
+	mlx_destroy_image(vars->mlx, vars->img.bg);
+	mlx_destroy_image(vars->mlx, vars->img.token);
+	mlx_destroy_image(vars->mlx, vars->img.wall);
+	mlx_destroy_image(vars->mlx, vars->img.exit_c);
+	mlx_destroy_image(vars->mlx, vars->img.exit_o);
+	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
 	free(vars->mlx);
 	exit(0);
 	return (0);
