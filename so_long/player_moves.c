@@ -12,35 +12,7 @@
 
 #include "so_long.h"
 
-static void update_player(char key, t_vars *vars)
-{
-	mlx_destroy_image(vars->mlx, vars->img.player);
-	if (key == 'w')
-		vars->img.player = mlx_xpm_file_to_image
-			(vars->mlx, "assets/images/pb.xpm", &vars->img_w, &vars->img_h);
-	if (key == 'd')
-		vars->img.player = mlx_xpm_file_to_image
-			(vars->mlx, "assets/images/pr.xpm", &vars->img_w, &vars->img_h);
-	if (key == 'a' || key == 's')
-		vars->img.player = mlx_xpm_file_to_image
-			(vars->mlx, "assets/images/pl.xpm", &vars->img_w, &vars->img_h);
-}
-
-static void update_exit(char key, t_vars *vars)
-{
-	mlx_destroy_image(vars->mlx, vars->img.pne);
-	if (key == 'w')
-		vars->img.pne = mlx_xpm_file_to_image
-			(vars->mlx, "assets/images/pneb.xpm", &vars->img_w, &vars->img_h);
-	if (key == 'd')
-		vars->img.pne = mlx_xpm_file_to_image
-			(vars->mlx, "assets/images/pner.xpm", &vars->img_w, &vars->img_h);
-	if (key == 'a' || key == 's')
-		vars->img.pne = mlx_xpm_file_to_image
-			(vars->mlx, "assets/images/pnel.xpm", &vars->img_w, &vars->img_h);
-}
-
-void hit_W(t_vars *vars)
+void	hit_w(t_vars *vars)
 {
 	update_exit('w', vars);
 	update_player('w', vars);
@@ -57,7 +29,7 @@ void hit_W(t_vars *vars)
 			vars->matrix[vars->player.y][vars->player.x] = 'P';
 		if (vars->matrix[vars->player.y + 1][vars->player.x] == 'F')
 			vars->matrix[vars->player.y + 1][vars->player.x] = 'E';
-		else if	(vars->matrix[vars->player.y + 1][vars->player.x] != '1' || \
+		else if (vars->matrix[vars->player.y + 1][vars->player.x] != '1' || \
 			vars->matrix[vars->player.y + 1][vars->player.x] != 'E')
 			vars->matrix[vars->player.y + 1][vars->player.x] = '0';
 		ft_printf("Moves: %i\n", vars->moves);
@@ -66,7 +38,7 @@ void hit_W(t_vars *vars)
 	}
 }
 
-void hit_S(t_vars *vars)
+void	hit_s(t_vars *vars)
 {
 	update_exit('s', vars);
 	update_player('s', vars);
@@ -83,7 +55,7 @@ void hit_S(t_vars *vars)
 			vars->matrix[vars->player.y][vars->player.x] = 'P';
 		if (vars->matrix[vars->player.y - 1][vars->player.x] == 'F')
 			vars->matrix[vars->player.y - 1][vars->player.x] = 'E';
-		else if	(vars->matrix[vars->player.y - 1][vars->player.x] != '1' || \
+		else if (vars->matrix[vars->player.y - 1][vars->player.x] != '1' || \
 			vars->matrix[vars->player.y - 1][vars->player.x] != 'E')
 			vars->matrix[vars->player.y - 1][vars->player.x] = '0';
 		ft_printf("Moves: %i\n", vars->moves);
@@ -92,7 +64,7 @@ void hit_S(t_vars *vars)
 	}
 }
 
-void hit_D(t_vars *vars)
+void	hit_d(t_vars *vars)
 {
 	update_exit('d', vars);
 	update_player('d', vars);
@@ -109,7 +81,7 @@ void hit_D(t_vars *vars)
 			vars->matrix[vars->player.y][vars->player.x] = 'P';
 		if (vars->matrix[vars->player.y][vars->player.x - 1] == 'F')
 			vars->matrix[vars->player.y][vars->player.x - 1] = 'E';
-		else if	(vars->matrix[vars->player.y][vars->player.x - 1] != '1' || \
+		else if (vars->matrix[vars->player.y][vars->player.x - 1] != '1' || \
 			vars->matrix[vars->player.y][vars->player.x - 1] != 'E')
 			vars->matrix[vars->player.y][vars->player.x - 1] = '0';
 		ft_printf("Moves: %i\n", vars->moves);
@@ -118,7 +90,7 @@ void hit_D(t_vars *vars)
 	}
 }
 
-void hit_A(t_vars *vars)
+void	hit_a(t_vars *vars)
 {
 	update_exit('a', vars);
 	update_player('a', vars);
@@ -135,7 +107,7 @@ void hit_A(t_vars *vars)
 			vars->matrix[vars->player.y][vars->player.x] = 'P';
 		if (vars->matrix[vars->player.y][vars->player.x + 1] == 'F')
 			vars->matrix[vars->player.y][vars->player.x + 1] = 'E';
-		else if	(vars->matrix[vars->player.y][vars->player.x + 1] != '1' || \
+		else if (vars->matrix[vars->player.y][vars->player.x + 1] != '1' || \
 			vars->matrix[vars->player.y][vars->player.x + 1] != 'E')
 			vars->matrix[vars->player.y][vars->player.x + 1] = '0';
 		ft_printf("Moves: %i\n", vars->moves);

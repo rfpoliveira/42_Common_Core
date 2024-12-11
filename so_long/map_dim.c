@@ -12,18 +12,18 @@
 
 #include "so_long.h"
 
-counter map_dim(char **map)
+t_counter	map_dim(char **map)
 {
-	counter map_dim;
+	t_counter	map_dim;
 
 	map_dim.x = 0;
 	map_dim.y = 0;
 	while (map[map_dim.y])
 		map_dim.y++;
-	while(map[map_dim.y - 1][map_dim.x])
+	while (map[map_dim.y - 1][map_dim.x])
 		map_dim.x++;
 	map_dim.x--;
-	return(map_dim);
+	return (map_dim);
 }
 /*
 int main (void)

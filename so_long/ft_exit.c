@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-int ft_exit(t_vars *vars)
+int	ft_exit(t_vars *vars)
 {
 	matrix_free(vars->matrix);
 	mlx_destroy_image(vars->mlx, vars->img.player);

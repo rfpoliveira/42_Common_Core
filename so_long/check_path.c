@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-counter	go_player(char **map_matrix, counter player)
+t_counter	go_player(char **map_matrix, t_counter player)
 {
 	while (map_matrix[player.y])
 	{
@@ -30,7 +30,7 @@ counter	go_player(char **map_matrix, counter player)
 	return (player);
 }
 
-counter	fill(char **map, counter count, counter player, counter size)
+t_counter	fill(char **map, t_counter count, t_counter player, t_counter size)
 {
 	if (player.y < 0 || player.y >= size.y || player.x < 0 \
 		|| player.x >= size.x || map[player.y][player.x] == '1')
@@ -40,14 +40,15 @@ counter	fill(char **map, counter count, counter player, counter size)
 	else if (map[player.y][player.x] == 'E')
 		count.y++;
 	map[player.y][player.x] = '1';
-	count = fill(map, count, (counter){player.x - 1, player.y}, size);
-	count = fill(map, count, (counter){player.x + 1, player.y}, size);
-	count = fill(map, count, (counter){player.x, player.y - 1}, size);
-	count = fill(map, count, (counter){player.x, player.y + 1}, size);
+	count = fill(map, count, (t_counter){player.x - 1, player.y}, size);
+	count = fill(map, count, (t_counter){player.x + 1, player.y}, size);
+	count = fill(map, count, (t_counter){player.x, player.y - 1}, size);
+	count = fill(map, count, (t_counter){player.x, player.y + 1}, size);
 	return (count);
 }
 
-counter	flood_fill(char **map, counter count, counter player, counter size)
+t_counter	flood_fill(char **map, t_counter count, \
+						t_counter player, t_counter size)
 {
 	count = fill(map, count, player, size);
 	return (count);
@@ -55,9 +56,9 @@ counter	flood_fill(char **map, counter count, counter player, counter size)
 
 int	check_path(char **map, t_vars *vars)
 {
-	counter	count;
-	counter	size;
-	int		result;
+	t_counter	count;
+	t_counter	size;
+	int			result;
 
 	result = 0;
 	vars->player.x = 0;

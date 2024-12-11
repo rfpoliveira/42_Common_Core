@@ -75,7 +75,7 @@ static int	check_count(char **map_matrix)
 	return (count / 10);
 }
 
-static int check_map_util(char **map_matrix, int height, int i, t_vars *vars)
+static int	check_map_util(char **map_matrix, int height, int i, t_vars *vars)
 {
 	while (i < height)
 	{
@@ -93,9 +93,9 @@ static int check_map_util(char **map_matrix, int height, int i, t_vars *vars)
 
 int	check_map(char *map, t_vars *vars)
 {
-	int	i;
-	int	height;
-	char **map_matrix;
+	int		i;
+	int		height;
+	char	**map_matrix;
 
 	map_matrix = create_matrix(map);
 	i = 1;

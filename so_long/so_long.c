@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-int check_file(char *map)
+int	check_file(char *map)
 {
 	int	fd;
 	int	i;
@@ -27,12 +27,12 @@ int check_file(char *map)
 	i = read(fd, 0, 0);
 	if (fd != -1)
 		close(fd);
-	return (i);	
+	return (i);
 }
 
 int	main(int argc, char **argv)
 {
-	t_vars vars;
+	t_vars	vars;
 
 	if (argc != 2 || check_file(argv[1]) == -1)
 	{
@@ -47,5 +47,5 @@ int	main(int argc, char **argv)
 	}
 	else
 		ft_printf("Error\nInvalid Map\n");
-	return (0);	
+	return (0);
 }
