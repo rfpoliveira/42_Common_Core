@@ -103,7 +103,8 @@ int	check_map(char *map, t_vars *vars)
 	vars->coins = 0;
 	while (map_matrix[height])
 	{
-		if (ft_strlen(map_matrix[height]) != ft_strlen(map_matrix[0]) || ft_strlen(map_matrix[0]) == 0)
+		if (ft_strlen(map_matrix[height]) != ft_strlen(map_matrix[0]) || \
+			ft_strlen(map_matrix[0]) == 0)
 			return (matrix_free(map_matrix), -1);
 		height++;
 	}

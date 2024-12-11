@@ -26,8 +26,23 @@ static void update_player(char key, t_vars *vars)
 			(vars->mlx, "assets/images/pl.xpm", &vars->img_w, &vars->img_h);
 }
 
+static void update_exit(char key, t_vars *vars)
+{
+	mlx_destroy_image(vars->mlx, vars->img.pne);
+	if (key == 'w')
+		vars->img.pne = mlx_xpm_file_to_image
+			(vars->mlx, "assets/images/pneb.xpm", &vars->img_w, &vars->img_h);
+	if (key == 'd')
+		vars->img.pne = mlx_xpm_file_to_image
+			(vars->mlx, "assets/images/pner.xpm", &vars->img_w, &vars->img_h);
+	if (key == 'a' || key == 's')
+		vars->img.pne = mlx_xpm_file_to_image
+			(vars->mlx, "assets/images/pnel.xpm", &vars->img_w, &vars->img_h);
+}
+
 void hit_W(t_vars *vars)
 {
+	update_exit('w', vars);
 	update_player('w', vars);
 	if (vars->matrix[vars->player.y][vars->player.x] == '1')
 		vars->player.y++;
@@ -53,6 +68,7 @@ void hit_W(t_vars *vars)
 
 void hit_S(t_vars *vars)
 {
+	update_exit('s', vars);
 	update_player('s', vars);
 	if (vars->matrix[vars->player.y][vars->player.x] == '1')
 		vars->player.y--;
@@ -78,6 +94,7 @@ void hit_S(t_vars *vars)
 
 void hit_D(t_vars *vars)
 {
+	update_exit('d', vars);
 	update_player('d', vars);
 	if (vars->matrix[vars->player.y][vars->player.x] == '1')
 		vars->player.x--;
@@ -103,6 +120,7 @@ void hit_D(t_vars *vars)
 
 void hit_A(t_vars *vars)
 {
+	update_exit('a', vars);
 	update_player('a', vars);
 	if (vars->matrix[vars->player.y][vars->player.x] == '1')
 		vars->player.x++;

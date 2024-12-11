@@ -22,11 +22,7 @@ void img_ini (t_vars *vars)
 	vars->img.wall = mlx_xpm_file_to_image(vars->mlx, "assets/images/wall.xpm", &vars->img_w, &vars->img_h);
 	vars->img.exit_c = mlx_xpm_file_to_image(vars->mlx, "assets/images/exit_c.xpm", &vars->img_w, &vars->img_h);
 	vars->img.exit_o = mlx_xpm_file_to_image(vars->mlx, "assets/images/exit_o.xpm", &vars->img_w, &vars->img_h);
-	/*if (!(vars->img->player_up) || !(vars->img->player_down) || \
-		!(vars->img->player_left) || !(vars->img->player_right) || \
-		!(vars->img->bg) || !(vars->img->token) || !(vars->img->wall) || \
-		!(vars->img->exit_c) || !(vars->img->exit_o))
-			ft_exit(vars);*/
+	vars->img.pne = mlx_xpm_file_to_image(vars->mlx, "assets/images/pner.xpm", &vars->img_w, &vars->img_h);
 }
 
 void win_ini (t_vars *vars, char *path)

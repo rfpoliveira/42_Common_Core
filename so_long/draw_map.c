@@ -43,10 +43,7 @@ int draw_map(t_vars *vars)
 			if (vars->matrix[y][x] == '1')
 				draw(vars, vars->img.wall, y, x);
 			else if (vars->matrix[y][x] == 'F')
-				{
-					draw_exit(vars, y, x);
-					draw(vars, vars->img.player, y, x);
-				}
+					draw(vars, vars->img.pne, y, x);
 			else if (vars->matrix[y][x] == '0')
 				draw(vars, vars->img.bg, y, x);
 			else if (vars->matrix[y][x] == 'P')

@@ -30,6 +30,7 @@ typedef struct s_img {
 	void  *wall;
 	void  *exit_c;
 	void  *exit_o;
+	void  *pne;
 }			   t_img;
 
 typedef struct v_counter {
