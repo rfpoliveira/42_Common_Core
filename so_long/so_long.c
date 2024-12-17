@@ -17,16 +17,21 @@ int	check_file(char *map)
 	int	fd;
 	int	i;
 	int	len;
+	char *buff;
 
 	len = ft_strlen(map);
 	if (map[len - 1] != 'r' || map[len - 2] != 'e' || map[len - 3] != 'b' \
 		|| map[len - 4] != '.' || ft_strlen(ft_strchr(map, '/')) == 5 || \
 		ft_strlen(map) == 4)
 		return (-1);
+	buff = malloc(1);
 	fd = open(map, O_RDONLY);
-	i = read(fd, 0, 0);
+	i = read(fd, buff, 1);
+	if (i == 0)
+		i = -1;
 	if (fd != -1)
 		close(fd);
+	free(buff);
 	return (i);
 }
 
