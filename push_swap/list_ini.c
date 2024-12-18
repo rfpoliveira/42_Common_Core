@@ -12,20 +12,18 @@
 
 #include "pushswap.h"
 
-t_list *ft_list_ini (char **argv, int n)
+t_node *ft_list_ini (char **argv)
 {
-	int	i;
-	t_list *stack;
-	t_list *curr;
+	int		i;
+	t_node *stack;
+	t_node *curr;
 
-	i = 1;
-	if (n == 2)
-		i = 0;
-	stack = ft_lstnew(argv[i++]);
+	i = 0;
+	stack = new_node(ft_atoi(argv[i++]), 0);
 	while (argv[i])
 	{
-		curr = ft_lstnew((argv[i]));
-		ft_lstadd_back(&stack, curr);
+		curr = new_node(ft_atoi(argv[i]), 0);
+		node_add_back(&stack, curr);
 		i++;
 	}
 	return (stack);
