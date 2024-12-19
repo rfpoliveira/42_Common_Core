@@ -14,52 +14,40 @@
 
 t_node *go_first_node(t_node *lst)
 {
-	t_node *tmp;
-
 	if (!lst)
 		return (NULL);
-	tmp = lst;
-	while(tmp->prev)
-		tmp = tmp->prev;
-	return (tmp);
+	while((lst->first) == 0)
+		lst = lst->prev;
+	return (lst);
 }
 
-t_node	*go_last_node(t_node *lst)
+void	node_add_back(t_node **lst, t_node **new)
 {
-	t_node *tmp;
-
-	if (!lst)
-		return (NULL);
-	tmp = lst;
-	while (tmp->next)
-		tmp = tmp->next;
-	return (tmp);	
-}
-
-void	node_add_back(t_node **lst, t_node *new)
-{
-	t_node *tmp;
-
 	if (!*lst)
 	{
-		*lst = new;
+		*lst = *new;
 		return ;
 	}
-	tmp = go_last_node(*lst);
-	tmp->next = new;
-	new->prev = tmp;
+	(*new)->first = 0;
+	*lst = (*lst)->prev;
+	(*new)->prev = *lst;
+	(*new)->next = (*lst)->next;
+	(*lst)->next = *new;
+	*lst = go_first_node(*lst);
+	(*lst)->prev = *new;
 }
 
-t_node	*new_node(int content, int index)
+t_node	*new_node(int content)
 {
 	t_node *new;
 
 	new = malloc(sizeof(t_node));
 	if (!new)
 		return (NULL);
+	new->first = 1;
+	new->index = 0;
 	new->numb = content;
-	new->index = index;
-	new->next = NULL;
-	new->prev = NULL;
+	new->next = new;
+	new->prev = new;
 	return (new);
 }

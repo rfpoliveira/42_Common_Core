@@ -35,18 +35,18 @@ int main (int argc, char **argv)
 	stack_a = ft_list_ini(argv + args);
 	if (argc == 2)	
 		matrix_free(argv);
-	
-	while(stack_a->next != NULL)
+
+	while(1)
 	{
 		ft_printf("%i\n", stack_a->numb);
 		stack_a = stack_a->next;
+		if (stack_a->first == 1)
+			break;
 	}
-	ft_printf("%i\nreturn:\n", stack_a->numb);
 
-	while(stack_a->prev != NULL)
-		stack_a = stack_a->prev;
-
-	rev_rotate(&stack_a);
+	stack_a = go_first_node(stack_a);
+    swap(&stack_a);
+	printf("swaped:\n");
 	/*char  **buff = malloc(sizeof(char *) * (3 + 1));
 	buff[0] = "4";
 	buff[1] = "2";
@@ -55,17 +55,22 @@ int main (int argc, char **argv)
 	t_node *b = ft_list_ini(buff);
 	push(&stack_a, &b);*/
 
-	while(stack_a->next != NULL)
+	while(1)
 	{
 		ft_printf("%i\n", stack_a->numb);
 		stack_a = stack_a->next;
+		if (stack_a->first == 1)
+			break;
 	}
-	ft_printf("%i\ntest prev:\n", stack_a->numb);
-
-	while(stack_a->prev != NULL)
+	ft_printf("prev:\n");
+	
+	stack_a = stack_a->prev;
+	while(1)
 	{
 		ft_printf("%i\n", stack_a->numb);
 		stack_a = stack_a->prev;
+		if (stack_a->first == 1)
+			break ;
 	}
 	ft_printf("%i\n", stack_a->numb);
 	
@@ -76,5 +81,17 @@ int main (int argc, char **argv)
 	}
 	ft_printf("%i\n", b->numb);
 
-	free(buff);*/
+*/
+
+	stack_a = stack_a->next;
+	while(1)
+	{
+		if (stack_a->first == 1)
+		{
+			free(stack_a);
+			break ;
+		}
+		free(stack_a);
+		stack_a = stack_a->next;
+	}
 }
