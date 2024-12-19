@@ -14,10 +14,10 @@
 
 int	check_file(char *map)
 {
-	int	fd;
-	int	i;
-	int	len;
-	char *buff;
+	int		fd;
+	int		i;
+	int		len;
+	char	*buff;
 
 	len = ft_strlen(map);
 	if (map[len - 1] != 'r' || map[len - 2] != 'e' || map[len - 3] != 'b' \
