@@ -46,6 +46,7 @@ t_node	*new_node(int content)
 		return (NULL);
 	new->first = 1;
 	new->index = 0;
+	new->cheap = 0;
 	new->numb = content;
 	new->next = new;
 	new->prev = new;

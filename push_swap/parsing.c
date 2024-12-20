@@ -12,12 +12,34 @@
 
 #include "pushswap.h"
 
+int	  check_arg(char *n)
+{
+	int	  numb;
+	int	  i;
+
+	i = 0;
+	if (n[0] == '-' || n[0] == '+')
+		i++;
+	while(n[i])
+	{
+		if (ft_isdigit(n[i]) == 0)
+			return (-1);
+		i++;
+	}
+	if (i > 11)
+		return (-1);
+	numb = ft_atol(n);
+	if (numb > INT_MAX || numb < INT_MIN)
+		return (-1);
+	return (0);
+}
+
 int	parsing(char **mtx, int argc)
 {
 	int	  i;
 	int	  j;
 
-	i = argc - 1;
+	i = argc - 2;
 	j = 0;
 	while (i >= 1)
 	{

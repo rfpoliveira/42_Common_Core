@@ -30,7 +30,7 @@ int main (int argc, char **argv)
 			n++;
 		args = 0;
 	}	
-	if (parsing(argv, argc) == -1)
+	if (parsing(argv + args, argc) == -1)
 		return (ft_printf("Error\n"));
 	stack_a = ft_list_ini(argv + args);
 	if (argc == 2)	
@@ -45,16 +45,16 @@ int main (int argc, char **argv)
 	}
 
 	stack_a = go_first_node(stack_a);
-    swap(&stack_a);
+
 	printf("swaped:\n");
-	/*char  **buff = malloc(sizeof(char *) * (3 + 1));
+	char  **buff = malloc(sizeof(char *) * (3 + 1));
 	buff[0] = "4";
 	buff[1] = "2";
 	buff[2] = "3";
 	buff[3] = 0x0;
 	t_node *b = ft_list_ini(buff);
-	push(&stack_a, &b);*/
-
+	sort3(&stack_a, b);
+	stack_a = go_first_node(stack_a);
 	while(1)
 	{
 		ft_printf("%i\n", stack_a->numb);
@@ -73,15 +73,16 @@ int main (int argc, char **argv)
 			break ;
 	}
 	ft_printf("%i\n", stack_a->numb);
-	
-	/*while(b->next != NULL)
+
+	/*b = b->next;
+	while(1)
 	{
 		ft_printf("%i\n", b->numb);
 		b = b->next;
+		if (b->first == 1)
+			break ;
 	}
-	ft_printf("%i\n", b->numb);
-
-*/
+	ft_printf("%i\n", b->numb);*/
 
 	stack_a = stack_a->next;
 	while(1)
@@ -94,4 +95,17 @@ int main (int argc, char **argv)
 		free(stack_a);
 		stack_a = stack_a->next;
 	}
+
+	b = b->next;
+	while(1)
+	{
+		if (b->first == 1)
+		{
+			free(b);
+			break ;
+		}
+		free(b);
+		b = b->next;
+	}
+	free(buff);
 }

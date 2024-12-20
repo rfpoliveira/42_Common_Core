@@ -23,16 +23,22 @@ void  rotate(t_node **lst)
 
 void push(t_node **a, t_node **b)
 {
+	t_node  *tmp;
+	void *tmp2;
+
 	if (!*b)
 		return ;
-	(*b) = (*b)->next;
+	tmp = new_node((*b)->numb);
+	tmp2 = (*b)->next;
+	free(*b);
+	(*b)->next->prev = (*b)->prev;
+	(*b)->prev->next = (*b)->next;
+	*b = tmp2;
 	(*b)->first = 1;
-	(*b)->prev->next = *a;
-	(*a)->prev = (*b)->prev;
-	(*a)->first = 0; 
+	node_add_back(a, &tmp);
+	(*a)->first = 0;
 	*a = (*a)->prev;
 	(*a)->first = 1;
-	//(*b)->prev = go_last_node(*b);
 }
 
 void  swap(t_node **a)
@@ -48,9 +54,7 @@ void rev_rotate(t_node **a)
 {
 	if (!*a)
 		return ;
-	//(*a)->prev = go_last_node(*a);
-	(*a)->prev->next = *a;
 	(*a)->first = 0;
-	*a = (*a)->prev;
-	(*a)->first = 1;
+	(*a)->prev->first = 1;
+	(*a) = (*a)->prev;
 }

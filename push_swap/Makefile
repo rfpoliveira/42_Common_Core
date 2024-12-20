@@ -2,7 +2,8 @@
 #                                 Files and Paths                              #
 #==============================================================================#
 
-SRCS = main.c check_arg.c parsing.c list_ini.c nodes.c rules.c swaps.c
+SRCS = main.c parsing.c list_ini.c nodes.c rules.c swaps.c utils.c sort.c \
+			 free_lst.c
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 

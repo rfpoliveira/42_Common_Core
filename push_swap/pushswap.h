@@ -28,6 +28,7 @@ typedef struct s_node
 	int			  numb;
 	int			  index;
 	int			  first;
+	int			  cheap;
 	struct s_node *next;
 	struct s_node *prev;
 }				  t_node;
@@ -42,6 +43,10 @@ int		parsing(char **mtx, int argc);
 
 /*	utils */
 long	ft_atol(char *str);
+int		node_count(t_node *a);
+void	sort3(t_node **a, t_node *b);
+int		ft_is_sort(t_node *a);
+void	is_cheap(t_node **a);
 
 /* handling lists */
 t_node	*ft_list_ini(char **argv);
@@ -60,5 +65,9 @@ void  mov_swap(t_node **a, t_node **b, char *c);
 void  mov_push(t_node **a, t_node **b, char *c);
 void  mov_rot(t_node **a, t_node **b, char *c);
 void  mov_rev_rot(t_node **a, t_node **b, char *c);
+
+/* algoritm and memory */
+void  algoritm(t_node **a, t_node **b);
+void  free_lst(t_node **a);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_arg.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 10:23:20 by rpedrosa          #+#    #+#             */
-/*   Updated: 2024/12/17 10:37:21 by rpedrosa         ###   ########.fr       */
+/*   Created: 2024/12/20 12:12:51 by rpedrosa          #+#    #+#             */
+/*   Updated: 2024/12/20 12:16:49 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,59 @@ long	ft_atol(char *str)
 	return (res * sig);
 }
 
-int	  check_arg(char *n)
+int node_count(t_node *a)
 {
-	int	  numb;
-	int	  i;
-
-	i = 0;
-	if (n[0] == '-' || n[0] == '+')
-		i++;
-	while(n[i])
+	int	i;
+	
+	i = 1;
+	if (a == a->next)
+		return (1);
+	a = a->next;
+	while(a->first != 1)
 	{
-		if (ft_isdigit(n[i]) == 0)
-			return (-1);
+		a = a->next;
 		i++;
 	}
-	if (i > 11)
-		return (-1);
-	numb = ft_atol(n);
-	if (numb > INT_MAX || numb < INT_MIN)
-		return (-1);
+	return (i);
+}
+
+void  sort3(t_node **a, t_node *b)
+{
+	while(ft_is_sort(*a))
+	{
+		mov_swap(a, &b, "sa");
+		*a = (*a)->next;
+	}
+}
+
+int	ft_is_sort(t_node *a)
+{
+	if (!(a->next))
+		return (0);
+	a = go_first_node(a);
+	a = a->next;
+	while(1)
+	{
+		if (a->prev->numb > a->numb)
+			return (1);
+		a = a->next;
+		if (a->first == 1)
+			break;
+	}
 	return (0);
+}
+
+void  is_cheap(t_node **a)
+{
+	(*a)->cheap = 1;
+	*a = (*a)->next;
+	while((*a)->first != 1)
+	{
+		if ((*a)->index < (*a)->prev->index)
+		{
+			(*a)->prev->cheap = 0;
+			(*a)->cheap = 1;
+		}
+		*a = (*a)->next;
+	}
 }
