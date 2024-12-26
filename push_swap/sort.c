@@ -39,30 +39,34 @@ static int	  check_high_low(int i, t_node *b)
 	return (1);
 }
 
-static void atribute_index(t_node **mod, t_node *a, t_node *b)
+static void atribute_index(t_node **a, t_node **b)
 {
 	int	i;
 	int count;
 
 	i = 0;
 	count = 0;
-	a = a->next;
-	while(a->first != 1)
+	*a = (*a)->next;
+	while((*a)->first != 1)
 	{
 		count = 0;
 		count += i;
-		if (check_high_low((a->numb), b))
+		if (check_high_low(((*a)->numb), *b))
 			count++;
-		else if (!(check_high_low(a->numb, b)))
-			while(a->numb > b->numb)
+		else
+		{
+			while((*a)->numb > (*b)->numb)
 			{
 				count++;
-				b = b->next;
+				*b = (*b)->next;
 			}
-		(*mod)->index = count;
+		}
+		(*a)->index = count;
 		i++;
-		a = a->next;
+		*a = (*a)->next;
 	}
+	*a = go_first_node(*a);
+	*b = go_first_node(*b);
 }
 
 static void  sort(t_node **a, t_node **b)
@@ -97,16 +101,21 @@ static void  sort(t_node **a, t_node **b)
 	if (!(check_high_low((*a)->numb, *b)))
 	{
 		while ((*a)->numb > (*b)->numb)
-			mov_rot(b, a, "rb");
+			mov_rot(a, b, "rb");
 	}
-	mov_push(b, a, "pb");
+	mov_push(a, b, "pb");
 }
 
 static void push_back(t_node **a, t_node **b)
 {
+	*a = go_first_node(*a);
+	while ((*a)->numb < (*b)->numb && (*a)->next != *a && node_count(*a) > 1)
+		*a = (*a)->next;
 	while ((*b)->next != (*b))
 		mov_push(a, b, "pa");
-	mov_push(a, b, "pa");
+	if ((*b)->next != (*b))
+		mov_push(a, b, "pa");
+	*a = go_first_node(*a);
 }
 
 void  algoritm(t_node **a, t_node **b)
@@ -116,19 +125,25 @@ void  algoritm(t_node **a, t_node **b)
 	if (!(ft_is_sort(*a)))
 		return ;
 	count = node_count(*a);
-	if (count < 3)
+	if (count <= 3)
+	{
 		sort3(a, *b);
-	mov_push(b, a, "pb");
-	mov_push(b, a, "pb");
-	while (1)
+		return ;
+	}
+	mov_push(a, b, "pb");
+	if(node_count(*a) > 3)
+		mov_push(a, b, "pb");
+	while (node_count(*a) > 3)
 	{
 		(*a) = go_first_node(*a);
-		atribute_index(a, *a, *b);
+		atribute_index(a, b);
 		count = node_count(*a);
 		if (count == 3)
 			break ;
+		is_cheap(a);
 		sort(a, b);
 	}
 	sort3(a, *b);
 	push_back(a, b);
+	*a = go_first_node(*a);
 }

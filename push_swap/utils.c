@@ -12,31 +12,6 @@
 
 #include "pushswap.h"
 
-long	ft_atol(char *str)
-{
-	int		i;
-	int		sig;
-	long	res;
-
-	res = 0;
-	i = 0;
-	sig = 1;
-	if (str[i] == '-')
-	{
-		sig *= -1;
-		i++;
-	}
-	if (str[i] == '+' && str[i - 1] != '+' && str[i - 1] != '-')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		res *= 10;
-		res += (str[i] - 48);
-		i++;
-	}
-	return (res * sig);
-}
-
 int node_count(t_node *a)
 {
 	int	i;
@@ -55,11 +30,16 @@ int node_count(t_node *a)
 
 void  sort3(t_node **a, t_node *b)
 {
-	while(ft_is_sort(*a))
+	*a = go_first_node(*a);
+	while((*a)->next->first != 1)
 	{
-		mov_swap(a, &b, "sa");
+		if ((*a)->numb > (*a)->next->numb)
+			mov_swap(a, &b, "sa");
 		*a = (*a)->next;
 	}
+	*a = go_first_node(*a);
+	if (ft_is_sort(*a))
+		sort3(a, b);
 }
 
 int	ft_is_sort(t_node *a)

@@ -17,10 +17,12 @@ int main (int argc, char **argv)
 	int args;
 	int n;
 	t_node *stack_a;
+	t_node *stack_b;
 
 	args = 1;
 	n = 0;
 	stack_a = NULL;
+	stack_b = NULL;
 	if (argc < 2)
 		return (ft_printf("Error\n"));
 	if (argc == 2)
@@ -35,25 +37,9 @@ int main (int argc, char **argv)
 	stack_a = ft_list_ini(argv + args);
 	if (argc == 2)	
 		matrix_free(argv);
-
-	while(1)
-	{
-		ft_printf("%i\n", stack_a->numb);
-		stack_a = stack_a->next;
-		if (stack_a->first == 1)
-			break;
-	}
-
-	stack_a = go_first_node(stack_a);
-
-	printf("swaped:\n");
-	char  **buff = malloc(sizeof(char *) * (3 + 1));
-	buff[0] = "4";
-	buff[1] = "2";
-	buff[2] = "3";
-	buff[3] = 0x0;
-	t_node *b = ft_list_ini(buff);
-	sort3(&stack_a, b);
+	stack_b = ft_list_ini(NULL);
+	algoritm(&stack_a, &stack_b);
+	//print list:
 	stack_a = go_first_node(stack_a);
 	while(1)
 	{
@@ -72,40 +58,16 @@ int main (int argc, char **argv)
 		if (stack_a->first == 1)
 			break ;
 	}
-	ft_printf("%i\n", stack_a->numb);
+	ft_printf("%i\nb:\n", stack_a->numb);
 
-	/*b = b->next;
 	while(1)
 	{
-		ft_printf("%i\n", b->numb);
-		b = b->next;
-		if (b->first == 1)
+		ft_printf("%i\n", stack_b->numb);
+		stack_b = stack_b->next;
+		if (stack_b->first == 1)
 			break ;
-	}
-	ft_printf("%i\n", b->numb);*/
-
-	stack_a = stack_a->next;
-	while(1)
-	{
-		if (stack_a->first == 1)
-		{
-			free(stack_a);
-			break ;
-		}
-		free(stack_a);
-		stack_a = stack_a->next;
 	}
 
-	b = b->next;
-	while(1)
-	{
-		if (b->first == 1)
-		{
-			free(b);
-			break ;
-		}
-		free(b);
-		b = b->next;
-	}
-	free(buff);
+	free_lst(&stack_a);
+	free_lst(&stack_b);
 }

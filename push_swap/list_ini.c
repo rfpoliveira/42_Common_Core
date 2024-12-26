@@ -19,12 +19,18 @@ t_node *ft_list_ini (char **argv)
 	t_node *curr;
 
 	i = 0;
-	stack = new_node(ft_atoi(argv[i++]));
-	while (argv[i])
+	if (!argv)
+		stack = new_node(0);
+	else
+		stack = new_node(ft_atoi(argv[i++]));
+	if (argv)
 	{
-		curr = new_node(ft_atoi(argv[i]));
-		node_add_back(&stack, &curr);
-		i++;
+		while (argv[i])
+		{
+			curr = new_node(ft_atoi(argv[i]));
+			node_add_back(&stack, &curr);
+			i++;
+		}
 	}
 	return (stack);
 }

@@ -12,6 +12,31 @@
 
 #include "pushswap.h"
 
+long	ft_atol(char *str)
+{
+	int		i;
+	int		sig;
+	long	res;
+
+	res = 0;
+	i = 0;
+	sig = 1;
+	if (str[i] == '-')
+	{
+		sig *= -1;
+		i++;
+	}
+	if (str[i] == '+' && str[i - 1] != '+' && str[i - 1] != '-')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res *= 10;
+		res += (str[i] - 48);
+		i++;
+	}
+	return (res * sig);
+}
+
 int	  check_arg(char *n)
 {
 	int	  numb;
