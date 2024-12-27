@@ -12,6 +12,37 @@
 
 #include "pushswap.h"
 
+int node_count(t_node *a)
+{
+	int	i;
+	
+	i = 1;
+	if (a == a->next)
+		return (1);
+	a = a->next;
+	while(a->first != 1)
+	{
+		a = a->next;
+		i++;
+	}
+	return (i);
+}
+
+void atribute_index(t_node **a)
+{
+	int	i;
+
+	i = 1;
+	while(1)
+	{
+		(*a)->index = i;
+		i++;
+		(*a) = (*a)->next;
+		if((*a)->first == 1)
+			break;
+	}
+}
+
 t_node *go_first_node(t_node *lst)
 {
 	if (!lst)
@@ -50,5 +81,6 @@ t_node	*new_node(int content)
 	new->numb = content;
 	new->next = new;
 	new->prev = new;
+	new->target = NULL;
 	return (new);
 }

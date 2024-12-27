@@ -29,6 +29,9 @@ typedef struct s_node
 	int			  index;
 	int			  first;
 	int			  cheap;
+	int			  cost;
+	int			  med;
+	struct s_node *target;
 	struct s_node *next;
 	struct s_node *prev;
 }				  t_node;
@@ -39,14 +42,15 @@ typedef struct s_node
 
 /*	parsing */
 int		check_arg(char *n);
-int		parsing(char **mtx, int argc);
+char**	parsing(int argc, char **argv);
 
 /*	utils */
 long	ft_atol(char *str);
 int		node_count(t_node *a);
-void	sort3(t_node **a, t_node *b);
+void	sort3(t_node **a, t_node **b);
 int		ft_is_sort(t_node *a);
 void	is_cheap(t_node **a);
+t_node	*get_max(t_node *b);
 
 /* handling lists */
 t_node	*ft_list_ini(char **argv);
@@ -68,6 +72,9 @@ void  mov_rev_rot(t_node **a, t_node **b, char *c);
 
 /* algoritm and memory */
 void  algoritm(t_node **a, t_node **b);
+void  set_target_a(t_node **a, t_node **b);
+void  get_cost(t_node **a, t_node **b);
+void  atribute_index(t_node **a);
 void  free_lst(t_node **a);
 
 #endif

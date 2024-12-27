@@ -12,34 +12,17 @@
 
 #include "pushswap.h"
 
-int node_count(t_node *a)
+void  sort3(t_node **a, t_node **b)
 {
-	int	i;
-	
-	i = 1;
-	if (a == a->next)
-		return (1);
-	a = a->next;
-	while(a->first != 1)
-	{
-		a = a->next;
-		i++;
-	}
-	return (i);
-}
+	t_node *max;
 
-void  sort3(t_node **a, t_node *b)
-{
-	*a = go_first_node(*a);
-	while((*a)->next->first != 1)
-	{
-		if ((*a)->numb > (*a)->next->numb)
-			mov_swap(a, &b, "sa");
-		*a = (*a)->next;
-	}
-	*a = go_first_node(*a);
-	if (ft_is_sort(*a))
-		sort3(a, b);
+	max = get_max(*a);
+	if (max == *a)
+		mov_rot(a , b, "ra");
+	else if ((*a)->next == max)
+		mov_rev_rot(a, b, "rra");
+	if ((*a)->numb > (*a)->next->numb)
+		mov_swap(a, b, "sa");
 }
 
 int	ft_is_sort(t_node *a)
@@ -61,15 +44,54 @@ int	ft_is_sort(t_node *a)
 
 void  is_cheap(t_node **a)
 {
-	(*a)->cheap = 1;
+	int	tmp;
+
+	tmp = (*a)->cost;
 	*a = (*a)->next;
 	while((*a)->first != 1)
 	{
-		if ((*a)->index < (*a)->prev->index)
-		{
-			(*a)->prev->cheap = 0;
-			(*a)->cheap = 1;
-		}
+		if ((*a)->cost < tmp)
+			tmp = (*a)->index;
 		*a = (*a)->next;
 	}
+	while((*a)->cost != tmp)
+		*a = (*a)->next;
+	(*a)->cheap = 1;
+	*a = go_first_node(*a);
+}
+
+t_node	*get_max(t_node *b)
+{
+	int tmp;
+
+	tmp = b->numb;
+	while (1)
+	{
+		b = b->next;
+		if (b->first == 1)
+			break;
+		if (b->numb > tmp)
+			tmp = b->numb;
+	}
+	while(b->numb != tmp)
+		b = b->next;
+	return (b);
+}
+
+t_node *get_min(t_node *b)
+{
+	int tmp;
+
+	tmp = b->numb;
+	while (1)
+	{
+		b = b->next;
+		if (b->first == 1)
+			break;
+		if (b->numb < tmp)
+			tmp = b->numb;
+	}
+	while(b->numb != tmp)
+		b = b->next;
+	return (b);
 }

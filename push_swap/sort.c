@@ -12,110 +12,68 @@
 
 #include "pushswap.h"
 
-static int	  check_high_low(int i, t_node *b)
+void set_target_a(t_node **a, t_node **b)
 {
-	int	res;
-	int	horl;
+	t_node *target;
+	long best;
 
-	horl = 0;
-	res = 1;
-	if (i > b->numb)
-		horl = 1;
-	b = b->next;
-	if (horl == 0)
-		while (b->first != 1)
-		{
-			if (i > b->numb)
-				return (0);
-			b = b->next;
-		}
-	else
-		while (b->first != 1)
-		{
-			if (i < b->numb)
-				return (0);
-			b = b->next;
-		}
-	return (1);
-}
-
-static void atribute_index(t_node **a, t_node **b)
-{
-	int	i;
-	int count;
-
-	i = 0;
-	count = 0;
-	*a = (*a)->next;
-	while((*a)->first != 1)
+	while(1)
 	{
-		count = 0;
-		count += i;
-		if (check_high_low(((*a)->numb), *b))
-			count++;
-		else
+		best = LONG_MIN;
+		while(1)
 		{
-			while((*a)->numb > (*b)->numb)
+			if((*b)->numb < (*a)->numb && (*b)->numb > best)
 			{
-				count++;
-				*b = (*b)->next;
+				best = (*b)->numb;
+				target = *b;
 			}
+			*b = (*b)->next;
+			if((*b)->first == 1)
+				break;
 		}
-		(*a)->index = count;
-		i++;
+		if (best == LONG_MIN)
+			(*a)->target = get_max(*b);
+		else
+			(*a)->target = target;
 		*a = (*a)->next;
+		if ((*a)->first == 1)
+			break;
 	}
-	*a = go_first_node(*a);
-	*b = go_first_node(*b);
 }
 
-static void  sort(t_node **a, t_node **b)
+void  get_cost(t_node **a, t_node **b)
 {
-	int	i;
-	int count;
+	int	len_a;
+	int	len_b;
 
-	i = 0;
-	count = node_count(*a);
-	while ((*a)->cheap != 1)
+	len_a = node_count(*a);
+	len_b = node_count(*b);
+	(*a)->med = len_a / 2;
+	(*b)->med = len_b / 2;
+	while(1)
 	{
-		(*a) = (*a)->next;
-		i++;
+		(*a)->cost = (*a)->index;
+		if ((*a)->index < (*a)->med)
+			(*a)->cost = len_a - ((*a)->index);
+		if ((*a)->target->index > (*b)->med)
+			(*a)->cost += (*a)->target->index;
+		else
+			(*a)->cost += len_b - ((*a)->target->index);
+		*a = (*a)->next;
+		if ((*a)->first == 1)
+			break;
 	}
-	*a = go_first_node(*a);
-	if (i < count / 2)
+}
+
+static void  endgame(t_node **a)
+{
+	while((*a)->numb != get_min(*a)->numb)
 	{
-		while(i > 1)
-		{
+		if (go_min(*a)->numb > (*a)->med)
 			mov_rot(a, b, "ra");
-			i--;
-		}
-	}
-	else 
-	{
-		while (i < count)
-		{
+		else
 			mov_rev_rot(a, b, "rra");
-			i++;
-		}
 	}
-	if (!(check_high_low((*a)->numb, *b)))
-	{
-		while ((*a)->numb > (*b)->numb)
-			mov_rot(a, b, "rb");
-	}
-	mov_push(a, b, "pb");
-}
-
-static void push_back(t_node **a, t_node **b)
-{
-	*a = go_first_node(*a);
-	while ((*a)->numb < (*b)->numb && (*a)->next != *a && node_count(*a) > 1)
-		*a = (*a)->next;
-	while ((*b)->next != (*b))
-		mov_push(a, b, "pa");
-	if ((*b)->next != (*b))
-		mov_push(a, b, "pa");
-	*a = go_first_node(*a);
 }
 
 void  algoritm(t_node **a, t_node **b)
@@ -127,23 +85,23 @@ void  algoritm(t_node **a, t_node **b)
 	count = node_count(*a);
 	if (count <= 3)
 	{
-		sort3(a, *b);
+		sort3(a, b);
 		return ;
 	}
 	mov_push(a, b, "pb");
-	if(node_count(*a) > 3)
+	if(node_count(*a) > 3 && ft_is_sort(*a))
 		mov_push(a, b, "pb");
-	while (node_count(*a) > 3)
+	while (node_count(*a) > 3 && ft_is_sort(*a))
 	{
-		(*a) = go_first_node(*a);
-		atribute_index(a, b);
-		count = node_count(*a);
-		if (count == 3)
-			break ;
-		is_cheap(a);
-		sort(a, b);
+		init_nodes_a(a, b);
+		move_to_b(a, b);
 	}
-	sort3(a, *b);
-	push_back(a, b);
-	*a = go_first_node(*a);
+	sort3(a, b);
+	while(*b)
+	{
+		init_node_b(a, b);
+		move_to_a(a, b);
+	}
+	atribute_index(a);
+	endgame(a);
 }

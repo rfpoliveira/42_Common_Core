@@ -14,27 +14,15 @@
 
 int main (int argc, char **argv)
 {
-	int args;
-	int n;
 	t_node *stack_a;
 	t_node *stack_b;
 
-	args = 1;
-	n = 0;
 	stack_a = NULL;
 	stack_b = NULL;
-	if (argc < 2)
+	argv = parsing(argc, argv);
+	if (!argv)
 		return (ft_printf("Error\n"));
-	if (argc == 2)
-	{
-		argv = ft_split(argv[1], ' ');
-		while (argv[n])
-			n++;
-		args = 0;
-	}	
-	if (parsing(argv + args, argc) == -1)
-		return (ft_printf("Error\n"));
-	stack_a = ft_list_ini(argv + args);
+	stack_a = ft_list_ini(argv);
 	if (argc == 2)	
 		matrix_free(argv);
 	stack_b = ft_list_ini(NULL);
@@ -62,8 +50,9 @@ int main (int argc, char **argv)
 
 	while(1)
 	{
-		ft_printf("%i\n", stack_b->numb);
+		ft_printf("%p\n", *stack_b);
 		stack_b = stack_b->next;
+		ft_printf("%p\n", *stack_b);
 		if (stack_b->first == 1)
 			break ;
 	}

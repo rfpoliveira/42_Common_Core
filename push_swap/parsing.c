@@ -59,25 +59,53 @@ int	  check_arg(char *n)
 	return (0);
 }
 
-int	parsing(char **mtx, int argc)
+static int	parsing_util(char **mtx, int argc)
 {
 	int	  i;
 	int	  j;
 
-	i = argc - 2;
-	j = 0;
-	while (i >= 1)
+	i = 0;
+	j = i + 1;
+	while (i <= argc - 2)
 	{
-		j = i;
-		while (j >= 2)
+		j = i + 1;
+		while (j <= argc - 2)
 		{
-			if  (atol(mtx[i]) == atol(mtx[j - 1]))
+			if  (atol(mtx[i]) == atol(mtx[j]))
 				return (-1);
-			j--;
+			j++;
 		}
 		if (check_arg(mtx[i]) == -1)
 			return (-1);
-		i--;
+		i++;
 	}
 	return (0);
+}
+
+char **parsing(int argc, char **argv)
+{
+	int	args;
+	int	n;
+
+	args = 1;
+	n = 0;
+	if (argc < 2)
+		return (NULL);
+	if (argc == 2)
+	{
+		argv = ft_split(argv[1], ' ');
+		if (!argv)
+			return (NULL);
+		while (argv[n])
+			n++;
+		args = 0;
+		argc = n + 1;
+	}	
+	if (parsing_util(argv + args, argc) == -1)
+	{
+		if (argc == 2)
+			matrix_free(argv);
+		return (NULL);
+	}
+	return (argv + args);
 }

@@ -12,6 +12,23 @@
 
 #include "pushswap.h"
 
+void  init_nodes_a(t_node **a, t_node **b)
+{
+	atribute_index(a);
+	atribute_index(b);
+	set_target_a(a, b);
+	get_cost(a, b);
+	is_cheap(a);
+}
+
+void init_nodes_b(t_node **a, t_node **b)
+{
+	atribute_index(a);
+	atribute_index(b);
+	set_target_b(a, b);
+}
+
+
 t_node *ft_list_ini (char **argv)
 {
 	int		i;
