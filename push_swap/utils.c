@@ -12,16 +12,16 @@
 
 #include "pushswap.h"
 
-void  sort3(t_node **a, t_node **b)
+void  sort3(t_node *a, t_node *b)
 {
 	t_node *max;
 
-	max = get_max(*a);
-	if (max == *a)
+	max = get_max(a);
+	if (max == a)
 		mov_rot(a , b, "ra");
-	else if ((*a)->next == max)
+	else if (a->next == max)
 		mov_rev_rot(a, b, "rra");
-	if ((*a)->numb > (*a)->next->numb)
+	if (a->numb > a->next->numb)
 		mov_swap(a, b, "sa");
 }
 
@@ -30,14 +30,11 @@ int	ft_is_sort(t_node *a)
 	if (!(a->next))
 		return (0);
 	a = go_first_node(a);
-	a = a->next;
-	while(1)
+	while(a->next)
 	{
-		if (a->prev->numb > a->numb)
+		if (a->next->numb < a->numb)
 			return (1);
 		a = a->next;
-		if (a->first == 1)
-			break;
 	}
 	return (0);
 }
@@ -47,15 +44,14 @@ void  is_cheap(t_node *a)
 	int	tmp;
 
 	tmp = a->cost;
-	a = a->next;
-	while(a->first != 1)
+	while(a)
 	{
 		if (a->cost < tmp)
 			tmp = a->cost;
 		a = a->next;
 	}
 	while(a->cost != tmp)
-		a = a->next;
+		a = a->prev;
 	a->cheap = 1;
 	a = go_first_node(a);
 }
@@ -65,18 +61,14 @@ t_node	*get_max(t_node *b)
 	int tmp;
 
 	tmp = b->numb;
-	while (1)
+	while (b)
 	{
 		b = b->next;
-		if (b->first == 1)
-			break;
 		if (b->numb > tmp)
 			tmp = b->numb;
 	}
-	b->first = 0;
 	while(b->numb != tmp)
-		b = b->next;
-	b->first = 1;
+		b = b->prev;
 	return (b);
 }
 
@@ -85,15 +77,13 @@ t_node *get_min(t_node *b)
 	int tmp;
 
 	tmp = b->numb;
-	while (1)
+	while (b)
 	{
 		b = b->next;
-		if (b->first == 1)
-			break;
 		if (b->numb < tmp)
 			tmp = b->numb;
 	}
 	while(b->numb != tmp)
-		b = b->next;
+		b = b->prev;
 	return (b);
 }

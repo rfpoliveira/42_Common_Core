@@ -17,10 +17,9 @@ int node_count(t_node *a)
 	int	i;
 	
 	i = 1;
-	if (a == a->next)
+	if (a->next == NULL)
 		return (1);
-	a = a->next;
-	while(a->first != 1)
+	while(a)
 	{
 		a = a->next;
 		i++;
@@ -33,13 +32,11 @@ void atribute_index(t_node *a)
 	int	i;
 
 	i = 1;
-	while(1)
+	while(a)
 	{
 		a->index = i;
 		i++;
 		a = a->next;
-		if(a->index == 1)
-			break;
 	}
 }
 
@@ -47,25 +44,25 @@ t_node *go_first_node(t_node *lst)
 {
 	if (!lst)
 		return (NULL);
-	while((lst->first) == 0)
-		lst = lst->next;
+	while(lst->prev != NULL)
+		lst = lst->prev;
 	return (lst);
 }
 
-void	node_add_back(t_node **lst, t_node **new)
+void	node_add_back(t_node *lst, t_node *curr)
 {
-	if (!*lst)
+	if (!curr)
+		return ;
+	if (!lst)
 	{
-		*lst = *new;
+		lst = curr;
 		return ;
 	}
-	(*new)->first = 0;
-	*lst = (*lst)->prev;
-	(*new)->prev = *lst;
-	(*new)->next = (*lst)->next;
-	(*lst)->next = *new;
-	*lst = go_first_node(*lst);
-	(*lst)->prev = *new;
+	while(lst->next)
+		lst = lst->next;
+	lst->next = curr;
+	curr->prev = lst;
+	lst = go_first_node(lst);
 }
 
 t_node	*new_node(int content)
@@ -75,13 +72,12 @@ t_node	*new_node(int content)
 	new = malloc(sizeof(t_node));
 	if (!new)
 		return (NULL);
-	new->first = 1;
 	new->index = 0;
 	new->cheap = 0;
 	new->med = 0;
 	new->numb = content;
-	new->next = new;
-	new->prev = new;
+	new->next = NULL;
+	new->prev = NULL;
 	new->target = NULL;
 	return (new);
 }
