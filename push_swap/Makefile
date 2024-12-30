@@ -3,7 +3,7 @@
 #==============================================================================#
 
 SRCS = main.c parsing.c list_ini.c nodes.c rules.c swaps.c utils.c sort.c \
-			 free_lst.c
+			 free_lst.c sort_utils.c
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 

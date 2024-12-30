@@ -28,17 +28,17 @@ int node_count(t_node *a)
 	return (i);
 }
 
-void atribute_index(t_node **a)
+void atribute_index(t_node *a)
 {
 	int	i;
 
 	i = 1;
 	while(1)
 	{
-		(*a)->index = i;
+		a->index = i;
 		i++;
-		(*a) = (*a)->next;
-		if((*a)->first == 1)
+		a = a->next;
+		if(a->index == 1)
 			break;
 	}
 }
@@ -48,7 +48,7 @@ t_node *go_first_node(t_node *lst)
 	if (!lst)
 		return (NULL);
 	while((lst->first) == 0)
-		lst = lst->prev;
+		lst = lst->next;
 	return (lst);
 }
 
@@ -78,6 +78,7 @@ t_node	*new_node(int content)
 	new->first = 1;
 	new->index = 0;
 	new->cheap = 0;
+	new->med = 0;
 	new->numb = content;
 	new->next = new;
 	new->prev = new;

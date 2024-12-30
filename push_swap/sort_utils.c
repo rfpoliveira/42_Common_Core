@@ -19,20 +19,23 @@ static t_node *get_cheapest(t_node *a)
 	return (a);
 }
 
-void  get_on_top(t_node **a, t_node **b, t_node *cheap, char name)
+void  get_on_top(t_node **a, t_node **b, int cheap, int index, char name)
 {
-	while(*a != cheap)
+	if (name == 'a')
 	{
-		if (name == 'a')
+		while((*a)->numb != cheap)
 		{
-			if (cheap->index > (*a)->med)
+			if (index > (*a)->med)
 				mov_rot(a, b, "ra");
 			else
 				mov_rev_rot(a, b, "rra");
 		}
-		else if (name == 'b')
+	}
+	else if (name == 'b')
+	{
+		while((*b)->numb != cheap)
 		{
-			if (cheap->index > (*b)->med)
+			if (index > (*b)->med)
 				mov_rot(a, b, "rb");
 			else
 				mov_rev_rot(a, b, "rrb");
@@ -42,7 +45,7 @@ void  get_on_top(t_node **a, t_node **b, t_node *cheap, char name)
 
 void move_to_b(t_node **a, t_node **b)
 {
-	t_node *cheap;
+	t_node	*cheap;
 
 	cheap = get_cheapest(*a);
 	if (cheap->index > (*a)->med && cheap->target->index > (*b)->med && \
@@ -50,18 +53,18 @@ void move_to_b(t_node **a, t_node **b)
 		mov_rot(a, b, "rr");
 	else if (cheap != *a && cheap->target != *b)
 		mov_rev_rot(a, b, "rrr");
-	get_on_top(a, b, cheap, 'a');
-	get_on_top(a, b, cheap->target, 'b');
+	get_on_top(a, b, cheap->numb, cheap->index, 'a');
+	get_on_top(a, b, cheap->target->numb, cheap->target->index, 'b');
 	mov_push(a, b, "pb");
 }
 
-move_to_a(t_node **a, t_node **b)
+void  move_to_a(t_node **a, t_node **b)
 {
-	get_on_top(a, b, (*b)->target, 'a');
+	get_on_top(a, b, (*b)->target->numb, (*b)->target->index, 'a');
 	mov_push(a, b, "pa");
 }
 
-void set_target_b(t_node **a, t_node **b)
+void set_target_b(t_node *a, t_node *b)
 {
 	t_node *target;
 	long best;
@@ -71,21 +74,21 @@ void set_target_b(t_node **a, t_node **b)
 		best = LONG_MAX;
 		while(1)
 		{
-			if((*a)->numb > (*b)->numb && (*a)->numb < best)
+			if(a->numb > b->numb && a->numb < best)
 			{
-				best = (*a)->numb;
-				target = *a;
+				best = a->numb;
+				target = a;
 			}
-			*a = (*a)->next;
-			if((*a)->first == 1)
+			a = a->next;
+			if(a->first == 1)
 				break;
 		}
 		if (best == LONG_MAX)
-			(*a)->target = get_min(*a);
+			b->target = get_min(a);
 		else
-			(*b)->target = target;
-		*b = (*b)->next;
-		if ((*b)->first == 1)
+			b->target = target;
+		b = b->next;
+		if (b->first == 1)
 			break;
 	}
 }

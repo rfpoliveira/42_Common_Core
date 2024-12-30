@@ -42,22 +42,22 @@ int	ft_is_sort(t_node *a)
 	return (0);
 }
 
-void  is_cheap(t_node **a)
+void  is_cheap(t_node *a)
 {
 	int	tmp;
 
-	tmp = (*a)->cost;
-	*a = (*a)->next;
-	while((*a)->first != 1)
+	tmp = a->cost;
+	a = a->next;
+	while(a->first != 1)
 	{
-		if ((*a)->cost < tmp)
-			tmp = (*a)->index;
-		*a = (*a)->next;
+		if (a->cost < tmp)
+			tmp = a->cost;
+		a = a->next;
 	}
-	while((*a)->cost != tmp)
-		*a = (*a)->next;
-	(*a)->cheap = 1;
-	*a = go_first_node(*a);
+	while(a->cost != tmp)
+		a = a->next;
+	a->cheap = 1;
+	a = go_first_node(a);
 }
 
 t_node	*get_max(t_node *b)
@@ -73,8 +73,10 @@ t_node	*get_max(t_node *b)
 		if (b->numb > tmp)
 			tmp = b->numb;
 	}
+	b->first = 0;
 	while(b->numb != tmp)
 		b = b->next;
+	b->first = 1;
 	return (b);
 }
 
