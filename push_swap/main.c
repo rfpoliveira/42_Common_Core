@@ -25,22 +25,21 @@ int main (int argc, char **argv)
 	stack_a = ft_list_ini(argv);
 	if (argc == 2)	
 		matrix_free(argv);
-	stack_b = ft_list_ini(NULL);
-	//algoritm(&stack_a, &stack_b);
+	algoritm(&stack_a, &stack_b);
 	//print list:
-	while(stack_a)
+	while(stack_a->next)
 	{
-		ft_printf("%i\n", stack_a->numb);
+		ft_printf("number: %i\nindex:%i\n", stack_a->numb, stack_a->index);
 		stack_a = stack_a->next;
 	}
-	ft_printf("prev:\n");
+	ft_printf("number: %i\nindex:%i\nprev:\n%i\n", stack_a->numb, stack_a->index , stack_a->numb);
 	stack_a = stack_a->prev;	
-	while(stack_a)
+	while(stack_a->prev)
 	{
-		ft_printf("%i\n", stack_a->numb);
+		ft_printf("number: %i\nindex: %i\n", stack_a->numb, stack_a->index);
 		stack_a = stack_a->prev;
 	}
-	
+	ft_printf("number: %i\nindex: %i\n", stack_a->numb, stack_a->index);
 	free_lst(stack_a);
-	free_lst(stack_b);
+	//free_lst(stack_b);
 }

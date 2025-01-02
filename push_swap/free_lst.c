@@ -14,7 +14,7 @@
 
 void  free_lst(t_node *a)
 {
-	while(a)
+	while(a->next)
 		a = a->next;
 	while(a->prev)
 	{

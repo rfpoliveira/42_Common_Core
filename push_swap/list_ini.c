@@ -20,12 +20,12 @@ void  calc_med(t_node *a, t_node *b)
 	tmpa = node_count(a) / 2;
 	tmpb = node_count(b) / 2;
 
-	while(a->med != tmpa)
+	while(a)
 	{
 		a->med = tmpa;
 		a = a->next;
 	}
-	while(b->med != tmpb)
+	while(b)
 	{
 		b->med = tmpb;
 		b = b->next;
@@ -43,7 +43,6 @@ void  init_nodes_a(t_node *a, t_node *b)
 
 void init_nodes_b(t_node *a, t_node *b)
 {
-	b = get_max(b);
 	atribute_index(a);
 	atribute_index(b);
 	calc_med(a, b);

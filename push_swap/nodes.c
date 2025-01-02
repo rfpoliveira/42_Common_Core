@@ -19,7 +19,7 @@ int node_count(t_node *a)
 	i = 1;
 	if (a->next == NULL)
 		return (1);
-	while(a)
+	while(a->next)
 	{
 		a = a->next;
 		i++;
@@ -44,7 +44,7 @@ t_node *go_first_node(t_node *lst)
 {
 	if (!lst)
 		return (NULL);
-	while(lst->prev != NULL)
+	while(lst->prev)
 		lst = lst->prev;
 	return (lst);
 }
@@ -61,7 +61,7 @@ void	node_add_back(t_node *lst, t_node *curr)
 	while(lst->next)
 		lst = lst->next;
 	lst->next = curr;
-	curr->prev = lst;
+	lst->next->prev = lst;
 	lst = go_first_node(lst);
 }
 

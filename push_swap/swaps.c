@@ -12,58 +12,58 @@
 
 #include "pushswap.h"
 
-void  mov_swap(t_node *a, t_node *b, char *c)
+void  mov_swap(t_node **a, t_node **b, char *c)
 {
 	if (c[1] == 'a' || c[1] == 's')
 	{
 		swap(a);
-		atribute_index(a);
+		atribute_index(*a);
 	}
 	if (c[1] == 'b' || c[1] == 's')
 	{
 		swap(b);
-		atribute_index(b);
+		atribute_index(*b);
 	}
 	ft_printf("%s\n", c);
 }
 
-void  mov_push(t_node *a, t_node *b, char *c)
+void  mov_push(t_node **a, t_node **b, char *c)
 {
 	if (c[1] == 'a')
 		push(a, b);
 	else if (c[1] == 'b')
 		push(b, a);
-	atribute_index(a);
-	atribute_index(b);
+	atribute_index(*a);
+	atribute_index(*b);
 	ft_printf("%s\n", c);
 }
 
-void  mov_rot(t_node *a, t_node *b, char *c)
+void  mov_rot(t_node **a, t_node **b, char *c)
 {
 	if (c[1] == 'a' || c[1] == 'r')
 	{
 		rotate(a);
-		atribute_index(a);
+		atribute_index(*a);
 	}
 	else if (c[1] == 'b' || c[1] == 'r')
 	{
 		rotate(b);
-		atribute_index(b);
+		atribute_index(*b);
 	}
 	ft_printf("%s\n", c);
 }
 
-void  mov_rev_rot(t_node *a, t_node *b, char *c)
+void  mov_rev_rot(t_node **a, t_node **b, char *c)
 {
 	if (c[2] == 'a' || c[2] == 'r')
 	{
 		rev_rotate(a);
-		atribute_index(a);
+		atribute_index(*a);
 	}
 	else if (c[2] == 'b' || c[2] == 'r')
 	{
 		rev_rotate(b);
-		atribute_index(b);
+		atribute_index(*b);
 	}
 	ft_printf("%s\n", c);
 }

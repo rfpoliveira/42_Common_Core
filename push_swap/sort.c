@@ -27,8 +27,11 @@ void set_target_a(t_node *a, t_node *b)
 				best = b->numb;
 				target = b;
 			}
+			if (b->next == NULL)
+				break ;
 			b = b->next;
 		}
+		b = go_first_node(b);
 		if (best == LONG_MIN)
 			a->target = get_max(b);
 		else
@@ -58,48 +61,48 @@ void  get_cost(t_node *a, t_node *b)
 	}
 }
 
-static void  endgame(t_node *a, t_node *b)
+static void  endgame(t_node **a, t_node **b)
 {
 	int	tmp;
 
-	tmp = get_min(a)->numb;
-	while(a->numb != tmp)
+	tmp = get_min(*a)->numb;
+	while((*a)->numb != tmp)
 	{
-		tmp = get_min(a)->numb;
-		a->med = node_count(a) / 2;
-		if (tmp > a->med)
+		tmp = get_min(*a)->numb;
+		(*a)->med = node_count(*a) / 2;
+		if (tmp > (*a)->med)
 			mov_rot(a, b, "ra");
 		else
 			mov_rev_rot(a, b, "rra");
 	}
 }
 
-void  algoritm(t_node *a, t_node *b)
+void  algoritm(t_node **a, t_node **b)
 {
 	int	count;
 
-	if (!(ft_is_sort(a)))
+	if (!(ft_is_sort(*a)))
 		return ;
-	count = node_count(a);
+	count = node_count(*a);
 	if (count <= 3)
 	{
 		sort3(a, b);
 		return ;
 	}
 	mov_push(a, b, "pb");
-	if(node_count(a) > 3 && ft_is_sort(a))
+	if(node_count(*a) > 3 && ft_is_sort(*a))
 		mov_push(a, b, "pb");
-	while (node_count(a) > 3 && ft_is_sort(a))
+	while (node_count(*a) > 3 && ft_is_sort(*a))
 	{
-		init_nodes_a(a, b);
+		init_nodes_a(*a, *b);
 		move_to_b(a, b);
 	}
 	sort3(a, b);
-	while(b)
+	while(*b)
 	{
-		init_nodes_b(a, b);
+		init_nodes_b(*a, *b);
 		move_to_a(a, b);
 	}
-	atribute_index(a);
+	atribute_index(*a);
 	endgame(a, b);
 }
