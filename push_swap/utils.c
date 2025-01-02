@@ -45,12 +45,10 @@ void  is_cheap(t_node *a)
 	tmp = a->cost;
 	while(a->next)
 	{
+		a = a->next;
 		if (a->cost < tmp)
 			tmp = a->cost;
-		a = a->next;
 	}
-	if (a->cost < tmp)
-		tmp = a->cost;
 	while(a->cost != tmp)
 		a = a->prev;
 	a->cheap = 1;

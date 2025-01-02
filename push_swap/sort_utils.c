@@ -19,26 +19,23 @@ static t_node *get_cheapest(t_node *a)
 	return (a);
 }
 
-void  get_on_top(t_node **a, t_node **b, int cheap, int index, char name)
+void  get_on_top(t_node **a, t_node **b, t_node *cheap, char name)
 {
-	if (name == 'a')
+	while(*a != cheap)
 	{
-		while((*a)->numb != cheap)
+		if (name == 'a')
 		{
-			if (index > (*a)->med)
+			if (cheap->index < (*a)->med)
 				mov_rot(a, b, "ra");
-			else
+			else 
 				mov_rev_rot(a, b, "rra");
 		}
-	}
-	else if (name == 'b')
-	{
-		while((*b)->numb != cheap)
+		else if (name == 'b')
 		{
-			if (index > (*b)->med)
-				mov_rot(a, b, "rb");
+			if (cheap->index < (*a)->med)
+				mov_rot(b, a, "rb");
 			else
-				mov_rev_rot(a, b, "rrb");
+				mov_rev_rot(b, a, "rrb");
 		}
 	}
 }
@@ -48,19 +45,18 @@ void move_to_b(t_node **a, t_node **b)
 	t_node	*cheap;
 
 	cheap = get_cheapest(*a);
-	if (cheap->index > (*a)->med && cheap->target->index > (*a)->med && \
-	 cheap != *a && cheap->target != *b)
-		mov_rot(a, b, "rr");
-	else if (cheap != *a && cheap->target != *b)
-		mov_rev_rot(a, b, "rrr");
-	get_on_top(a, b, cheap->numb, cheap->index, 'a');
-	get_on_top(a, b, cheap->target->numb, cheap->target->index, 'b');
+	if (cheap->index > (*a)->med && cheap->target->index > (*b)->med)
+		rot_both(a, b, cheap, 0);
+	else if (!(cheap->index > (*a)->med && cheap->target->index > (*b)->med))
+		rot_both(a, b, cheap, 1);
+	get_on_top(a, b, cheap, 'a');
+	get_on_top(b, a, cheap->target, 'b');
 	mov_push(a, b, "pb");
 }
 
 void  move_to_a(t_node **a, t_node **b)
 {
-	get_on_top(a, b, (*b)->target->numb, (*b)->target->index, 'a');
+	get_on_top(a, b, (*b)->target, 'a');
 	mov_push(a, b, "pa");
 }
 

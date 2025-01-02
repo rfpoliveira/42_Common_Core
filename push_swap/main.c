@@ -26,7 +26,6 @@ int main (int argc, char **argv)
 	if (argc == 2)	
 		matrix_free(argv);
 	algoritm(&stack_a, &stack_b);
-	//print list:
 	while(stack_a->next)
 	{
 		ft_printf("number: %i\nindex:%i\n", stack_a->numb, stack_a->index);

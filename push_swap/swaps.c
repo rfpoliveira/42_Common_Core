@@ -67,3 +67,17 @@ void  mov_rev_rot(t_node **a, t_node **b, char *c)
 	}
 	ft_printf("%s\n", c);
 }
+
+void rot_both(t_node **a, t_node **b, t_node *cheap, int i)
+{
+	if (i == 1)
+	{
+		while(*a != cheap && *b != cheap->target)
+			mov_rot(a, b, "rr");
+	}
+	else
+	{
+		while(*a != cheap && *b != cheap->target)
+			mov_rev_rot(a, b, "rrr");
+	}
+}
