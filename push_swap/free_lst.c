@@ -12,11 +12,11 @@
 
 #include "pushswap.h"
 
-void  free_lst(t_node *a)
+void	free_lst(t_node *a)
 {
-	while(a->next)
+	while (a->next)
 		a = a->next;
-	while(a->prev)
+	while (a->prev)
 	{
 		a = a->prev;
 		free(a->next);

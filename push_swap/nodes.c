@@ -12,14 +12,14 @@
 
 #include "pushswap.h"
 
-int node_count(t_node *a)
+int	node_count(t_node *a)
 {
 	int	i;
-	
+
 	i = 1;
 	if (a->next == NULL)
 		return (1);
-	while(a->next)
+	while (a->next)
 	{
 		a = a->next;
 		i++;
@@ -27,12 +27,12 @@ int node_count(t_node *a)
 	return (i);
 }
 
-void atribute_index(t_node *a)
+void	atribute_index(t_node *a)
 {
 	int	i;
 
 	i = 1;
-	while(a)
+	while (a)
 	{
 		a->index = i;
 		i++;
@@ -40,11 +40,11 @@ void atribute_index(t_node *a)
 	}
 }
 
-t_node *go_first_node(t_node *lst)
+t_node	*go_first_node(t_node *lst)
 {
 	if (!lst)
 		return (NULL);
-	while(lst->prev)
+	while (lst->prev)
 		lst = lst->prev;
 	return (lst);
 }
@@ -58,7 +58,7 @@ void	node_add_back(t_node *lst, t_node *curr)
 		lst = curr;
 		return ;
 	}
-	while(lst->next)
+	while (lst->next)
 		lst = lst->next;
 	lst->next = curr;
 	lst->next->prev = lst;
@@ -67,7 +67,7 @@ void	node_add_back(t_node *lst, t_node *curr)
 
 t_node	*new_node(int content)
 {
-	t_node *new;
+	t_node	*new;
 
 	new = malloc(sizeof(t_node));
 	if (!new)

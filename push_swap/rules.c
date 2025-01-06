@@ -12,16 +12,16 @@
 
 #include "pushswap.h"
 
-void  rotate(t_node **a)
+void	rotate(t_node **a)
 {
-	t_node *tmp;
+	t_node	*tmp;
 
 	if (!*a)
 		return ;
 	tmp = *a;
 	*a = (*a)->next;
 	(*a)->prev = NULL;
-	while((*a)->next)
+	while ((*a)->next)
 		(*a) = (*a)->next;
 	(*a)->next = tmp;
 	(*a)->next->prev = *a;
@@ -29,7 +29,7 @@ void  rotate(t_node **a)
 	*a = go_first_node(*a);
 }
 
-static void first_push_b(t_node **a, t_node **b)
+static void	first_push_b(t_node **a, t_node **b)
 {
 	*b = *a;
 	*a = (*a)->next;
@@ -38,9 +38,9 @@ static void first_push_b(t_node **a, t_node **b)
 	(*b)->next = NULL;
 }
 
-void push(t_node **a, t_node **b)
+void	push(t_node **a, t_node **b)
 {
-	t_node *tmp;
+	t_node	*tmp;
 
 	if (!*b)
 		return ;
@@ -60,9 +60,9 @@ void push(t_node **a, t_node **b)
 		*b = NULL;
 }
 
-void  swap(t_node **a)
+void	swap(t_node **a)
 {
-	t_node *tmp;
+	t_node	*tmp;
 
 	if (!*a)
 		return ;
@@ -76,13 +76,13 @@ void  swap(t_node **a)
 	*a = go_first_node(*a);
 }
 
-void rev_rotate(t_node **a)
+void	rev_rotate(t_node **a)
 {
-	t_node *tmp;
+	t_node	*tmp;
 
 	if (!*a)
 		return ;
-	while((*a)->next)
+	while ((*a)->next)
 		*a = (*a)->next;
 	tmp = *a;
 	*a = (*a)->prev;

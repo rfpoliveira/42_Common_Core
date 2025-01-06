@@ -27,7 +27,7 @@ void  get_on_top(t_node **a, t_node **b, t_node *cheap, char name)
 		{
 			if (cheap->index < (*a)->med)
 				mov_rot(a, b, "ra");
-			else 
+			else
 				mov_rev_rot(a, b, "rra");
 		}
 		else if (name == 'b')
@@ -47,7 +47,8 @@ void move_to_b(t_node **a, t_node **b)
 	cheap = get_cheapest(*a);
 	if (cheap->index > (*a)->med && cheap->target->index > (*b)->med)
 		rot_both(a, b, cheap, 0);
-	else if (!(cheap->index > (*a)->med && cheap->target->index > (*b)->med))
+	if (cheap->index < (*a)->med && cheap->target->index < (*b)->med && \
+	cheap->target != *b && cheap != *a)
 		rot_both(a, b, cheap, 1);
 	get_on_top(a, b, cheap, 'a');
 	get_on_top(b, a, cheap->target, 'b');

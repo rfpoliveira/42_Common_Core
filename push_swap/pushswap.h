@@ -13,31 +13,31 @@
 #ifndef PUSHSWAP_H
 # define PUSHSWAP_H
 
-/*==============================================================================#
-#                                 Libraries                                     #
-#==============================================================================*/
+/*============================================================================#
+#                                 Libraries                                   #
+#============================================================================*/
 
 # include "libft/libft.h"
 
-/*==============================================================================#
-#                                 Structs                                       #
-#==============================================================================*/
+/*============================================================================#
+#                                 Structs                                     #
+#============================================================================*/
 
 typedef struct s_node
 {
-	int			  numb;
-	int			  index;
-	int			  cheap;
-	int			  cost;
-	int			  med;
-	struct s_node *target;
-	struct s_node *next;
-	struct s_node *prev;
-}				  t_node;
+	int		numb;
+	int		index;
+	int		cheap;
+	int		cost;
+	int		med;
+	struct s_node	*target;
+	struct s_node	*next;
+	struct s_node	*prev;
+}			t_node;
 
-/*==============================================================================#
-#                                 Functions                                     #
-#==============================================================================*/
+/*============================================================================#
+#                                 Functions                                   #
+#============================================================================*/
 
 /*	parsing */
 int		check_arg(char *n);
@@ -69,21 +69,21 @@ void	rotate(t_node **a);
 void	rev_rotate(t_node **a);
 
 /*select movement*/
-void  mov_swap(t_node **a, t_node **b, char *c);
-void  mov_push(t_node **a, t_node **b, char *c);
-void  mov_rot(t_node **a, t_node **b, char *c);
-void  mov_rev_rot(t_node **a, t_node **b, char *c);
-void rot_both(t_node **a, t_node **b, t_node *cheap, int i);
+void	mov_swap(t_node **a, t_node **b, char *c);
+void	mov_push(t_node **a, t_node **b, char *c);
+void	mov_rot(t_node **a, t_node **b, char *c);
+void	mov_rev_rot(t_node **a, t_node **b, char *c);
+void	rot_both(t_node **a, t_node **b, t_node *cheap, int i);
 
 /* algoritm and memory */
-void  algoritm(t_node **a, t_node **b);
-void  set_target_a(t_node *a, t_node *b);
-void  set_target_b(t_node *a, t_node *b);
-void  get_cost(t_node *a, t_node *b);
-void  atribute_index(t_node *a);
-void  get_on_top(t_node **a, t_node **b, t_node *cheap, char name);
-void  move_to_b(t_node **a, t_node **b);
-void  move_to_a(t_node **a, t_node **b);
-void  free_lst(t_node *a);
+void	algoritm(t_node **a, t_node **b);
+void	set_target_a(t_node *a, t_node *b);
+void	set_target_b(t_node *a, t_node *b);
+void	get_cost(t_node *a, t_node *b);
+void	atribute_index(t_node *a);
+void	get_on_top(t_node **a, t_node **b, t_node *cheap, char name);
+void	move_to_b(t_node **a, t_node **b);
+void	move_to_a(t_node **a, t_node **b);
+void	free_lst(t_node *a);
 
 #endif

@@ -53,7 +53,7 @@ void  get_cost(t_node *a, t_node *b)
 		a->cost = a->index;
 		if (a->index > a->med)
 			a->cost = len_a - (a->index);
-		if (a->target->index >= b->med)
+		if (a->target->index < b->med)
 			a->cost += a->target->index;
 		else
 			a->cost += len_b - (a->target->index);
@@ -71,7 +71,7 @@ static void  endgame(t_node **a, t_node **b)
 	(*a)->med = node_count(*a) / 2;
 	while((*a)->numb != tmp->numb)
 	{
-		if (index <= (*a)->med)
+		if (index < (*a)->med)
 			mov_rot(a, b, "ra");
 		else
 			mov_rev_rot(a, b, "rra");

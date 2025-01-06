@@ -37,15 +37,15 @@ long	ft_atol(char *str)
 	return (res * sig);
 }
 
-int	  check_arg(char *n)
+int	check_arg(char *n)
 {
-	int	  numb;
-	int	  i;
+	int	numb;
+	int	i;
 
 	i = 0;
 	if (n[0] == '-' || n[0] == '+')
 		i++;
-	while(n[i])
+	while (n[i])
 	{
 		if (ft_isdigit(n[i]) == 0)
 			return (-1);
@@ -61,8 +61,8 @@ int	  check_arg(char *n)
 
 static int	parsing_util(char **mtx, int argc)
 {
-	int	  i;
-	int	  j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = i + 1;
@@ -71,7 +71,7 @@ static int	parsing_util(char **mtx, int argc)
 		j = i + 1;
 		while (j <= argc - 2)
 		{
-			if  (atol(mtx[i]) == atol(mtx[j]))
+			if (atol(mtx[i]) == atol(mtx[j]))
 				return (-1);
 			j++;
 		}
@@ -82,7 +82,7 @@ static int	parsing_util(char **mtx, int argc)
 	return (0);
 }
 
-char **parsing(int argc, char **argv)
+char	**parsing(int argc, char **argv)
 {
 	int	args;
 	int	n;
@@ -100,7 +100,7 @@ char **parsing(int argc, char **argv)
 			n++;
 		args = 0;
 		argc = n + 1;
-	}	
+	}
 	if (parsing_util(argv + args, argc) == -1)
 	{
 		if (argc == 2)
