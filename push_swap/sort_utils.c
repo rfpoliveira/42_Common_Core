@@ -12,16 +12,16 @@
 
 #include "pushswap.h"
 
-static t_node *get_cheapest(t_node *a)
+static t_node	*get_cheapest(t_node *a)
 {
 	while (a->cheap != 1)
 		a = a->next;
 	return (a);
 }
 
-void  get_on_top(t_node **a, t_node **b, t_node *cheap, char name)
+void	get_on_top(t_node **a, t_node **b, t_node *cheap, char name)
 {
-	while(*a != cheap)
+	while (*a != cheap)
 	{
 		if (name == 'a')
 		{
@@ -40,7 +40,7 @@ void  get_on_top(t_node **a, t_node **b, t_node *cheap, char name)
 	}
 }
 
-void move_to_b(t_node **a, t_node **b)
+void	move_to_b(t_node **a, t_node **b)
 {
 	t_node	*cheap;
 
@@ -55,23 +55,23 @@ void move_to_b(t_node **a, t_node **b)
 	mov_push(a, b, "pb");
 }
 
-void  move_to_a(t_node **a, t_node **b)
+void	move_to_a(t_node **a, t_node **b)
 {
 	get_on_top(a, b, (*b)->target, 'a');
 	mov_push(a, b, "pa");
 }
 
-void set_target_b(t_node *a, t_node *b)
+void	set_target_b(t_node *a, t_node *b)
 {
-	t_node *target;
-	long best;
+	t_node	*target;
+	long	best;
 
-	while(b)
+	while (b)
 	{
 		best = LONG_MAX;
-		while(a)
+		while (a)
 		{
-			if(a->numb > b->numb && a->numb < best)
+			if (a->numb > b->numb && a->numb < best)
 			{
 				best = a->numb;
 				target = a;

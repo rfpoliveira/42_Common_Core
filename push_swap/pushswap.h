@@ -25,15 +25,15 @@
 
 typedef struct s_node
 {
-	int		numb;
-	int		index;
-	int		cheap;
-	int		cost;
-	int		med;
+	int				numb;
+	int				index;
+	int				cheap;
+	int				cost;
+	int				med;
 	struct s_node	*target;
 	struct s_node	*next;
 	struct s_node	*prev;
-}			t_node;
+}					t_node;
 
 /*============================================================================#
 #                                 Functions                                   #
@@ -41,7 +41,7 @@ typedef struct s_node
 
 /*	parsing */
 int		check_arg(char *n);
-char**	parsing(int argc, char **argv);
+char	**parsing(int argc, char **argv);
 
 /*	utils */
 long	ft_atol(char *str);

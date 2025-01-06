@@ -12,17 +12,17 @@
 
 #include "pushswap.h"
 
-void set_target_a(t_node *a, t_node *b)
+void	set_target_a(t_node *a, t_node *b)
 {
-	t_node *target;
-	long best;
+	t_node	*target;
+	long	best;
 
-	while(a)
+	while (a)
 	{
 		best = LONG_MIN;
-		while(b)
+		while (b)
 		{
-			if(b->numb < a->numb && b->numb > best)
+			if (b->numb < a->numb && b->numb > best)
 			{
 				best = b->numb;
 				target = b;
@@ -40,15 +40,15 @@ void set_target_a(t_node *a, t_node *b)
 	}
 }
 
-void  get_cost(t_node *a, t_node *b)
+void	get_cost(t_node *a, t_node *b)
 {
-	int len_a;
+	int	len_a;
 	int	len_b;
 
 	calc_med(a, b);
 	len_a = node_count(a);
 	len_b = node_count(b);
-	while(a)
+	while (a)
 	{
 		a->cost = a->index;
 		if (a->index > a->med)
@@ -61,7 +61,7 @@ void  get_cost(t_node *a, t_node *b)
 	}
 }
 
-static void  endgame(t_node **a, t_node **b)
+static void	endgame(t_node **a, t_node **b)
 {
 	t_node	*tmp;
 	int		index;
@@ -69,7 +69,7 @@ static void  endgame(t_node **a, t_node **b)
 	tmp = get_min(*a);
 	index = tmp->index;
 	(*a)->med = node_count(*a) / 2;
-	while((*a)->numb != tmp->numb)
+	while ((*a)->numb != tmp->numb)
 	{
 		if (index < (*a)->med)
 			mov_rot(a, b, "ra");
@@ -78,20 +78,17 @@ static void  endgame(t_node **a, t_node **b)
 	}
 }
 
-void  algoritm(t_node **a, t_node **b)
+void	algoritm(t_node **a, t_node **b)
 {
-	int	count;
-
 	if (!(ft_is_sort(*a)))
 		return ;
-	count = node_count(*a);
-	if (count <= 3)
+	if (node_count(*a) <= 3)
 	{
 		sort3(a, b);
 		return ;
 	}
 	mov_push(a, b, "pb");
-	if(node_count(*a) > 3 && ft_is_sort(*a))
+	if (node_count(*a) > 3 && ft_is_sort(*a))
 		mov_push(a, b, "pb");
 	while (node_count(*a) > 3 && ft_is_sort(*a))
 	{
@@ -99,7 +96,7 @@ void  algoritm(t_node **a, t_node **b)
 		move_to_b(a, b);
 	}
 	sort3(a, b);
-	while(*b)
+	while (*b)
 	{
 		init_nodes_b(*a, *b);
 		move_to_a(a, b);
