@@ -37,8 +37,8 @@ all: deps $(LIBFT_ARC) $(LIB_NAME) $(NAME)
 $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
 
-$(NAME): $(BUILD_PATH)  $(LIB_NAME) $(OBJS)
-	@cc $(CFLAGS) $(LIBFT_ARC) $(LIB_NAME) -o $(NAME)
+$(NAME): $(BUILD_PATH) $(LIB_NAME) $(OBJS)
+	@cc $(CFLAGS) $(LIB_NAME) -o $(NAME)
 	@echo "$(GRN)[push_swap created!]$(D)"
 
 $(BUILD_PATH)/%.o: %.c
@@ -62,6 +62,7 @@ get_libft:
 
 clean: 
 	@$(RM) $(BUILD_PATH)
+	@$(RM) $(LIBFT_OBJS)
 	@echo "$(BCYA)[clean] Objects removed$(D)"
 
 fclean: clean

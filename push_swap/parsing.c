@@ -39,8 +39,8 @@ long	ft_atol(char *str)
 
 int	check_arg(char *n)
 {
-	int	numb;
-	int	i;
+	long	numb;
+	int		i;
 
 	i = 0;
 	if (n[0] == '-' || n[0] == '+')
@@ -89,8 +89,6 @@ char	**parsing(int argc, char **argv)
 
 	args = 1;
 	n = 0;
-	if (argc < 2)
-		return (NULL);
 	if (argc == 2)
 	{
 		argv = ft_split(argv[1], ' ');
@@ -99,9 +97,11 @@ char	**parsing(int argc, char **argv)
 		while (argv[n])
 			n++;
 		args = 0;
-		argc = n + 1;
+		n += 1;
 	}
-	if (parsing_util(argv + args, argc) == -1)
+	else
+		n = argc;
+	if (parsing_util(argv + args, n) == -1)
 	{
 		if (argc == 2)
 			matrix_free(argv);
