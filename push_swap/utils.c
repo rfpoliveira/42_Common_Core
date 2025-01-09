@@ -19,7 +19,7 @@ void	sort3(t_node **a, t_node **b)
 	max = get_max(*a);
 	if (max == *a)
 		mov_rot(a, b, "ra");
-	else if ((*a)->next == max)
+	if ((*a)->next == max)
 		mov_rev_rot(a, b, "rra");
 	if ((*a)->numb > (*a)->next->numb)
 		mov_swap(a, b, "sa");

@@ -68,10 +68,10 @@ static void	endgame(t_node **a, t_node **b)
 
 	tmp = get_min(*a);
 	index = tmp->index;
-	(*a)->med = node_count(*a) / 2;
+	calc_med(*a, *b);
 	while ((*a)->numb != tmp->numb)
 	{
-		if (index < (*a)->med)
+		if (index <= (*a)->med)
 			mov_rot(a, b, "ra");
 		else
 			mov_rev_rot(a, b, "rra");

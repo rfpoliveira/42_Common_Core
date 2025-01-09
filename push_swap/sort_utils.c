@@ -25,14 +25,14 @@ void	get_on_top(t_node **a, t_node **b, t_node *cheap, char name)
 	{
 		if (name == 'a')
 		{
-			if (cheap->index < (*a)->med)
+			if (cheap->index <= (*a)->med)
 				mov_rot(a, b, "ra");
 			else
 				mov_rev_rot(a, b, "rra");
 		}
 		else if (name == 'b')
 		{
-			if (cheap->index < (*a)->med)
+			if (cheap->index <= (*a)->med)
 				mov_rot(b, a, "rb");
 			else
 				mov_rev_rot(b, a, "rrb");

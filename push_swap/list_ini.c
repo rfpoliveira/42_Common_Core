@@ -18,20 +18,23 @@ void	calc_med(t_node *a, t_node *b)
 	int	tmpb;
 
 	tmpa = node_count(a) / 2;
-	tmpb = node_count(b) / 2;
 	if (node_count(a) % 2 != 0)
-		tmpa--;
-	if (node_count(b) % 2 != 0)
-		tmpb--;
+		tmpa++;
 	while (a)
 	{
 		a->med = tmpa;
 		a = a->next;
 	}
-	while (b)
+	if (b)
 	{
-		b->med = tmpb;
-		b = b->next;
+		tmpb = node_count(b) / 2;
+		if (node_count(b) % 2 != 0)
+			tmpb++;
+		while (b)
+		{
+			b->med = tmpb;
+			b = b->next;
+		}
 	}
 }
 
