@@ -98,5 +98,6 @@ int	main(void)
 		free(s);
 		s = get_next_line(fd);
 	}
+	printf("%s", s);
 	close(fd);
 }*/

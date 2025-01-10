@@ -2,19 +2,18 @@
 #                                 Files and Paths                              #
 #==============================================================================#
 
-SRCS = encript.c client.c parsing.c
+SRCS = encript.c parsing.c
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 
-NAME = client
-
-SERVER = server
+NAME_CLIENT = client
+NAME_SERVER = server
 
 BUILD_PATH = .build
 
-LIBFT_PATH = libft
-
 LIB_NAME = minitalk.a
+
+LIBFT_PATH = libft
 
 LIBFT_ARC = libft/libft.a
 
@@ -33,25 +32,27 @@ MAKEE = make -s extra
 #                                    Rules                                     #
 #==============================================================================#
 
-all: deps $(LIB_ARC) $(LIB_NAME) $(NAME)
+all: deps $(BUILD_PATH) $(LIBFT_ARC) $(OBJS) $(NAME_CLIENT) $(NAME_SERVER)
 
+$(NAME_CLIENT):
+	@cc $(CFLAGS) $(OBJS) $(LIBFT_OBJS)/*.o client.c -o $(NAME_CLIENT)
+	@echo "$(GRN)[client created!]$(D)"
+
+$(NAME_SERVER):
+	@cc $(CFLAGS) $(OBJS) $(LIBFT_OBJS)/*.o server.c -o $(NAME_SERVER)
+	@echo "$(GRN)[server created!]$(D)"
+	
 $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
 
-$(NAME): $(BUILD_PATH) $(LIB_NAME) $(OBJS)
-	@cc $(CFLAGS) $(LIBFT_ARC) $(LIB_NAME) -o $(NAME)
-	@echo "$(GRN)[client created!]$(D)"
-	# @cc $(CFLAGS) $(LIBFT_ARC) $(LIB_NAME) -o $(SERVER)
-	# @echo "$(GRN)[server created!]$(D)"
-	
 $(BUILD_PATH)/%.o: %.c
 	@cc $(CFLAGS) -o $@ -c $<
 	
-$(LIBFT_ARC): $(LIBFT_PATH)
+$(LIBFT_ARC):
 	@$(MAKEE) -C $(LIBFT_PATH)
 
-$(LIB_NAME): $(BUILD_PATH) $(LIBFT_ARC) $(OBJS)
-	@$(AR) $(LIB_NAME) $(OBJS) $(LIBFT_OBJS)/*.o
+#$(LIB_NAME): $(LIBFT_ARC) 
+#	$(AR) $(LIB_NAME) $(OBJS) $(LIBFT_OBJS)/*.o
 
 deps:	## Download/Update libft
 	@if test ! -d "$(LIBFT_PATH)"; then make -s get_libft; \
@@ -63,14 +64,14 @@ get_libft:
 	@echo "$(CYA)[Libft successfully downloaded]$(D)"
 
 clean: 
-	@$(RM) $(BUILD_PATH)
+	@$(RM) $(BUILD_PATH)	
 	@echo "$(BCYA)[clean] Objects removed$(D)"
 
 fclean: clean
-	@$(RM) $(NAME)
-	@$(RM) $(LIB_NAME)
+	@$(RM) $(NAME_CLIENT)
+	@$(RM) $(NAME_SERVER)
 	@$(RM) $(LIBFT_PATH)
-	@echo "$(BCYA)[fclean] Archive and Libft removed$(D)"
+	@echo "$(BCYA)[fclean] executables, library and Libft removed$(D)"
 
 re: fclean all
 

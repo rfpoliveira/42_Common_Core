@@ -12,34 +12,59 @@
 
 #include "minitalk.h"
 
-int	main(int argc, char **argv)
+void  safe_kill(pid_t pid, int numb)
 {
 	int	i;
-	int j;
-	int	pid;
-	int	bin;
 
-	if (parsing(argc, argv) == -1)
-	{
-		ft_printf("Check your arguments!");
-		return (1);
-	}
 	i = 0;
-	bin = 0;
-	j = 0;
-	pid = ft_atoi(argv[1]);
-	while(argv[2][i])
+	i = kill(pid, numb);
+	if (i == -1)
 	{
-		bin = encript(argv[2][i]);
-		while (j < 8)
+		ft_printf("Kill failed!\n");
+		exit(1);
+	}
+}
+
+void  send_char(char *str, pid_t pid)
+{
+	int	bit;
+	int	i;
+	char  c;
+
+	i = 0;
+	while (str[i])
+	{
+		bit = 8;
+		c = str[i];
+		while(bit--)
 		{
-			if (bin % 10 == 1)
-				kill(pid, SIGUSR1);
+			if (c >> bit & 1)
+				safe_kill(pid, SIGUSR1);
 			else
-				kill(pid, SIGUSR2);
-			bin /= 10;
-			j++;
+				safe_kill(pid, SIGUSR2);
+			usleep(100);
 		}
 		i++;
 	}
+}
+
+int	main(int argc, char **argv)
+{
+	int	i;
+	pid_t	pid;
+
+	if (parsing(argc, argv) == -1)
+	{
+		ft_printf("Usage = ./client <PID> <MENSAGE>\n");
+		exit (1);
+	}
+	i = 0;
+	pid = ft_atoi(argv[1]);
+	if (kill(pid, 0))
+	{
+		ft_printf("PID Invalid\n");
+		exit(1);
+	}
+	send_char(argv[2], pid);
+	send_char("\0", pid);
 }
