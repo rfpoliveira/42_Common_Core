@@ -78,15 +78,27 @@ static void	endgame(t_node **a, t_node **b)
 	}
 }
 
-void	algoritm(t_node **a, t_node **b)
+static int	low_number(t_node **a, t_node **b)
 {
 	if (!(ft_is_sort(*a)))
-		return ;
+		return (-1);
+	if (node_count(*a) == 2)
+	{
+		mov_swap(a, b, "sa");
+		return (-1);
+	}
 	if (node_count(*a) <= 3)
 	{
 		sort3(a, b);
-		return ;
+		return (-1);
 	}
+	return (0);
+}
+
+void	algoritm(t_node **a, t_node **b)
+{
+	if (low_number(a, b) == -1)
+		return ;
 	mov_push(a, b, "pb");
 	if (node_count(*a) > 3 && ft_is_sort(*a))
 		mov_push(a, b, "pb");

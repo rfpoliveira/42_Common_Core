@@ -60,7 +60,6 @@ void	node_add_back(t_node *lst, t_node *curr);
 t_node	*new_node(int content);
 void	init_nodes_a(t_node *a, t_node *b);
 void	init_nodes_b(t_node *a, t_node *b);
-int		node_count(t_node *a);
 
 /* sorting functions */
 void	swap(t_node **a);

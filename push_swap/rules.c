@@ -71,7 +71,8 @@ void	swap(t_node **a)
 	tmp->next = (*a)->next;
 	tmp->prev = *a;
 	(*a)->prev = NULL;
-	(*a)->next->prev = tmp;
+	if ((*a)->next)
+		(*a)->next->prev = tmp;
 	(*a)->next = tmp;
 	*a = go_first_node(*a);
 }
