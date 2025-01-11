@@ -65,13 +65,15 @@ get_libft:
 
 clean: 
 	@$(RM) $(BUILD_PATH)	
+	@$(RM) $(NAME_CLIENT)
+	@$(RM) $(NAME_SERVER)
 	@echo "$(BCYA)[clean] Objects removed$(D)"
 
 fclean: clean
-	@$(RM) $(NAME_CLIENT)
-	@$(RM) $(NAME_SERVER)
 	@$(RM) $(LIBFT_PATH)
 	@echo "$(BCYA)[fclean] executables, library and Libft removed$(D)"
+
+again: clean $(BUILD_PATH) $(LIBFT_ARC) $(OBJS) $(NAME_CLIENT) $(NAME_SERVER)
 
 re: fclean all
 

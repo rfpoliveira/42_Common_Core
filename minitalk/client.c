@@ -25,46 +25,77 @@ void  safe_kill(pid_t pid, int numb)
 	}
 }
 
-void  send_char(char *str, pid_t pid)
+void  send_str(char *str, pid_t pid)
 {
-	int	bit;
 	int	i;
+	int j;
 	char  c;
 
-	i = 0;
-	while (str[i])
+	j = 0;
+	ft_printf("binarios da letra: \n");
+	while (str[j])
 	{
-		bit = 8;
-		c = str[i];
-		while(bit--)
+		i = (sizeof(char) * 8) - 1;
+		while (i >= 0)
 		{
-			if (c >> bit & 1)
+			c = str[j];
+			if ((c >> i) & 1)
+			{
 				safe_kill(pid, SIGUSR1);
+				printf("1");
+			}
 			else
+			{
 				safe_kill(pid, SIGUSR2);
-			usleep(100);
+				printf("0");
+			}
+			i--;
 		}
-		i++;
+		j++;
+		usleep(SLEEP);
+	}
+	printf("\n");
+	/*i = (sizeof(char) * 8) - 1;
+	while (i-- >= 0)
+	{
+		safe_kill(pid, SIGUSR2);
+		usleep(SLEEP);
+	}*/
+}
+
+void send_int(int n, pid_t pid)
+{
+	int	  i;
+
+	i = (sizeof(int) * 8) - 1;
+	while(i >= 0)
+	{
+		if ((n >> i) & 1)
+			safe_kill(pid, SIGUSR1);
+		else
+			safe_kill(pid, SIGUSR2);
+		usleep(SLEEP);
+		i--;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	int	i;
 	pid_t	pid;
+	int	len;
 
 	if (parsing(argc, argv) == -1)
 	{
 		ft_printf("Usage = ./client <PID> <MENSAGE>\n");
 		exit (1);
 	}
-	i = 0;
 	pid = ft_atoi(argv[1]);
 	if (kill(pid, 0))
 	{
 		ft_printf("PID Invalid\n");
 		exit(1);
 	}
-	send_char(argv[2], pid);
-	send_char("\0", pid);
+	len = ft_strlen(argv[2]);
+	send_int(len, pid);
+	send_str(argv[2], pid);
 }

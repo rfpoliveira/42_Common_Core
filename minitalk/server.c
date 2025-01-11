@@ -12,39 +12,61 @@
 
 #include "minitalk.h"
 
-int	bin = 0;
+static void alloc_memory(t_data *data)
+{
+	data->int_received = 1;
+	data->mensage = ft_calloc(data->info + 1, sizeof(char));
+	if (!data->mensage)
+	{
+		ft_printf("ft_calloc failed!\n");
+		exit(1);
+	}
+	data->mensage[data->info] = '\0';
+	data->bits = 0;
+	data->info = 0;
+}
+
+static void handle_mensage(t_data *data, int *i)
+{
+	data->mensage[*i] = data->info;
+	(*i)++;
+	data->bits = 0;
+	if (data->info == 0)
+	{
+	//	ft_printf("%s\n", data->mensage);
+		free(data->mensage);
+		data->mensage = NULL;
+		*i = 0;
+		data->int_received = 0;
+	}
+	data->info = 0;
+}
 
 void  handler(int numb)
 {
-	static int bits;
-	static int byte;
-	static	char* buff;
-	char *buff2;
+	static t_data data;
+	static int	i;
 
-	if (numb == SIGUSR1)
-		byte |= 1 << (7 - bits);
-	else if (numb == SIGUSR2)
-		byte &= ~(1 << (7 - bits));
-	bits++;
-	if (bits == 8)
+		if (numb == SIGUSR1)
+			write(1, "1", 1);
+		if (numb == SIGUSR2)
+			write(1, "0", 1);
+
+	if (numb == SIGUSR1 && data.int_received)
+		data.info |= 1 << (((sizeof(char) * 8) - 1) - data.bits);
+	if (numb == SIGUSR1 && !data.int_received)
+		data.info |= 1 << (((sizeof(int) * 8) - 1) - data.bits);
+	data.bits++;
+//	printf("%i\n", data.bits);
+	if (data.bits == (sizeof(int) * 8))
 	{
-			buff2 = malloc(2);
-			buff2[0] = byte;
-			buff2[1] = '\0';
-			if (!buff)
-				buff = ft_strdup(buff2);
-			else
-				buff = ft_strjoin(buff, buff2);
-			free(buff2);
-			write(1, &buff, 3);
-	/*	else
-		{
-			len = ft_strlen(buff);
-			write(1, &buff, len);
-			free(buff);
-		}	*/
-		bits = 0;
-		byte = 0;
+		printf("len: %i\n", data.info);
+		alloc_memory(&data);
+	}
+	if ((data.bits == 8) && data.int_received)
+	{
+		//ft_printf("antes: %c\n", data.info);
+		handle_mensage(&data, &i);
 	}
 }
 
@@ -60,8 +82,8 @@ int main(void)
 		exit (1);
 	}
 	ft_printf("The PID is: %d\n", getpid());
-	action.sa_handler = handler;
 	sigemptyset(&action.sa_mask);
+	action.sa_handler = handler;
 	action.sa_flags = 0;
 	sigaction(SIGUSR1, &action, NULL);
 	sigaction(SIGUSR2, &action, NULL);
