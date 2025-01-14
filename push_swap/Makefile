@@ -38,7 +38,7 @@ $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
 
 $(NAME): $(BUILD_PATH) $(LIB_NAME) $(OBJS)
-	@cc $(CFLAGS) $(LIB_NAME) -o $(NAME)
+	@cc $(CFLAGS) $(LIB_NAME) $(LIBFT_ARC) -o $(NAME)
 	@echo "$(GRN)[push_swap created!]$(D)"
 
 $(BUILD_PATH)/%.o: %.c
@@ -48,7 +48,7 @@ $(LIBFT_ARC): $(LIBFT_PATH)
 	@$(MAKEE) -C $(LIBFT_PATH)
 
 $(LIB_NAME): $(BUILD_PATH) $(OBJS)
-	@$(AR) $(LIB_NAME) $(OBJS) $(LIBFT_OBJS)/*.o
+	@$(AR) $(LIB_NAME) $(OBJS)
 
 deps:	## Download/Update libft
 	@if test ! -d "$(LIBFT_PATH)"; then make -s get_libft; \
