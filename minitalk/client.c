@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-void  safe_kill(pid_t pid, int numb)
+void safe_kill(pid_t pid, int numb)
 {
 	int	i;
 
@@ -23,16 +23,16 @@ void  safe_kill(pid_t pid, int numb)
 		ft_printf("Kill failed!\n");
 		exit(1);
 	}
+	usleep(SLEEP);
 }
 
-void  send_str(char *str, pid_t pid)
+void send_str(char *str, pid_t pid)
 {
 	int	i;
 	int j;
 	char  c;
 
 	j = 0;
-	ft_printf("binarios da letra: \n");
 	while (str[j])
 	{
 		i = (sizeof(char) * 8) - 1;
@@ -40,27 +40,16 @@ void  send_str(char *str, pid_t pid)
 		{
 			c = str[j];
 			if ((c >> i) & 1)
-			{
 				safe_kill(pid, SIGUSR1);
-				printf("1");
-			}
 			else
-			{
 				safe_kill(pid, SIGUSR2);
-				printf("0");
-			}
 			i--;
 		}
 		j++;
-		usleep(SLEEP);
 	}
-	printf("\n");
-	/*i = (sizeof(char) * 8) - 1;
+	i = (sizeof(char) * 8) - 1;
 	while (i-- >= 0)
-	{
 		safe_kill(pid, SIGUSR2);
-		usleep(SLEEP);
-	}*/
 }
 
 void send_int(int n, pid_t pid)
@@ -74,7 +63,6 @@ void send_int(int n, pid_t pid)
 			safe_kill(pid, SIGUSR1);
 		else
 			safe_kill(pid, SIGUSR2);
-		usleep(SLEEP);
 		i--;
 	}
 }
@@ -86,7 +74,7 @@ int	main(int argc, char **argv)
 
 	if (parsing(argc, argv) == -1)
 	{
-		ft_printf("Usage = ./client <PID> <MENSAGE>\n");
+		ft_printf("Usage = ./client <PID> <MESSAGE>\n");
 		exit (1);
 	}
 	pid = ft_atoi(argv[1]);

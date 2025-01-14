@@ -26,17 +26,20 @@ static void alloc_memory(t_data *data)
 	data->info = 0;
 }
 
-static void handle_mensage(t_data *data, int *i)
+static void handle_mensage(t_data *data)
 {
-	data->mensage[*i] = data->info;
-	(*i)++;
+	static int i;
+
+
+	data->mensage[i] = data->info;
+	i++;
 	data->bits = 0;
 	if (data->info == 0)
 	{
-	//	ft_printf("%s\n", data->mensage);
+		ft_printf("%s\n", data->mensage);
 		free(data->mensage);
 		data->mensage = NULL;
-		*i = 0;
+		i = 0;
 		data->int_received = 0;
 	}
 	data->info = 0;
@@ -45,29 +48,20 @@ static void handle_mensage(t_data *data, int *i)
 void  handler(int numb)
 {
 	static t_data data;
-	static int	i;
-
-		if (numb == SIGUSR1)
-			write(1, "1", 1);
-		if (numb == SIGUSR2)
-			write(1, "0", 1);
 
 	if (numb == SIGUSR1 && data.int_received)
-		data.info |= 1 << (((sizeof(char) * 8) - 1) - data.bits);
-	if (numb == SIGUSR1 && !data.int_received)
-		data.info |= 1 << (((sizeof(int) * 8) - 1) - data.bits);
+		data.info |= 1 << (7 - data.bits);
+	else if (numb == SIGUSR2 && data.int_received)
+		data.info &= ~(1 << (7 - data.bits));
+	else if (numb == SIGUSR1 && !data.int_received)
+		data.info |= 1 << (31 - data.bits);
+	else if (numb == SIGUSR2 && !data.int_received)
+		data.info &= ~(1 << (31 - data.bits));
 	data.bits++;
-//	printf("%i\n", data.bits);
-	if (data.bits == (sizeof(int) * 8))
-	{
-		printf("len: %i\n", data.info);
+	if (data.bits == (sizeof(int) * 8) && data.int_received == 0)
 		alloc_memory(&data);
-	}
-	if ((data.bits == 8) && data.int_received)
-	{
-		//ft_printf("antes: %c\n", data.info);
-		handle_mensage(&data, &i);
-	}
+	if ((data.bits == 8) && data.int_received == 1)
+		handle_mensage(&data);
 }
 
 int main(void)

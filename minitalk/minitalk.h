@@ -36,7 +36,7 @@ typedef struct s_data
 #                                 Functions                                   #
 #============================================================================*/
 
-# define SLEEP 1000
+# define SLEEP 200
 
 /*	parsing	*/
 int	parsing(int argc, char **argv);

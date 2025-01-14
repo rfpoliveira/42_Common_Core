@@ -2,7 +2,7 @@
 #                                 Files and Paths                              #
 #==============================================================================#
 
-SRCS = encript.c parsing.c
+SRCS = parsing.c
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 
@@ -35,11 +35,11 @@ MAKEE = make -s extra
 all: deps $(BUILD_PATH) $(LIBFT_ARC) $(OBJS) $(NAME_CLIENT) $(NAME_SERVER)
 
 $(NAME_CLIENT):
-	@cc $(CFLAGS) $(OBJS) $(LIBFT_OBJS)/*.o client.c -o $(NAME_CLIENT)
+	@cc $(CFLAGS) $(OBJS) client.c $(LIBFT_ARC) -o $(NAME_CLIENT)
 	@echo "$(GRN)[client created!]$(D)"
 
 $(NAME_SERVER):
-	@cc $(CFLAGS) $(OBJS) $(LIBFT_OBJS)/*.o server.c -o $(NAME_SERVER)
+	@cc $(CFLAGS) $(OBJS) server.c $(LIBFT_ARC) -o $(NAME_SERVER)
 	@echo "$(GRN)[server created!]$(D)"
 	
 $(BUILD_PATH):
