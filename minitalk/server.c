@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-static void alloc_memory(t_data *data)
+static void	alloc_memory(t_data *data)
 {
 	data->int_received = 1;
 	data->mensage = ft_calloc(data->info + 1, sizeof(char));
@@ -26,10 +26,9 @@ static void alloc_memory(t_data *data)
 	data->info = 0;
 }
 
-static void handle_mensage(t_data *data)
+static void	handle_mensage(t_data *data)
 {
-	static int i;
-
+	static int	i;
 
 	data->mensage[i] = data->info;
 	i++;
@@ -45,9 +44,9 @@ static void handle_mensage(t_data *data)
 	data->info = 0;
 }
 
-void  handler(int numb)
+void	handler(int numb)
 {
-	static t_data data;
+	static t_data	data;
 
 	if (numb == SIGUSR1 && data.int_received)
 		data.info |= 1 << (7 - data.bits);
@@ -64,10 +63,10 @@ void  handler(int numb)
 		handle_mensage(&data);
 }
 
-int main(void)
+int	main(void)
 {
-	struct sigaction action;
-	pid_t pid;
+	struct sigaction	action;
+	pid_t				pid;
 
 	pid = getpid();
 	if (pid == -1)
@@ -81,6 +80,6 @@ int main(void)
 	action.sa_flags = 0;
 	sigaction(SIGUSR1, &action, NULL);
 	sigaction(SIGUSR2, &action, NULL);
-	while(42)
+	while (42)
 		pause();
 }

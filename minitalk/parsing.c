@@ -12,14 +12,14 @@
 
 #include "minitalk.h"
 
-int	parsing(int argc, char** argv)
+int	parsing(int argc, char **argv)
 {
 	int	i;
 
 	i = 0;
 	if (argc != 3)
 		return (-1);
-	while(argv[1][i])
+	while (argv[1][i])
 	{
 		if (ft_isdigit(argv[1][i] == 0))
 			return (-1);

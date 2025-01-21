@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-void safe_kill(pid_t pid, int numb)
+void	safe_kill(pid_t pid, int numb)
 {
 	int	i;
 
@@ -26,11 +26,11 @@ void safe_kill(pid_t pid, int numb)
 	usleep(SLEEP);
 }
 
-void send_str(char *str, pid_t pid)
+void	send_str(char *str, pid_t pid)
 {
-	int	i;
-	int j;
-	char  c;
+	int		i;
+	int		j;
+	char	c;
 
 	j = 0;
 	while (str[j])
@@ -52,12 +52,12 @@ void send_str(char *str, pid_t pid)
 		safe_kill(pid, SIGUSR2);
 }
 
-void send_int(int n, pid_t pid)
+void	send_int(int n, pid_t pid)
 {
-	int	  i;
+	int	i;
 
 	i = (sizeof(int) * 8) - 1;
-	while(i >= 0)
+	while (i >= 0)
 	{
 		if ((n >> i) & 1)
 			safe_kill(pid, SIGUSR1);
@@ -70,7 +70,7 @@ void send_int(int n, pid_t pid)
 int	main(int argc, char **argv)
 {
 	pid_t	pid;
-	int	len;
+	int		len;
 
 	if (parsing(argc, argv) == -1)
 	{

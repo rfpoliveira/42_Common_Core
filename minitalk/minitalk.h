@@ -17,32 +17,27 @@
 #                                 Libraries                                   #
 #============================================================================*/
 
-#include "libft/libft.h"
-#include <signal.h>
+# include "libft/libft.h"
+# include <signal.h>
 
 /*============================================================================#
 #                                 Structs                                     #
 #============================================================================*/
 
-typedef struct s_data 
+typedef struct s_data
 {
-	int	info;
-	int bits;
-	int	int_received;
-	char  *mensage;
-}			  t_data;
+	int		info;
+	int		bits;
+	int		int_received;
+	char	*mensage;
+}		t_data;
 
 /*============================================================================#
 #                                 Functions                                   #
 #============================================================================*/
 
-# define SLEEP 200
+# define SLEEP 100
 
-/*	parsing	*/
 int	parsing(int argc, char **argv);
-
-/* encrtypt and decrypt */
-int encript(int c);
-char decript(int bin);
 
 #endif
