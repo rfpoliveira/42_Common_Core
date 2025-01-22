@@ -6,7 +6,7 @@ SRCS =
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 
-NAME = 
+NAME = philo 
 
 BUILD_PATH = .build
 
@@ -16,7 +16,7 @@ BUILD_PATH = .build
 
 RM = rm -rf
 AR = ar rcs
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -pthread -Wall -Werror -Wextra
 
 #==============================================================================#
 #                                    Rules                                     #
@@ -32,7 +32,7 @@ $(NAME): $(BUILD_PATH) $(OBJS)
 	@echo "$(GRN)[ successfully compiled]$(D)"
 	
 $(BUILD_PATH)/%.o: %.c
-	@cc $(CFLAGS) -o $@ -c $<
+	@cc $(CFLAGS) -o $@ -c $<
 
 clean: 
 	@$(RM) $(BUILD_PATH)
