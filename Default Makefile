@@ -38,6 +38,9 @@ $(BUILD_PATH)/%.o: %.c
 $(BUILD_PATH)/%.o: $(EXTRA_PATH)/%.c
 	@cc $(CFLAGS) -o $@ -c $<
 
+
+
+
 clean: 
 	@$(RM) $(BUILD_PATH)
 	@echo "$(BCYA)[clean] Objects removed$(D)"
