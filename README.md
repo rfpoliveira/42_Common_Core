@@ -10,9 +10,12 @@ My Work in the 42 School Programming course
 
 | Milestone | Project       |Language | Grade |
 |----------:|---------      |---------|-------|
-|          0|[libft](libft/)|C        |125/100|
-|          1|[ft_printf](ft_printf/)|C|       |
-|          1|[get_next_line](get_next_line/)|C|       |
-
+|          0|[libft](https://github.com/rfpoliveira/42_Libft)|C        |125/100|
+|          1|[ft_printf](ft_printf/)|C|100/100|
+|          1|[get_next_line](get_next_line/)|C|100/100|
+|          1|[Born2beroot](born2beroot/)|C|100/100|
+|          2|[so_long](so_long/)|C|100/100|
+|          2|[push_swap](push_swap/)|C|96/100|
+|          2|[minitalk](minitalk/)|C|100/100|
 
 https://askubuntu.com/questions/1164/how-to-easily-resize-images-via-command-line
