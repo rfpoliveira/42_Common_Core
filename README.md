@@ -10,7 +10,7 @@ My Work in the 42 School Programming course
 
 | Milestone | Project       |Language | Grade |
 |----------:|---------      |---------|-------|
-|          0|[libft]([libft/](https://github.com/rfpoliveira/42_Libft))|C        |125/100|
+|          0|[libft](https://github.com/rfpoliveira/42_Libft)|C        |125/100|
 |          1|[ft_printf](ft_printf/)|C|100/100|
 |          1|[get_next_line](get_next_line/)|C|100/100|
 |          1|[Born2beroot](born2beroot/)|C|100/100|
