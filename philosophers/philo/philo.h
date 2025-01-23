@@ -25,17 +25,27 @@
 
 typedef struct s_philo
 {
-	int eaten;
+	int meals_eaten;
 	int	alive;
+	size_t	time_eat;
+	size_t	time_die;
+	size_t	time_sleep;
+	int	n_phs;
 }	t_philo;
+
+typedef	struct s_table
+{
+	t_philo	*philos;
+}	t_table;
 
 
 //functions
 
 //utils
 int	r_atoi(const char *str);
+int	r_isdigit(char *s);
 
 //threads
-int  ini_philos(int  n)
+int  ini_philos(int  n);
 
 #endif

@@ -12,38 +12,59 @@
 
 #include "philo.h"
 
-void  *routine()
+void  *routine(t_table *table)
 {
-	
+	while (42)
+	{
+
+		if (table->deadman == 1)
+			break ;
+	}
 }
 
-int  ini_philos(int  n)
+int  create_threads(t_table *table)
 {
-	pthread philo[n];
-
-
-
-
-
-
-}
-
-
-
 	int i;
 
 	i = 0;
-	while (i < n)
+	while (i < table.n_phs)
 	{
-		if (pthread_create(&philo[i]), NULL, &routine, NULL) != 0)
+		if (pthread_create(&table->philos[i].thread, NULL, &routine, &table) != 0)
 			return (-1);
+		i++;
 	}
 	i = 0;
-	while (i < n)
+	while (i < table.n_phs)
 	{
-		if (pthread_join(philo[i]), NULL) != 0)
+		if (pthread_join(table->philos[i].thread), NULL) != 0)
 			return (-1);
+		i++;
 	}
-
-
 }
+
+void  ini_philos(t_philo *philos, int n_phs)
+{
+	int	i;
+
+	i = 0;
+	while (i < n_phs)
+	{
+		philos[i].eaten = 0;
+		philos[i].alive = 1;
+	}
+}
+
+int  ini_table(int argc, char **info, t_table *table, t_philo philos)
+{
+	table.n_phs = r_atoi(info[1]);
+	table.limit_die = r_atoi(info[2]);
+	table.limit_eat = r_atoi(info[3]);
+	table.limit_sleep = r_atoi(info[4]);
+	if (argc == 6)
+		table->max_meals = info[5];
+	else
+		table->max_meals = -1;
+	table.deadman = 0;
+	table->philos = philos;
+}
+

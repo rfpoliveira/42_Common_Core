@@ -12,6 +12,20 @@
 
 #include "philo.h"
 
+int	r_isdigit(char *s)
+{
+	int	i;
+
+	while(s[i])
+	{
+		if (s[i] < 48 || s[i] > 57)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+
 int	r_atoi(const char *str)
 {
 	int	i;
