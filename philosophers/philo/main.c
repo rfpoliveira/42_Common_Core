@@ -42,10 +42,13 @@ static int	parsing(int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_table	table;
-	t_philo philos[200];
 
 	if (parsing(argc, argv) == -1)
-		return (printf("Error!"));
-	ini_table(argc, argv, &table, &philos);
-	ini_philos(&philos, table.n_phs);
+		return (printf("Error! Non valide arguments!"));
+	if (ini_table(argc, argv, &table) != 0)
+		return (printf("Error allocating memory!\n"));
+	ini_philos(&table);
+	ini_forks(&table);
+	if (create_threads(&table) != 0)
+		return (philo_free(&table), printf("Errors creating/joining threads!"));
 }

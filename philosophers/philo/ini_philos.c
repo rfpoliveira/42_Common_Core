@@ -12,59 +12,67 @@
 
 #include "philo.h"
 
-void  *routine(t_table *table)
-{
-	while (42)
-	{
-
-		if (table->deadman == 1)
-			break ;
-	}
-}
-
-int  create_threads(t_table *table)
-{
-	int i;
-
-	i = 0;
-	while (i < table.n_phs)
-	{
-		if (pthread_create(&table->philos[i].thread, NULL, &routine, &table) != 0)
-			return (-1);
-		i++;
-	}
-	i = 0;
-	while (i < table.n_phs)
-	{
-		if (pthread_join(table->philos[i].thread), NULL) != 0)
-			return (-1);
-		i++;
-	}
-}
-
-void  ini_philos(t_philo *philos, int n_phs)
+void  ini_forks(t_table *table)
 {
 	int	i;
+	t_philo *philos;
 
+	philos = table->philos;
+	i = -1;
+	while (++i < table->n_phs)
+		pthread_mutex_init(&table->forks[i], NULL);
 	i = 0;
-	while (i < n_phs)
+	philos[0].right_fork = table->forks[0];
+	philos[0].left_fork = table->forks[table->n_phs - 1];
+	while (++i < table->n_phs)
 	{
-		philos[i].eaten = 0;
-		philos[i].alive = 1;
+		philos[i].right_fork = table->forks[i];
+		philos[i].left_fork = table->forks[i - 1];
 	}
 }
 
-int  ini_table(int argc, char **info, t_table *table, t_philo philos)
+void  ini_philos(t_table *table)
 {
-	table.n_phs = r_atoi(info[1]);
-	table.limit_die = r_atoi(info[2]);
-	table.limit_eat = r_atoi(info[3]);
-	table.limit_sleep = r_atoi(info[4]);
+	int	i;
+	t_philo *philos;
+
+	i = 0;
+	philos = table->philos;
+	while (i < table->n_phs)
+	{
+		philos[i].table = table;
+		philos[i].id = i + 1;
+		philos[i].meals_eaten = 0;
+		philos[i].alive = 1;
+		//TODO: MUTEX;	
+	}
+}
+
+int	alloc_memory(t_table *table)
+{
+	table->philos = malloc(sizeof(t_philo) * table->n_phs);
+	if (table->philos == NULL)
+		return (ERROR_MALLOC);
+	table->forks = malloc(sizeof(pthread_mutex_t) * table->n_phs);
+	if (table->forks == NULL)
+		return (free(table->philos), ERROR_MALLOC);
+	table->philo_th = malloc(sizeof(pthread_t) * table->n_phs);
+	if (table->philo_th == NULL)
+		return(free(table->philos), free(table->forks), ERROR_MALLOC);
+	return (0);
+}
+
+int  ini_table(int argc, char **info, t_table *table)
+{
+	table->n_phs = r_atoi(info[1]);
+	table->time_die = r_atoi(info[2]);
+	table->time_eat = r_atoi(info[3]);
+	table->time_sleep = r_atoi(info[4]);
+	table->max_meals = -1;
 	if (argc == 6)
-		table->max_meals = info[5];
-	else
-		table->max_meals = -1;
-	table.deadman = 0;
-	table->philos = philos;
+		table->max_meals = r_atoi(info[5]);
+
+	//TODO: MUTEX,
+	return (alloc_memory(table));
 }
 
