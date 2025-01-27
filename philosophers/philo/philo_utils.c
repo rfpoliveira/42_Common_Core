@@ -59,15 +59,29 @@ size_t	r_get_time(void)
 	struct timeval time;
 
 	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-int	r_usleep(size_t sleeptime)
+void	r_usleep(size_t sleeptime)
 {
 	size_t starting_time;
 
+	starting_time = 0;
 	starting_time = r_get_time();
-	while(r_get_time() - starting_time < sleeptime)
+	while((r_get_time() - starting_time) < sleeptime)
 		usleep(500);
-	return (0);
+}
+
+void  print_msg(t_philo *philo, char *s)
+{
+	size_t time;
+
+	time = 0;
+	if (philo->table->DEATH_WARN == ALIVE)
+	{
+		time = r_get_time() - philo->table->start_time;
+		pthread_mutex_lock(&philo->table->print);
+		printf("[%ld] %i %s\n", time, philo->id, s);
+		pthread_mutex_unlock(&philo->table->print);
+	}
 }

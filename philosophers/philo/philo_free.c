@@ -19,9 +19,9 @@ void	philo_free(t_table *table)
 	i = -1;
 	while (++i < table->n_phs)
 		pthread_mutex_destroy(&table->forks[i]);
-	//TODO: DESTROY MUTEX
-	
+	pthread_mutex_destroy(&table->print);
 	free(table->philos);
 	free(table->forks);
 	free(table->philo_th);
+	free(table->monitor);
 }

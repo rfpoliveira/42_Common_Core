@@ -43,7 +43,7 @@ void  ini_philos(t_table *table)
 		philos[i].table = table;
 		philos[i].id = i + 1;
 		philos[i].meals_eaten = 0;
-		philos[i].alive = 1;
+		philos[i].last_eat_time = table->start_time;
 		//TODO: MUTEX;	
 	}
 }
@@ -59,6 +59,9 @@ int	alloc_memory(t_table *table)
 	table->philo_th = malloc(sizeof(pthread_t) * table->n_phs);
 	if (table->philo_th == NULL)
 		return(free(table->philos), free(table->forks), ERROR_MALLOC);
+	table->monitor = malloc(sizeof(pthread_t));
+	if (table->monitor == NULL)
+		return(free(table->philos), free(table->forks), free(table->philo_th), ERROR_MALLOC);
 	return (0);
 }
 
@@ -71,8 +74,8 @@ int  ini_table(int argc, char **info, t_table *table)
 	table->max_meals = -1;
 	if (argc == 6)
 		table->max_meals = r_atoi(info[5]);
-
-	//TODO: MUTEX,
+	table->start_time = r_get_time();
+	pthread_mutex_init(&table->print, NULL);
 	return (alloc_memory(table));
 }
 

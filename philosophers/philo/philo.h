@@ -13,27 +13,37 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-// libraries
-
+/*============================================================================#
+#                                 Libraries                                   #
+#============================================================================*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 #include <unistd.h>
 #include <sys/time.h>
-// Macros
 
+/*============================================================================#
+#                                 macros                                   #
+#============================================================================*/
+#define ALIVE 1
+#define DEAD 0
 #define ERROR_MALLOC 2
 
-// custom structs
+#define FORK "has taken a fork"
+#define EAT "is eating"
+#define SLEEP "is sleeping"
+#define THINK "is thinking"
+#define DIED "died"
 
+/*============================================================================#
+#                                 structs                                   #
+#============================================================================*/
 typedef struct s_philo
 {
 	int	id;
 	int meals_eaten;
-	int	alive;
 	pthread_mutex_t right_fork;
 	pthread_mutex_t left_fork;
-	//TODO: mutex
 	size_t last_eat_time;
 	struct s_table *table;
 }	t_philo;
@@ -45,21 +55,25 @@ typedef	struct s_table
 	size_t	time_sleep;
 	int		n_phs;
 	int		max_meals;
+	int	DEATH_WARN;
+	size_t	start_time;
 	t_philo	*philos;
 	pthread_t *philo_th;
-	pthread_t monitor;
+	pthread_t *monitor;
 	pthread_mutex_t *forks;
-// TODO:MUTEX;
+	pthread_mutex_t print;
 }	t_table;
 
 
-//functions
-
+/*============================================================================#
+#								  functions                                   #
+#============================================================================*/
 //utils
 int	r_atoi(const char *str);
 int	r_isdigit(char *s);
 size_t r_get_time(void);
-int	r_usleep(size_t sleeptime);
+void	r_usleep(size_t sleeptime);
+void  print_msg(t_philo *philo, char *s);
 
 //inicialize
 void  ini_philos(t_table * table);
@@ -68,6 +82,10 @@ void  ini_forks(t_table *table);
 
 //threads
 int  create_threads(t_table *table);
+
+//activities
+int	eat(t_philo *philo);
+int	ph_sleep(t_philo *philo);
 
 //handle memory
 void philo_free(t_table *table);

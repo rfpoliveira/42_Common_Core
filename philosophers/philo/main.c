@@ -15,10 +15,8 @@
 static int	parsing(int argc, char **argv)
 {
 	int	i;
-	int buff;
 
 	i= argc - 1;
-	buff = 0;
 	if (argc > 6 || argc < 5 || r_atoi(argv[1]) > 200)
 		return (-1);
 	if (argc == 6 && r_atoi(argv[5]) < 0)
@@ -51,4 +49,5 @@ int	main(int argc, char **argv)
 	ini_forks(&table);
 	if (create_threads(&table) != 0)
 		return (philo_free(&table), printf("Errors creating/joining threads!"));
+	philo_free(&table);
 }
