@@ -16,6 +16,7 @@ int	r_isdigit(char *s)
 {
 	int	i;
 
+	i = 0;
 	while(s[i])
 	{
 		if (s[i] < 48 || s[i] > 57)
@@ -81,7 +82,7 @@ void  print_msg(t_philo *philo, char *s)
 	{
 		time = r_get_time() - philo->table->start_time;
 		pthread_mutex_lock(&philo->table->print);
-		printf("[%ld] %i %s\n", time, philo->id, s);
+		printf("%ld %i %s\n", time, philo->id, s);
 		pthread_mutex_unlock(&philo->table->print);
 	}
 }

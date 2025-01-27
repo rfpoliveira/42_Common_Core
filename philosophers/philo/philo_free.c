@@ -23,5 +23,4 @@ void	philo_free(t_table *table)
 	free(table->philos);
 	free(table->forks);
 	free(table->philo_th);
-	free(table->monitor);
 }

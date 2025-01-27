@@ -16,24 +16,24 @@
 /*============================================================================#
 #                                 Libraries                                   #
 #============================================================================*/
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <unistd.h>
-#include <sys/time.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <sys/time.h>
 
 /*============================================================================#
 #                                 macros                                   #
 #============================================================================*/
-#define ALIVE 1
-#define DEAD 0
-#define ERROR_MALLOC 2
+# define ALIVE 1
+# define DEAD 0
+# define ERROR_MALLOC 2
 
-#define FORK "has taken a fork"
-#define EAT "is eating"
-#define SLEEP "is sleeping"
-#define THINK "is thinking"
-#define DIED "died"
+# define FORK "has taken a fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define DIED "died"
 
 /*============================================================================#
 #                                 structs                                   #
@@ -42,8 +42,8 @@ typedef struct s_philo
 {
 	int	id;
 	int meals_eaten;
-	pthread_mutex_t right_fork;
-	pthread_mutex_t left_fork;
+	pthread_mutex_t *right_fork;
+	pthread_mutex_t *left_fork;
 	size_t last_eat_time;
 	struct s_table *table;
 }	t_philo;
@@ -59,7 +59,7 @@ typedef	struct s_table
 	size_t	start_time;
 	t_philo	*philos;
 	pthread_t *philo_th;
-	pthread_t *monitor;
+	pthread_t monitor;
 	pthread_mutex_t *forks;
 	pthread_mutex_t print;
 }	t_table;

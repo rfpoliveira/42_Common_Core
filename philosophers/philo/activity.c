@@ -14,14 +14,14 @@
 
 int	eat(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->right_fork);
+	pthread_mutex_lock(philo->right_fork);
 	print_msg(philo, FORK);
-	pthread_mutex_lock(&philo->left_fork);
+	pthread_mutex_lock(philo->left_fork);
 	print_msg(philo, FORK);
 	print_msg(philo, EAT);
 	r_usleep(philo->table->time_eat);
-	pthread_mutex_unlock(&philo->right_fork);
-	pthread_mutex_unlock(&philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
 	philo->meals_eaten++;
 	philo->last_eat_time = r_get_time();
 	return (0);

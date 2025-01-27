@@ -19,15 +19,24 @@ void *routine_mon(void	*table_arg)
 
 	i = 0;
 	table = (t_table *)table_arg;
-	while(table->DEATH_WARN == 0)
+	while(table->DEATH_WARN == ALIVE)
 	{
-		if (r_get_time() - table->philos[i].last_eat_time > table->time_die ||
-				table->philos[i].meals_eaten == table->max_meals)
+		while(i < table->n_phs)
 		{
-			table->DEATH_WARN = 1;
-			print_msg(&table->philos[i], DIED);
+			if (r_get_time() - table->philos[i].last_eat_time > table->time_die)
+			{
+				print_msg(&table->philos[i], DIED);
+				table->DEATH_WARN = DEAD;
+				break ;
+			}
+			if (table->philos[i].meals_eaten == table->max_meals)
+			{
+				table->DEATH_WARN = DEAD;
+				break ;
+			}
+			i++;
 		}
-		i++;
+		i = 0;
 	}
 	return (NULL);
 }
@@ -38,7 +47,10 @@ void  *routine_ph(void	*philo_arg)
 
 	philo = (t_philo *)philo_arg;
 	if (philo->id % 2 != 0)
-		ph_sleep(philo);
+	{
+		print_msg(philo, THINK);
+		r_usleep(philo->table->time_eat);
+	}
 	while (philo->table->DEATH_WARN == ALIVE)
 	{
 		eat(philo);
@@ -57,20 +69,20 @@ int  create_threads(t_table *table)
 	int i;
 
 	i = -1;
+	if (pthread_create(&table->monitor, NULL, &routine_mon, table) != 0)
+		return (1);
 	while (++i < table->n_phs)
 	{
 		if (pthread_create(&table->philo_th[i], NULL, &routine_ph, &table->philos[i]) != 0)
 			return (1);
 	}
-	if (pthread_create(table->monitor, NULL, routine_mon, &table) != 0)
-		return (1);
 	i = -1;
 	while (++i < table->n_phs)
 	{
 		if (pthread_join(table->philo_th[i], NULL) != 0)
 			return (1);
 	}
-	if (pthread_join(*table->monitor, NULL)!= 0)
+	if (pthread_join(table->monitor, NULL)!= 0)
 		return (1);
 	return (0);
 }

@@ -2,7 +2,7 @@
 #                                 Files and Paths                              #
 #==============================================================================#
 
-SRCS = activity.c philo_free.c ini_philos.c threads.c main.c 
+SRCS = main.c activity.c philo_free.c ini_philos.c threads.c philo_utils.c 
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 
@@ -16,7 +16,7 @@ BUILD_PATH = .build
 
 RM = rm -rf
 AR = ar rcs
-CFLAGS = -pthread -Wall -Werror -Wextra
+CFLAGS = -g -Wall -Werror -Wextra
 
 #==============================================================================#
 #                                    Rules                                     #
@@ -25,8 +25,8 @@ CFLAGS = -pthread -Wall -Werror -Wextra
 all: $(BUILD_PATH) $(OBJS) $(NAME)
 
 $(NAME):
-	@cc $(CFLAGS) $(OBJS) -o $(NAME)
-	@echo "$(GRN)[ successfully compiled]$(D)"
+	@cc $(CFLAGS) -o $(NAME) $(OBJS)
+	@echo "$(GRN)[philo successfully created]$(D)"
 
 $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
@@ -42,7 +42,7 @@ fclean: clean
 	@$(RM) $(NAME)
 	@echo "$(BCYA)[fclean] Archive removed$(D)"
 
-re: fclean
+re: fclean all
 
 #==============================================================================#
 #                                  UTILS                                       #
