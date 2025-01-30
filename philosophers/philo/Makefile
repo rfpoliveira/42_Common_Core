@@ -16,8 +16,8 @@ BUILD_PATH = .build
 
 RM = rm -rf
 AR = ar rcs
-CFLAGS = -g -Wall -Werror -Wextra
-
+CFLAGS = -fsanitize=thread -g -Wall -Werror -Wextra
+# fsanitize=leak -fsanitize=thread
 #==============================================================================#
 #                                    Rules                                     #
 #==============================================================================#

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:32:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/01/22 17:19:12 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:07:30 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ typedef struct s_philo
 	int	full;
 	pthread_mutex_t *right_fork;
 	pthread_mutex_t *left_fork;
+	pthread_mutex_t meals_eaten_lock;
+	pthread_mutex_t last_eat_time_lock;
+	pthread_mutex_t get_last_eat_time_lock;
 	size_t last_eat_time;
 	struct s_table *table;
 }	t_philo;
@@ -66,6 +69,13 @@ typedef	struct s_table
 	pthread_t monitor;
 	pthread_mutex_t *forks;
 	pthread_mutex_t print;
+	pthread_mutex_t warn_lock;
+	pthread_mutex_t id_lock;
+	pthread_mutex_t time_eat_lock;
+	pthread_mutex_t time_die_lock;
+	pthread_mutex_t time_sleep_lock;
+	pthread_mutex_t n_phs_lock;
+	pthread_mutex_t start_time_lock;
 }	t_table;
 
 

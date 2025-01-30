@@ -48,6 +48,9 @@ void  ini_philos(t_table *table)
 		philos[i].meals_eaten = 0;
 		philos[i].last_eat_time = table->start_time;
 		philos[i].full = 0;
+		pthread_mutex_init(&philos[i].meals_eaten_lock, NULL);
+		pthread_mutex_init(&philos[i].last_eat_time_lock, NULL);
+		pthread_mutex_init(&philos[i].get_last_eat_time_lock, NULL);
 		i++;
 	}
 }
@@ -80,6 +83,13 @@ int  ini_table(int argc, char **info, t_table *table)
 	table->full_philos = 0;
 	if (alloc_memory(table) != 0)
 		return (printf("Error allocating memory!\n"));
+	pthread_mutex_init(&table->warn_lock, NULL);
+	pthread_mutex_init(&table->id_lock, NULL);
+	pthread_mutex_init(&table->time_eat_lock, NULL);
+	pthread_mutex_init(&table->time_die_lock, NULL);
+	pthread_mutex_init(&table->time_sleep_lock, NULL);
+	pthread_mutex_init(&table->n_phs_lock, NULL);
+	pthread_mutex_init(&table->start_time_lock, NULL);
 	pthread_mutex_init(&table->print, NULL);
 	return (0);
 }

@@ -36,11 +36,11 @@ void *routine_mon(void	*table_arg)
 
 	i = 0;
 	table = (t_table *)table_arg;
-	while(table->DEATH_WARN == ALIVE)
+	while(get_DEATH_WARN(table) == ALIVE)
 	{
-		while(i < table->n_phs)
+		while(i < get_nphs(table))
 		{
-			if (r_get_time() - table->philos[i].last_eat_time > table->time_die)
+			if (r_get_time() - get_last_eat_time(&table->philos[i]) > get_time_die(&table))
 			{
 				print_msg(&table->philos[i], DIED);
 				table->DEATH_WARN = DEAD;
@@ -60,18 +60,18 @@ void  *routine_ph(void	*philo_arg)
 	t_philo *philo;
 
 	philo = (t_philo *)philo_arg;
-	if (philo->id % 2 != 0)
+	if (get_id(philo) % 2 != 0)
 	{
 		print_msg(philo, THINK);
-		r_usleep(philo->table->time_eat);
+		r_usleep(get_time_eat(&philo->table));
 	}
-	while (philo->table->DEATH_WARN == ALIVE)
+	while (get_DEATH_WARN(&philo->table) == ALIVE)
 	{
 		eat(philo);
-		if (philo->table->DEATH_WARN != ALIVE)
+		if (get_DEATH_WARN(&philo->table) != ALIVE)
 			break ;
 		ph_sleep(philo);
-		if (philo->table->DEATH_WARN != ALIVE)
+		if (get_DEATH_WARN(&philo->table) != ALIVE)
 			break ;
 		print_msg(philo, THINK);
 	}

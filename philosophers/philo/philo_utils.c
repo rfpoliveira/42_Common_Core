@@ -80,9 +80,9 @@ void  print_msg(t_philo *philo, char *s)
 	size_t time;
 
 	time = 0;
-	if (philo->table->DEATH_WARN != DEAD)
+	if (get_DEATH_WARN(&philo->table) != DEAD)
 	{
-		time = r_get_time() - philo->table->start_time;
+		time = r_get_time() - get_start_time(&philo->table);
 		pthread_mutex_lock(&philo->table->print);
 		printf("%ld %i %s\n", time, philo->id, s);
 		pthread_mutex_unlock(&philo->table->print);
