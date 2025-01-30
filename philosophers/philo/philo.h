@@ -27,7 +27,9 @@
 #============================================================================*/
 # define ALIVE 1
 # define DEAD 0
-# define ERROR_MALLOC 2
+# define FULL 2
+# define ERROR_MALLOC 3
+# define PARSING_ERROR 4
 
 # define FORK "has taken a fork"
 # define EAT "is eating"
@@ -42,6 +44,7 @@ typedef struct s_philo
 {
 	int	id;
 	int meals_eaten;
+	int	full;
 	pthread_mutex_t *right_fork;
 	pthread_mutex_t *left_fork;
 	size_t last_eat_time;
@@ -54,6 +57,7 @@ typedef	struct s_table
 	size_t	time_eat;
 	size_t	time_sleep;
 	int		n_phs;
+	int		full_philos;
 	int		max_meals;
 	int	DEATH_WARN;
 	size_t	start_time;

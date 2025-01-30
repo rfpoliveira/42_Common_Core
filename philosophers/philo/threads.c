@@ -12,6 +12,23 @@
 
 #include "philo.h"
 
+int	monitor_util(t_table *table, int i)
+{
+	
+	if (table->philos[i].meals_eaten == table->max_meals && \
+			table->philos[i].full == 0)
+	{		
+		table->full_philos++;
+		table->philos[i].full = 1;
+	}	
+	if (table->full_philos == table->n_phs)
+	{	
+		table->DEATH_WARN = FULL;
+		return (1);
+	}
+	return (0);
+}
+
 void *routine_mon(void	*table_arg)
 {
 	t_table *table;
@@ -29,11 +46,8 @@ void *routine_mon(void	*table_arg)
 				table->DEATH_WARN = DEAD;
 				break ;
 			}
-			if (table->philos[i].meals_eaten == table->max_meals)
-			{
-				table->DEATH_WARN = DEAD;
+			if (monitor_util(table, i) == 1)
 				break ;
-			}
 			i++;
 		}
 		i = 0;
@@ -54,10 +68,10 @@ void  *routine_ph(void	*philo_arg)
 	while (philo->table->DEATH_WARN == ALIVE)
 	{
 		eat(philo);
-		if (philo->table->DEATH_WARN == DEAD)
+		if (philo->table->DEATH_WARN != ALIVE)
 			break ;
 		ph_sleep(philo);
-		if (philo->table->DEATH_WARN == DEAD)
+		if (philo->table->DEATH_WARN != ALIVE)
 			break ;
 		print_msg(philo, THINK);
 	}

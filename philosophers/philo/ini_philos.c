@@ -23,7 +23,10 @@ void  ini_forks(t_table *table)
 		pthread_mutex_init(&table->forks[i], NULL);
 	i = 0;
 	philos[0].right_fork = &table->forks[0];
-	philos[0].left_fork = &table->forks[table->n_phs - 1];
+	if (table->n_phs > 1)
+		philos[0].left_fork = &table->forks[table->n_phs - 1];
+	else
+		philos[0].left_fork = NULL;
 	while (++i < table->n_phs)
 	{
 		philos[i].right_fork = &table->forks[i];
@@ -44,6 +47,7 @@ void  ini_philos(t_table *table)
 		philos[i].id = i + 1;
 		philos[i].meals_eaten = 0;
 		philos[i].last_eat_time = table->start_time;
+		philos[i].full = 0;
 		i++;
 	}
 }
@@ -73,7 +77,10 @@ int  ini_table(int argc, char **info, t_table *table)
 		table->max_meals = r_atoi(info[5]);
 	table->start_time = r_get_time();
 	table->DEATH_WARN = ALIVE;
+	table->full_philos = 0;
+	if (alloc_memory(table) != 0)
+		return (printf("Error allocating memory!\n"));
 	pthread_mutex_init(&table->print, NULL);
-	return (alloc_memory(table));
+	return (0);
 }
 

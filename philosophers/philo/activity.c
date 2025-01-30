@@ -16,6 +16,11 @@ int	eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->right_fork);
 	print_msg(philo, FORK);
+	if (philo->table->n_phs == 1)
+	{
+		r_usleep(philo->table->time_die);
+		return (1);
+	}
 	pthread_mutex_lock(philo->left_fork);
 	print_msg(philo, FORK);
 	print_msg(philo, EAT);
