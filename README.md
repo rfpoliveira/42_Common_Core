@@ -8,13 +8,12 @@
 
 My Work in the 42 School Programming course
 
-| Milestone | Project       |Language | Grade |
-|----------:|---------      |---------|-------|
-|          0|[libft](https://github.com/rfpoliveira/42_Libft)|C        |125/100|
-|          1|[ft_printf](https://github.com/rfpoliveira/42_ft_printf)|C|100/100|
-|          1|[get_next_line](https://github.com/rfpoliveira/ft_get_next_line)|C|100/100|
-|          1|[Born2beroot]|C|100/100|
-|          2|[so_long](https://github.com/rfpoliveira/42_so_long)|C|100/100|
-|          2|[push_swap](https://github.com/rfpoliveira/42_push_swap)|C|96/100|
-|          2|[minitalk](https://github.com/rfpoliveira/42_minitalk)|C|100/100|
-
+| Milestone | Project       |Language | Grade | Description |
+|----------:|---------      |---------|-------|-------------|
+|          0|[libft](https://github.com/rfpoliveira/42_Libft)|C        |125/100| A Library for C |
+|          1|[ft_printf](https://github.com/rfpoliveira/42_ft_printf)|C|100/100| Recoding of printf |
+|          1|[get_next_line](https://github.com/rfpoliveira/ft_get_next_line)|C|100/100| Reading files, line by line |
+|          2|[so_long](https://github.com/rfpoliveira/42_so_long)|C|100/100| A small 2D game in Minilibx library |
+|          2|[push_swap](https://github.com/rfpoliveira/42_push_swap)|C|96/100| Sorting a stack in the minimum number or instrucions possible |
+|          2|[minitalk](https://github.com/rfpoliveira/42_minitalk)|C|100/100| Process comunication with Signals |
+|          3|[philosophers](https://github.com/rfpoliveira/42_philosophers)|C|100/100| Solving the classic dinning philosofers problem |
