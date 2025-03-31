@@ -18,4 +18,3 @@ My Work in the 42 School Programming course
 |          2|[push_swap](https://github.com/rfpoliveira/42_push_swap)|C|96/100|
 |          2|[minitalk](https://github.com/rfpoliveira/42_minitalk)|C|100/100|
 
-https://askubuntu.com/questions/1164/how-to-easily-resize-images-via-command-line
