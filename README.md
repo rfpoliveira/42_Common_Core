@@ -17,3 +17,4 @@ My Work in the 42 School Programming course
 |          2|[push_swap](https://github.com/rfpoliveira/42_push_swap)|C|96/100| Sorting a stack in the minimum number or instrucions possible |
 |          2|[minitalk](https://github.com/rfpoliveira/42_minitalk)|C|100/100| Process comunication with Signals |
 |          3|[philosophers](https://github.com/rfpoliveira/42_philosophers)|C|100/100| Solving the classic dinning philosofers problem |
+|          3|[minishell](https://github.com/rfpoliveira/42_Minishell)|C|91/100| Making our own version of bash |
