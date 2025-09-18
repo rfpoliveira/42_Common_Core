@@ -21,4 +21,4 @@ My Work in the 42 School Programming course
 |          4|[c++](https://github.com/rfpoliveira/42_cpp) |C++|100/100| First steps into c++
 
 
-Currently working on a group project: Cub3d (https://github.com/rfpoliveira/42_Cub3D) that is a pretty fun way to learn about ray casting and 3D rendering.
+Currently working on a group project: [Cub3d](https://github.com/rfpoliveira/42_Cub3D) that is a pretty fun way to learn about ray casting and 3D rendering.
