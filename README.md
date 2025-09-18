@@ -18,3 +18,4 @@ My Work in the 42 School Programming course
 |          2|[minitalk](https://github.com/rfpoliveira/42_minitalk)|C|100/100| Process comunication with Signals |
 |          3|[philosophers](https://github.com/rfpoliveira/42_philosophers)|C|100/100| Solving the classic dinning philosofers problem |
 |          3|[minishell](https://github.com/rfpoliveira/42_Minishell)|C|91/100| Making our own version of bash |
+|          4|[c++](https://github.com/rfpoliveira/42_cpp) |C++|100/100| First steps into c++
