@@ -8,17 +8,17 @@
 
 My Work in the 42 School Programming course
 
-| Milestone | Project       |Language | Grade | Description |
-|----------:|---------      |---------|-------|-------------|
-|          0|[libft](https://github.com/rfpoliveira/42_Libft)|C        |125/100| A Library for C |
-|          1|[ft_printf](https://github.com/rfpoliveira/42_ft_printf)|C|100/100| Recoding of printf |
-|          1|[get_next_line](https://github.com/rfpoliveira/ft_get_next_line)|C|100/100| Reading files, line by line |
-|          2|[so_long](https://github.com/rfpoliveira/42_so_long)|C|100/100| A small 2D game in Minilibx library |
-|          2|[push_swap](https://github.com/rfpoliveira/42_push_swap)|C|96/100| Sorting a stack in the minimum number or instrucions possible |
-|          2|[minitalk](https://github.com/rfpoliveira/42_minitalk)|C|100/100| Process comunication with Signals |
-|          3|[philosophers](https://github.com/rfpoliveira/42_philosophers)|C|100/100| Solving the classic dinning philosofers problem |
-|          3|[minishell](https://github.com/rfpoliveira/42_Minishell)|C|91/100| Making our own version of bash |
-|          4|[c++](https://github.com/rfpoliveira/42_cpp) |C++|100/100| First steps into c++
+| Milestone | Project       |Language | Description |
+|----------:|---------      |---------|-------------|
+|          0|[libft](https://github.com/rfpoliveira/42_Libft)|C        | A Library for C |
+|          1|[ft_printf](https://github.com/rfpoliveira/42_ft_printf)|C| Recoding of printf |
+|          1|[get_next_line](https://github.com/rfpoliveira/ft_get_next_line)|C| Reading files, line by line |
+|          2|[so_long](https://github.com/rfpoliveira/42_so_long)|C| A small 2D game in Minilibx library |
+|          2|[push_swap](https://github.com/rfpoliveira/42_push_swap)|C| Sorting a stack in the minimum number or instrucions possible |
+|          2|[minitalk](https://github.com/rfpoliveira/42_minitalk)|C| Process comunication with Signals |
+|          3|[philosophers](https://github.com/rfpoliveira/42_philosophers)|C| Solving the classic dinning philosofers problem |
+|          3|[minishell](https://github.com/rfpoliveira/42_Minishell)|C| Making our own version of bash |
+|          4|[c++](https://github.com/rfpoliveira/42_cpp) |C++| First steps into c++
 
 
 Currently working on a group project: [Cub3d](https://github.com/rfpoliveira/42_Cub3D) that is a pretty fun way to learn about ray casting and 3D rendering.
