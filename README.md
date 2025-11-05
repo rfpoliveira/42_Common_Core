@@ -18,5 +18,5 @@ My Work in the 42 School Programming course
 |          2|[minitalk](https://github.com/rfpoliveira/42_minitalk)|C| Process comunication with Signals | Signals and process comunniation |
 |          3|[philosophers](https://github.com/rfpoliveira/42_philosophers)|C| Solving the classic dinning philosofers problem | Threads, Mutexes |
 |          3|[minishell](https://github.com/rfpoliveira/42_Minishell)|C| Making our own version of bash | File decriptors, Pipes, Signals, Redirections |
-|          4|[c++](https://github.com/rfpoliveira/42_cpp) |C++| Various modules with various concept of c++ | OOP, Classes, Inheritance, Polymorphism |
+|          4|[cpp](https://github.com/rfpoliveira/42_cpp) |C++| Various modules with various concept of c++ | OOP, Classes, Inheritance, Polymorphism |
 |          4|[Cub3d](https://github.com/rfpoliveira/42_Cub3D)|C| Ray casting and 3D rendering | DDA, Raycasting |
