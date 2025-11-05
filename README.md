@@ -19,6 +19,4 @@ My Work in the 42 School Programming course
 |          3|[philosophers](https://github.com/rfpoliveira/42_philosophers)|C| Solving the classic dinning philosofers problem |
 |          3|[minishell](https://github.com/rfpoliveira/42_Minishell)|C| Making our own version of bash |
 |          4|[c++](https://github.com/rfpoliveira/42_cpp) |C++| First steps into c++
-
-
-Currently working on a group project: [Cub3d](https://github.com/rfpoliveira/42_Cub3D) that is a pretty fun way to learn about ray casting and 3D rendering.
+|          4|[Cub3d](https://github.com/rfpoliveira/42_Cub3D)|C| Ray casting and 3D rendering
