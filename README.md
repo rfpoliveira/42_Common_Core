@@ -20,3 +20,4 @@ My Work in the 42 School Programming course
 |          3|[minishell](https://github.com/rfpoliveira/42_Minishell)|C| Making our own version of bash | File decriptors, Pipes, Signals, Redirections |
 |          4|[cpp](https://github.com/rfpoliveira/42_cpp) |C++| Various modules with various concept of c++ | OOP, Classes, Inheritance, Polymorphism |
 |          4|[Cub3d](https://github.com/rfpoliveira/42_Cub3D)|C| Ray casting and 3D rendering | DDA, Raycasting |
+|          4|[netpractice](https://github.com/rfpoliveira/42_netpractice)| | Solving networking problems | IPV4 IPs, Mask, TCP protocols |
